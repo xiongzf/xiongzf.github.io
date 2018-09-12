@@ -6,26 +6,30 @@
   <title>ios深入学习 - runtime | KNOWLEDGE IS POWER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="Runtime" />
   
   
   
-  <meta name="description" content="iOS深入学习 - Runtime">
+  
+  <meta name="description" content="SmallTalk 与 C 的融合–Objective-C三十几年前，Brad Cox 和 Tom Love在主流且高效的C语言基础上，借鉴Smalltalk的面向对象与消息机制，想要搞出一个易用且轻量的C语言扩展，但C和Smalltalk的思想和语法格格不入，比如在Smalltalk中一切皆对象，一切调用都是消息： 1233 log 再比如用一个工厂方法来实例化一个对象： 1p := Pers">
+<meta name="keywords" content="Runtime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS深入学习 - Runtime">
 <meta property="og:url" content="http://yoursite.com/2017-10-20-runtime/index.html">
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
-<meta property="og:description" content="iOS深入学习 - Runtime">
+<meta property="og:description" content="SmallTalk 与 C 的融合–Objective-C三十几年前，Brad Cox 和 Tom Love在主流且高效的C语言基础上，借鉴Smalltalk的面向对象与消息机制，想要搞出一个易用且轻量的C语言扩展，但C和Smalltalk的思想和语法格格不入，比如在Smalltalk中一切皆对象，一切调用都是消息： 1233 log 再比如用一个工厂方法来实例化一个对象： 1p := Pers">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2017-10-20-runtime/19.jpg">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-c24b99d58f101b85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-b605d548fb60ef79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-628a7025a37e51c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-b1d3cdf3d638b6c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-e8f7ee567dfff051.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-08T06:27:26.103Z">
+<meta property="og:updated_time" content="2018-09-12T14:59:52.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS深入学习 - Runtime">
-<meta name="twitter:description" content="iOS深入学习 - Runtime">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1975901-c24b99d58f101b85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="SmallTalk 与 C 的融合–Objective-C三十几年前，Brad Cox 和 Tom Love在主流且高效的C语言基础上，借鉴Smalltalk的面向对象与消息机制，想要搞出一个易用且轻量的C语言扩展，但C和Smalltalk的思想和语法格格不入，比如在Smalltalk中一切皆对象，一切调用都是消息： 1233 log 再比如用一个工厂方法来实例化一个对象： 1p := Pers">
+<meta name="twitter:image" content="http://yoursite.com/2017-10-20-runtime/19.jpg">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -186,7 +190,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/blog/">blog</a>
+    <a class="article-category-link" href="/categories/iOS深入学习/">iOS深入学习</a>
 
       
 	<a class="article-views">
@@ -198,7 +202,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="SmallTalk-与-C-的融合–Objective-C"><a href="#SmallTalk-与-C-的融合–Objective-C" class="headerlink" title="SmallTalk 与 C 的融合–Objective-C"></a>SmallTalk 与 C 的融合–Objective-C</h2><p>三十几年前，Brad Cox 和 Tom Love在主流且高效的C语言基础上，借鉴Smalltalk的面向对象与消息机制，想要搞出一个易用且轻量的C语言扩展，但C和Smalltalk的思想和语法格格不入，比如在Smalltalk中一切皆对象，一切调用都是消息：</p>
+        <p><img src="/2017-10-20-runtime/19.jpg" alt=""></p>
+<h2 id="SmallTalk-与-C-的融合–Objective-C"><a href="#SmallTalk-与-C-的融合–Objective-C" class="headerlink" title="SmallTalk 与 C 的融合–Objective-C"></a>SmallTalk 与 C 的融合–Objective-C</h2><p>三十几年前，Brad Cox 和 Tom Love在主流且高效的C语言基础上，借鉴Smalltalk的面向对象与消息机制，想要搞出一个易用且轻量的C语言扩展，但C和Smalltalk的思想和语法格格不入，比如在Smalltalk中一切皆对象，一切调用都是消息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">233 log</span><br></pre></td></tr></table></figure>
 <p>再比如用一个工厂方法来实例化一个对象：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p := Person name: &apos;sunnyxx&apos; age: 26</span><br></pre></td></tr></table></figure>

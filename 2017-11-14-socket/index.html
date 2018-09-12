@@ -6,27 +6,31 @@
   <title>ios深入学习 - socket | KNOWLEDGE IS POWER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="Socket" />
   
   
   
-  <meta name="description" content="iOS深入学习 - Socket">
+  
+  <meta name="description" content="网络各个协议：TCP/IP、socket、Http等网络七层由上而下分别为物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。其中物理层、数据链路层和网络层通常被称作媒体层，是网络工程师所研究的对象；传输层、会话层、表示层和应用层被称为主机层，是用户所面向和关心的内容。  http协议对应于应用层 TCP协议对应于传输层 ip协议对应于网络层  三者本质上没有可比性，何况Http协议是基">
+<meta name="keywords" content="Socket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS深入学习 - Socket">
 <meta property="og:url" content="http://yoursite.com/2017-11-14-socket/index.html">
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
-<meta property="og:description" content="iOS深入学习 - Socket">
+<meta property="og:description" content="网络各个协议：TCP/IP、socket、Http等网络七层由上而下分别为物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。其中物理层、数据链路层和网络层通常被称作媒体层，是网络工程师所研究的对象；传输层、会话层、表示层和应用层被称为主机层，是用户所面向和关心的内容。  http协议对应于应用层 TCP协议对应于传输层 ip协议对应于网络层  三者本质上没有可比性，何况Http协议是基">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2017-11-14-socket/20.jpg">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1170656-df46648a7fadfa42.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1170656-fe177ff611c71d76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1170656-a3120a20b9393a94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1170656-26cc9a86da3d9a68.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://img.blog.csdn.net/20161129011241557">
 <meta property="og:image" content="http://img.blog.csdn.net/20161129011308292">
-<meta property="og:updated_time" content="2018-07-08T06:27:52.125Z">
+<meta property="og:updated_time" content="2018-09-12T15:01:00.667Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS深入学习 - Socket">
-<meta name="twitter:description" content="iOS深入学习 - Socket">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1170656-df46648a7fadfa42.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="网络各个协议：TCP/IP、socket、Http等网络七层由上而下分别为物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。其中物理层、数据链路层和网络层通常被称作媒体层，是网络工程师所研究的对象；传输层、会话层、表示层和应用层被称为主机层，是用户所面向和关心的内容。  http协议对应于应用层 TCP协议对应于传输层 ip协议对应于网络层  三者本质上没有可比性，何况Http协议是基">
+<meta name="twitter:image" content="http://yoursite.com/2017-11-14-socket/20.jpg">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -187,7 +191,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/blog/">blog</a>
+    <a class="article-category-link" href="/categories/iOS深入学习/">iOS深入学习</a>
 
       
 	<a class="article-views">
@@ -199,7 +203,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="网络各个协议：TCP-IP、socket、Http等"><a href="#网络各个协议：TCP-IP、socket、Http等" class="headerlink" title="网络各个协议：TCP/IP、socket、Http等"></a>网络各个协议：TCP/IP、socket、Http等</h2><p>网络七层由上而下分别为<strong>物理层</strong>、<strong>数据链路层</strong>、<strong>网络层</strong>、<strong>传输层</strong>、<strong>会话层</strong>、<strong>表示层</strong>和<strong>应用层</strong>。<br><img src="http://upload-images.jianshu.io/upload_images/1170656-df46648a7fadfa42.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>其中<strong>物理层</strong>、<strong>数据链路层</strong>和<strong>网络层</strong>通常被称作<strong>媒体层</strong>，是网络工程师所研究的对象；<br><strong>传输层</strong>、<strong>会话层</strong>、<strong>表示层</strong>和<strong>应用层</strong>被称为<strong>主机层</strong>，是用户所面向和关心的内容。</p>
+        <p><img src="/2017-11-14-socket/20.jpg" alt=""></p>
+<h2 id="网络各个协议：TCP-IP、socket、Http等"><a href="#网络各个协议：TCP-IP、socket、Http等" class="headerlink" title="网络各个协议：TCP/IP、socket、Http等"></a>网络各个协议：TCP/IP、socket、Http等</h2><p>网络七层由上而下分别为<strong>物理层</strong>、<strong>数据链路层</strong>、<strong>网络层</strong>、<strong>传输层</strong>、<strong>会话层</strong>、<strong>表示层</strong>和<strong>应用层</strong>。<br><img src="http://upload-images.jianshu.io/upload_images/1170656-df46648a7fadfa42.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>其中<strong>物理层</strong>、<strong>数据链路层</strong>和<strong>网络层</strong>通常被称作<strong>媒体层</strong>，是网络工程师所研究的对象；<br><strong>传输层</strong>、<strong>会话层</strong>、<strong>表示层</strong>和<strong>应用层</strong>被称为<strong>主机层</strong>，是用户所面向和关心的内容。</p>
 <ul>
 <li>http协议对应于应用层</li>
 <li>TCP协议对应于传输层</li>

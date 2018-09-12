@@ -6,27 +6,31 @@
   <title>ios深入学习 - runloop | KNOWLEDGE IS POWER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="RunLoop" />
   
   
   
-  <meta name="description" content="iOS深入学习 - RunLoop">
+  
+  <meta name="description" content="RunLoop概念：原文作者Blog地址点这里。一般来讲一个线程只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时执行任务但不退出，代码逻辑通常如下：runloop处理事件的代码逻辑模拟（Event Loop） 1234567function loop() &amp;#123;    initialize();    do &amp;#123;        var message =">
+<meta name="keywords" content="RunLoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS深入学习 - RunLoop">
 <meta property="og:url" content="http://yoursite.com/2017-10-9-runLoop/index.html">
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
-<meta property="og:description" content="iOS深入学习 - RunLoop">
+<meta property="og:description" content="RunLoop概念：原文作者Blog地址点这里。一般来讲一个线程只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时执行任务但不退出，代码逻辑通常如下：runloop处理事件的代码逻辑模拟（Event Loop） 1234567function loop() &amp;#123;    initialize();    do &amp;#123;        var message =">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2017-10-9-runLoop/17.jpg">
 <meta property="og:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_0.png">
 <meta property="og:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_1.png">
 <meta property="og:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_3.png">
 <meta property="og:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_4.png">
 <meta property="og:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_5.png">
 <meta property="og:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_network.png">
-<meta property="og:updated_time" content="2018-07-08T06:26:13.186Z">
+<meta property="og:updated_time" content="2018-09-12T14:57:12.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS深入学习 - RunLoop">
-<meta name="twitter:description" content="iOS深入学习 - RunLoop">
-<meta name="twitter:image" content="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_0.png">
+<meta name="twitter:description" content="RunLoop概念：原文作者Blog地址点这里。一般来讲一个线程只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时执行任务但不退出，代码逻辑通常如下：runloop处理事件的代码逻辑模拟（Event Loop） 1234567function loop() &amp;#123;    initialize();    do &amp;#123;        var message =">
+<meta name="twitter:image" content="http://yoursite.com/2017-10-9-runLoop/17.jpg">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -187,7 +191,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/blog/">blog</a>
+    <a class="article-category-link" href="/categories/iOS深入学习/">iOS深入学习</a>
 
       
 	<a class="article-views">
@@ -199,7 +203,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="RunLoop概念："><a href="#RunLoop概念：" class="headerlink" title="RunLoop概念："></a>RunLoop概念：</h2><p><a href="https://blog.ibireme.com/2015/05/18/runloop/#base" target="_blank" rel="noopener">原文作者Blog地址</a>点这里。<br>一般来讲一个线程只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时执行任务但不退出，代码逻辑通常如下：runloop处理事件的代码逻辑模拟（Event Loop）</p>
+        <p><img src="/2017-10-9-runLoop/17.jpg" alt=""></p>
+<h2 id="RunLoop概念："><a href="#RunLoop概念：" class="headerlink" title="RunLoop概念："></a>RunLoop概念：</h2><p><a href="https://blog.ibireme.com/2015/05/18/runloop/#base" target="_blank" rel="noopener">原文作者Blog地址</a>点这里。<br>一般来讲一个线程只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时执行任务但不退出，代码逻辑通常如下：runloop处理事件的代码逻辑模拟（Event Loop）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function loop() &#123;</span><br><span class="line">    initialize();</span><br><span class="line">    do &#123;</span><br><span class="line">        var message = get_next_messsage();</span><br><span class="line">        process_message(message);</span><br><span class="line">    &#125; while (message != quite);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>注意：<br>实现这种模型的关键点在于：如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息到来时立即被唤醒</strong></p>
 <p>1、OSX/iOS系统中提供了两个对象：NSRunLoop、CFRunLoopRef。<br><strong>CFRunLoopRef</strong>是在<strong>CoreFoundation</strong>框架内的，它提供了纯C函数的API，所有这些API都是线程安全的。<br><strong>NSRunLoop</strong>是基于<strong>CFRunLoopRef</strong>封装的，提供了面向对象的API，但是这些API不是线程安全的。</p>

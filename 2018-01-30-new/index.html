@@ -6,22 +6,26 @@
   <title>记录photos框架的使用 | KNOWLEDGE IS POWER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="Photos" />
   
   
   
-  <meta name="description" content="Photos里的一些坑">
+  
+  <meta name="description" content="记录Photos框架的使用前言这几天项目里用到了图片选择器，就想把之前项目里用ALAssetsLibrary框架封装的图片选择器拿过来用，但是ALAssetsLibrary框架在9.0之后就被弃用了。所以，就要试试Photos框架了。在网上找了几篇blog研究了一下，就搞了起来。期间也踩了几个坑，所以开篇记录一下。 第一波 获取用户相册先介绍一些概念，大家可以参考一下这篇blog  PHAsse">
+<meta name="keywords" content="Photos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录Photos框架的使用">
 <meta property="og:url" content="http://yoursite.com/2018-01-30-new/index.html">
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
-<meta property="og:description" content="Photos里的一些坑">
+<meta property="og:description" content="记录Photos框架的使用前言这几天项目里用到了图片选择器，就想把之前项目里用ALAssetsLibrary框架封装的图片选择器拿过来用，但是ALAssetsLibrary框架在9.0之后就被弃用了。所以，就要试试Photos框架了。在网上找了几篇blog研究了一下，就搞了起来。期间也踩了几个坑，所以开篇记录一下。 第一波 获取用户相册先介绍一些概念，大家可以参考一下这篇blog  PHAsse">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018-01-30-new/21.jpg">
 <meta property="og:image" content="https://github.com/xiongzf/img/blob/master/Snip20180129_1.png?raw=true">
-<meta property="og:updated_time" content="2018-07-08T06:28:21.904Z">
+<meta property="og:updated_time" content="2018-09-12T15:02:21.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录Photos框架的使用">
-<meta name="twitter:description" content="Photos里的一些坑">
-<meta name="twitter:image" content="https://github.com/xiongzf/img/blob/master/Snip20180129_1.png?raw=true">
+<meta name="twitter:description" content="记录Photos框架的使用前言这几天项目里用到了图片选择器，就想把之前项目里用ALAssetsLibrary框架封装的图片选择器拿过来用，但是ALAssetsLibrary框架在9.0之后就被弃用了。所以，就要试试Photos框架了。在网上找了几篇blog研究了一下，就搞了起来。期间也踩了几个坑，所以开篇记录一下。 第一波 获取用户相册先介绍一些概念，大家可以参考一下这篇blog  PHAsse">
+<meta name="twitter:image" content="http://yoursite.com/2018-01-30-new/21.jpg">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -182,7 +186,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/blog/">blog</a>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
 
       
 	<a class="article-views">
@@ -194,7 +198,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="记录Photos框架的使用"><a href="#记录Photos框架的使用" class="headerlink" title="记录Photos框架的使用"></a>记录Photos框架的使用</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几天项目里用到了图片选择器，就想把之前项目里用<strong>ALAssetsLibrary</strong>框架封装的图片选择器拿过来用，但是<strong>ALAssetsLibrary</strong>框架在9.0之后就被弃用了。所以，就要试试<strong>Photos</strong>框架了。<br>在网上找了几篇blog研究了一下，就搞了起来。期间也踩了几个坑，所以开篇记录一下。</p>
+        <p><img src="/2018-01-30-new/21.jpg" alt=""></p>
+<h1 id="记录Photos框架的使用"><a href="#记录Photos框架的使用" class="headerlink" title="记录Photos框架的使用"></a>记录Photos框架的使用</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几天项目里用到了图片选择器，就想把之前项目里用<strong>ALAssetsLibrary</strong>框架封装的图片选择器拿过来用，但是<strong>ALAssetsLibrary</strong>框架在9.0之后就被弃用了。所以，就要试试<strong>Photos</strong>框架了。<br>在网上找了几篇blog研究了一下，就搞了起来。期间也踩了几个坑，所以开篇记录一下。</p>
 <h2 id="第一波-获取用户相册"><a href="#第一波-获取用户相册" class="headerlink" title="第一波 获取用户相册"></a>第一波 获取用户相册</h2><p>先介绍一些概念，大家可以参考一下<a href="http://kayosite.com/ios-development-and-detail-of-photo-framework.html" target="_blank" rel="noopener">这篇blog</a></p>
 <ul>
 <li><strong>PHAsset：</strong>代表照片库中的一个资源，跟 ALAsset 类似，通过 PHAsset 可以获取和保存资源</li>

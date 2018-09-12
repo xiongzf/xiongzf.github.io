@@ -6,23 +6,27 @@
   <title>nsproxy | KNOWLEDGE IS POWER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="weak类型NSProxy" />
+  
   
   
   
   <meta name="description" content="存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，引出的NSProxy">
+<meta name="keywords" content="weak类型,NSProxy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NSProxy">
 <meta property="og:url" content="http://yoursite.com/2018-04-25-NSProxy/index.html">
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
 <meta property="og:description" content="存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，引出的NSProxy">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018-04-25-NSProxy/25.jpg">
 <meta property="og:image" content="https://github.com/xiongzf/img/blob/master/NSProxy.png?raw=true">
 <meta property="og:image" content="https://github.com/xiongzf/img/blob/master/NSProxy%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C.png?raw=true">
-<meta property="og:updated_time" content="2018-07-08T06:29:50.226Z">
+<meta property="og:updated_time" content="2018-09-12T15:09:00.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NSProxy">
 <meta name="twitter:description" content="存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，引出的NSProxy">
-<meta name="twitter:image" content="https://github.com/xiongzf/img/blob/master/NSProxy.png?raw=true">
+<meta name="twitter:image" content="http://yoursite.com/2018-04-25-NSProxy/25.jpg">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -183,7 +187,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/blog/">blog</a>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
 
       
 	<a class="article-views">
@@ -195,7 +199,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="NSProxy"><a href="#NSProxy" class="headerlink" title="NSProxy"></a>NSProxy</h1><p>前两天被问到有没有接触过<strong>NSHashTable</strong> and <strong>NSMapTable</strong>，由于项目中没用到过，所以之前也没有去了解过。然后，就在网上查了一下，结果在一篇<a href="https://blog.csdn.net/liangliang2727/article/details/46856099" target="_blank" rel="noopener">文章</a>中看到了一段话如下：</p>
+        <p><img src="/2018-04-25-NSProxy/25.jpg" alt=""></p>
+<h1 id="NSProxy"><a href="#NSProxy" class="headerlink" title="NSProxy"></a>NSProxy</h1><p>前两天被问到有没有接触过<strong>NSHashTable</strong> and <strong>NSMapTable</strong>，由于项目中没用到过，所以之前也没有去了解过。然后，就在网上查了一下，结果在一篇<a href="https://blog.csdn.net/liangliang2727/article/details/46856099" target="_blank" rel="noopener">文章</a>中看到了一段话如下：</p>
 <pre><code>如果一个开发者想要存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，他可能会很聪明的想到NSValue +valueWithNonretainedObject。
 </code></pre><p>于是乎又去看看了<strong>valueWithNonretainedObject</strong>相关的内容，然后在这<a href="https://www.jianshu.com/p/51156d4ae885" target="_blank" rel="noopener">一篇文章</a>中看到了本文的主角<strong>NSProxy</strong>。</p>
 <h2 id="偷窥NSProxy"><a href="#偷窥NSProxy" class="headerlink" title="偷窥NSProxy"></a>偷窥NSProxy</h2><p><strong>NSProxy</strong>是和<strong>NSObject</strong>同级的一个类，可以说他是一个虚拟类，它只是实现了<strong>NSObject</strong>的协议。它的作用有点类似于一个复制的类。<br>我们可以看一下<strong>NSProxy</strong>里包含哪些内容：<br><img src="https://github.com/xiongzf/img/blob/master/NSProxy.png?raw=true" alt="NSProxy"><br>可以看得出来，它确实遵守了<strong>NSObject</strong>协议，而且第一个Ivr是一个isa指针，所以我们可以把它当作一个NSObject或者派生类来使用。</p>
