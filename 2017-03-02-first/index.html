@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用jekyll搭建个人的blog | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="jekyll" />
+  
+  
+  
+  
+  <meta name="description" content="第一篇blog –纪念搭建我的个人Blog前段时间，我的一个室友提起搭建个人的blog，当时没太在意。偶然间在浏览简书的时候，看见了一篇文章勾起了我的兴趣。然后就开始鼓捣起来，期间也遇到一些坑。现在开始进入正题： 第一步先搭建本地JekyllJekyll是什么？上文给的链接中讲得很清楚，是一个生成静态Blog的简易工具，支持markdown语法，支持自定义样式等。 1234567891011121">
+<meta name="keywords" content="jekyll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Jekyll搭建个人的Blog">
+<meta property="og:url" content="http://yoursite.com/2017-03-02-first/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="第一篇blog –纪念搭建我的个人Blog前段时间，我的一个室友提起搭建个人的blog，当时没太在意。偶然间在浏览简书的时候，看见了一篇文章勾起了我的兴趣。然后就开始鼓捣起来，期间也遇到一些坑。现在开始进入正题： 第一步先搭建本地JekyllJekyll是什么？上文给的链接中讲得很清楚，是一个生成静态Blog的简易工具，支持markdown语法，支持自定义样式等。 1234567891011121">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-1609f73ca0242750.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://github.com/xiongzf/img/blob/master/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2017-05-02T14-14-48.287Z.png?raw=true">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-888c87d7134d7ff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-09-12T14:06:38.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Jekyll搭建个人的Blog">
+<meta name="twitter:description" content="第一篇blog –纪念搭建我的个人Blog前段时间，我的一个室友提起搭建个人的blog，当时没太在意。偶然间在浏览简书的时候，看见了一篇文章勾起了我的兴趣。然后就开始鼓捣起来，期间也遇到一些坑。现在开始进入正题： 第一步先搭建本地JekyllJekyll是什么？上文给的链接中讲得很清楚，是一个生成静态Blog的简易工具，支持markdown语法，支持自定义样式等。 1234567891011121">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1194012-1609f73ca0242750.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2017-03-02-first" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      用Jekyll搭建个人的Blog
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017-03-02-first/" class="article-date">
+	  <time datetime="2017-03-01T16:00:00.000Z" itemprop="datePublished">2017-03-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/搭建blog/">搭建blog</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="第一篇blog-–纪念搭建我的个人Blog"><a href="#第一篇blog-–纪念搭建我的个人Blog" class="headerlink" title="第一篇blog –纪念搭建我的个人Blog"></a>第一篇blog –纪念搭建我的个人Blog</h2><p>前段时间，我的一个室友提起搭建个人的blog，当时没太在意。偶然间在浏览简书的时候，看见了<a href="http://www.jianshu.com/p/9a6bc31d329d" target="_blank" rel="noopener">一篇文章</a>勾起了我的兴趣。然后就开始鼓捣起来，期间也遇到一些坑。现在开始进入正题：</p>
+<h2 id="第一步先搭建本地Jekyll"><a href="#第一步先搭建本地Jekyll" class="headerlink" title="第一步先搭建本地Jekyll"></a>第一步先搭建本地Jekyll</h2><p>Jekyll是什么？上文给的链接中讲得很清楚，是一个生成静态Blog的简易工具，支持<strong>markdown</strong>语法，支持自定义样式等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、先安装rubyGems：</span><br><span class="line">//因为之前安装的rubyGems是taobao，由于原作者不维护了，所以就换了一个ruby-china(如果已经是了，先更新一下)</span><br><span class="line"></span><br><span class="line">$ gem sources --add https://gems.ruby-china.org/ --remove https://ruby.taobao.org /</span><br><span class="line">$ gem sources -l</span><br><span class="line">https://gems.ruby-china.org</span><br><span class="line"></span><br><span class="line">// 确保只有 gems.ruby-china.org</span><br><span class="line"></span><br><span class="line">2、使用gem安装Jekyll </span><br><span class="line">//由于用的是mac，所以直接打开终端输入下面指令</span><br><span class="line"></span><br><span class="line"> gem install jekyll</span><br></pre></td></tr></table></figure>
+<p>但是提示安装jekyll的一系列依赖工具，所以又挨个安装了jekyll的依赖，但是在安装中出现类似的错误<strong><em>/usr/bin 的“Operation not permitted”</em></strong>，所以就在网上找到了<a href="http://www.jianshu.com/p/22b89f19afd6" target="_blank" rel="noopener">解决办法</a>。按照文章里的操作，顺利解决。接着来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">3、使用Jekyll创建你的博客站点</span><br><span class="line">jekyll new blog  #创建你的站点</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4、开启Jekyll服务</span><br><span class="line">//进入blog目录,记得一定要进入创建的目录，否则服务无法开启</span><br><span class="line">cd blog         </span><br><span class="line">jekyll serve      #启动你的http服务</span><br></pre></td></tr></table></figure>
+<p> 因为Jekyll默认的端口号是4000，所以打开浏览器输入：<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>就可以访问自己的blog了。<br> 关于jekyll其他一些命令的用法上文中也有我就直接copy了一下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">再次感谢上文的作者们</span><br><span class="line">$ jekyll build</span><br><span class="line"># =&gt; 当前文件夹中的内容将会生成到 ./_site 文件夹中。</span><br><span class="line"></span><br><span class="line">$ jekyll build --destination &lt;destination&gt;</span><br><span class="line"># =&gt; 当前文件夹中的内容将会生成到目标文件夹&lt;destination&gt;中。</span><br><span class="line"></span><br><span class="line">$ jekyll build --source &lt;source&gt; --destination &lt;destination&gt;</span><br><span class="line"># =&gt; 指定源文件夹&lt;source&gt;中的内容将会生成到目标文件夹&lt;destination&gt;中。</span><br><span class="line"></span><br><span class="line">$ jekyll build --watch</span><br><span class="line"># =&gt; 当前文件夹中的内容将会生成到 ./_site 文件夹中，</span><br><span class="line">#    查看改变，并且自动再生成。</span><br><span class="line"></span><br><span class="line">$ jekyll serve</span><br><span class="line"># =&gt; 一个开发服务器将会运行在 http://localhost:4000/</span><br><span class="line"># Auto-regeneration（自动再生成文件）: 开启。使用 `--no-watch` 来关闭。</span><br><span class="line"></span><br><span class="line">$ jekyll serve --detach</span><br><span class="line"># =&gt; 功能和`jekyll serve`命令相同，但是会脱离终端在后台运行。</span><br><span class="line">#    如果你想关闭服务器，可以使用`kill -9 1234`命令，&quot;1234&quot; 是进程号（PID）。</span><br><span class="line">#    如果你找不到进程号，那么就用`ps aux | grep jekyll`命令来查看，然后关闭服务器。[更多](http://unixhelp.ed.ac.uk/shell/jobz5.html).</span><br></pre></td></tr></table></figure>
+<p>让我们再来看看Jekyll的目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml              (配置文件)</span><br><span class="line">├── _drafts                  (drafts（草稿）是未发布的文章)</span><br><span class="line">|   ├── begin-with-the-crazy-ideas.textile</span><br><span class="line">|   └── on-simplicity-in-technology.markdown</span><br><span class="line">├── _includes             (加载这些包含部分到你的布局)</span><br><span class="line">|   ├── footer.html</span><br><span class="line">|   └── header.html</span><br><span class="line">├── _layouts                 (包裹在文章外部的模板)</span><br><span class="line">|   ├── default.html</span><br><span class="line">|   └── post.html</span><br><span class="line">├── _posts                   (这里都是存放文章)</span><br><span class="line">|   ├── 2007-10-29-why-every-programmer-should-play-nethack.textile</span><br><span class="line">|   └── 2009-04-26-barcamp-boston-4-roundup.textile</span><br><span class="line">├── _site                 (生成的页面都会生成在这个目录下)</span><br><span class="line">├── .jekyll-metadata      (该文件帮助 Jekyll 跟踪哪些文件从上次建立站点开始到现在没有被修改，哪些文件需要在下一次站点建立时重新生成。该文件不会被包含在生成的站点中。)</span><br><span class="line">└── index.html            (网站的index)</span><br></pre></td></tr></table></figure>
+<h2 id="Jekyll的主题"><a href="#Jekyll的主题" class="headerlink" title="Jekyll的主题"></a>Jekyll的主题</h2><p>既然自己的blog搭建好了，当然要更好看一些。你可以自己写HTML5+CSS来定制自己的Jekyll主题，也可以在求助万能的网站，来寻找各种<a href="https://jekyllthemes.io/" target="_blank" rel="noopener">主题</a>。</p>
+<h2 id="使用-Github-Pages-的服务"><a href="#使用-Github-Pages-的服务" class="headerlink" title="使用 Github Pages 的服务"></a>使用 Github Pages 的服务</h2><p>1、创建我们的仓库<br>把username替换成自己的名字<br><img src="http://upload-images.jianshu.io/upload_images/1194012-1609f73ca0242750.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>2、设置我们的仓库<br><img src="https://github.com/xiongzf/img/blob/master/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2017-05-02T14-14-48.287Z.png?raw=true" alt="火狐截图_2017-05-02T14-14-48.287Z"><br>3、部署我们的blog<br>我们先把刚刚新建的仓库git clone到本地，然后cd 到仓库的目录下，执行jekyll serve -B </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//克隆下来到本地的git文件夹</span><br><span class="line">cd username.github.com</span><br><span class="line">jekyll serve -B</span><br></pre></td></tr></table></figure>
+<p>注意，启动前确保其他目录下没有jekyll服务，可以 ps aux|grep jekyll 查看进程,有的话,用kill -9 进程号 杀掉其他进程。<br>现在我们打开<a href="">http://localhost:4000</a>,即可看见我们在Github上创建的主页，理论上和<a href="">https://username.com/username.github.io/</a> 访问的应该是一模一样的。<br>接着我们把我们自己做好的blog目录整个都拷贝到这个仓库文件夹中(<strong><em>如果是自己下载的主题：</em></strong>直接将下载的主题文件拷贝替换掉原blog文件下的所有文件，启动一下服务，即可。)，当然，这个仓库之前的文件可以删除了，只留下README即可。把整个文件都push到github上去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add --all                          #添加到暂存区 </span><br><span class="line">git commit -m &quot;提交jekyll默认页面&quot;       #提交到本地仓库</span><br><span class="line">git push origin master                 #线上的站点是部署在master下面的</span><br></pre></td></tr></table></figure>
+<p>注意，在提交前，请确保_config.yml文件里面下面是这样配置的，因为这个是Github Pages的规定，如果选择了其他的模式，会立即收到编译警告的邮件提醒的。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">highlighter: rouge</span><br><span class="line">markdown: kramdown</span><br></pre></td></tr></table></figure>
+<h2 id="申请个人域名"><a href="#申请个人域名" class="headerlink" title="申请个人域名"></a>申请个人域名</h2><p>我的个人域名是在<a href="https://wanwang.aliyun.com/" target="_blank" rel="noopener">万网</a>申请的。申请好了之后就是和自己的blog绑定（上面链接文章写的比较清楚）：<br>1、我们要绑定的话需要在username.github.com目录下增加一个CNAME文件。 在里面添加你的域名，假设为example.com，然后推送CNAME文件到远程仓库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add CNAME</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>在这里遇到比较大的一个坑，当时想了半天CNAME是什么格式的文件，在网上找了半天，也没找到答案。最后才发现自己想错了，直接在<code>终端</code>进入从git上克隆下来的文件夹，然后在终端输入指令<br><code>vim CNAME</code><br>输入自己的域名，保存退出，提交就行了。<br>2、到域名服务商增加你的CNAME记录。 添加两条记录，@和www的主机记录，记录类型为CNAME类型，CNAME表示别名记录，该记录可以将多个名字映射到同一台计算机。 记录值请写username.github.io.,值得注意的是io<br>后面还有一个圆点，切记。<br><img src="http://upload-images.jianshu.io/upload_images/1194012-888c87d7134d7ff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>添加@和www的记录的时候出现了冲突，我直接把冲突给删除了。上文链接文章中也有相关介绍。</p>
+<h2 id="申请”小绿锁”HTTPS"><a href="#申请”小绿锁”HTTPS" class="headerlink" title="申请”小绿锁”HTTPS"></a>申请”小绿锁”HTTPS</h2><p>在这一块我也遇见很多坑，最后看了<a href="https://zhuanlan.zhihu.com/p/22667528" target="_blank" rel="noopener">这篇文章</a>，然后直接在<a href="https://www.cloudflare.com" target="_blank" rel="noopener">Cloudflare</a>上申请了https。<br>具体的可按照上面操作。</p>
+<h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><p>有两个规定先记下：</p>
+<pre><code>文章必须新建在./_posts文件夹中
+文章名称必须是yyyy-mm-dd-xxxxx-xxx-xxx格式，后缀名可以是.markdown | .html | .textile （不过我还是推荐markdown形式，因为易学、通用、效率高）
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在最后，再次感谢上面几篇文章的作者，以后我的blog主题的作者，正是有了你们的付出，才让技术没有界限。<br>通过这次的实验，以及动手的操作，才发现未知并不可怕，只要你开动自己的脚步，总能窥探一二。希望以后的日子里，不仅仅忙碌，还能怀揣着酒和故事，带着诗意，去远方。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2017-03-02-first/" target="_blank" title="用Jekyll搭建个人的Blog">http://yoursite.com/2017-03-02-first/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017-03-15-keyboard/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          iOS开发--常见的退出键盘的几种方式
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一篇blog-–纪念搭建我的个人Blog"><span class="nav-number">1.</span> <span class="nav-text">第一篇blog –纪念搭建我的个人Blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步先搭建本地Jekyll"><span class="nav-number">2.</span> <span class="nav-text">第一步先搭建本地Jekyll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jekyll的主题"><span class="nav-number">3.</span> <span class="nav-text">Jekyll的主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Github-Pages-的服务"><span class="nav-number">4.</span> <span class="nav-text">使用 Github Pages 的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请个人域名"><span class="nav-number">5.</span> <span class="nav-text">申请个人域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请”小绿锁”HTTPS"><span class="nav-number">6.</span> <span class="nav-text">申请”小绿锁”HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文章"><span class="nav-number">7.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

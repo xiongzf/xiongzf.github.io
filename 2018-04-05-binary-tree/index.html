@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构算法之 二叉树 | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="二叉树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构算法之 二叉树">
+<meta property="og:url" content="http://yoursite.com/2018-04-05-binary-tree/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="二叉树">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/Treedatastructure.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/%E6%A0%91%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/%E6%A0%91%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/%E7%BD%91%E9%A1%B5%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiongzf/img/master/%E4%B8%89%E7%A7%8D%E9%81%8D%E5%8E%86%E7%BB%93%E6%9E%9C.jpg">
+<meta property="og:updated_time" content="2018-07-08T06:29:25.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构算法之 二叉树">
+<meta name="twitter:description" content="二叉树">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiongzf/img/master/Treedatastructure.png">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2018-04-05-binary-tree" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      数据结构算法之 二叉树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018-04-05-binary-tree/" class="article-date">
+	  <time datetime="2018-04-04T16:00:00.000Z" itemprop="datePublished">2018-04-05</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h2><p>树（tree）是一种抽象数据类型（ADT）或是实作这种抽象数据类型的数据结构，用来模拟具有树状结构性质的数据集合。它是由n(n &gt; 1)个有限节点组成一个具有层次关系的集合。把它叫做“树”是因为看起来像一颗倒挂的树，也就是说他是根朝上，而叶朝下的。它具有以下特点：</p>
+<ul>
+<li>每个节点有零个或多个子节点；</li>
+<li>没有父节点的节点称为根节点；</li>
+<li>每一个非根节点有且只有一个父节点；</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树；</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/xiongzf/img/master/Treedatastructure.png" alt=""></p>
+<h2 id="树的术语"><a href="#树的术语" class="headerlink" title="树的术语"></a>树的术语</h2><ul>
+<li><strong>节点的度</strong>：一个节点含有的子树的个数称为该节点的度；</li>
+<li><strong>树的度</strong>：一棵树中，最大的节点称为树的度；</li>
+<li><strong>叶节点或终端节点</strong>：度为0的节点；</li>
+<li><strong>父节点</strong>：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
+<li><strong>子节点</strong>：一个节点含有的子树的根节点称为该节点的子节点；</li>
+<li><strong>兄弟节点</strong>：具有相同父节点的节点互称为兄弟节点；</li>
+<li><strong>节点的层次</strong>：从根开始定义起，根为第一层，根的子节点为第二层，以此类推；</li>
+<li><strong>树的高度或深度</strong>：树中节点的最大层次；</li>
+<li><strong>堂兄弟节点</strong>：父节点在同一层的节点互为堂兄弟；</li>
+<li><strong>节点的祖先</strong>：从跟到该节点所经分支上的所有节点；</li>
+<li><strong>子孙</strong>：以某节点为根的子树中任一节点都称为该节点的子孙；</li>
+<li><strong>森林</strong>：由m(m &gt;= 0)颗互不相交的树的集合称为森林；</li>
+</ul>
+<h2 id="树的种类"><a href="#树的种类" class="headerlink" title="树的种类"></a>树的种类</h2><ul>
+<li><strong>无序树：</strong>树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树；</li>
+<li><p><strong>有序树：</strong>树中任意节点的子节点之间有顺序关系，这种树称为有序树；</p>
+<p>  <strong>1、二叉树：</strong>每个节点最多含有两个子树的树称为二叉树；</p>
+<pre><code>**a、完全二叉树：**对于一棵二叉树，假设其深度为d（d &gt; 1）。除了第d层外，其他各层的节点数目均已达到最大值，且第d层所有节点从左向右连续的紧密的排列，这样的二叉树被称为完全二叉树，其中**满二叉树**的定义是所有叶节点都在最底层的完全二叉树；
+**b、平衡二叉树：**当且仅当任何节点的两颗子树的高度差不大于1的二叉树；
+**c、排序二叉树：**也称二叉搜索树，有序二叉树；
+</code></pre><p>  <strong>2、霍夫曼树（用于信息编码）：</strong>带权路径最短的二叉树称为哈夫曼树或最优二叉树；<br>  <strong>3、B树：</strong>一种对读写操作进行优化的自平衡的二叉查找树，能够保持数据有序，拥有多余两个子树。</p>
+</li>
+</ul>
+<h2 id="树的存储与表示"><a href="#树的存储与表示" class="headerlink" title="树的存储与表示"></a>树的存储与表示</h2><p><strong>顺序存储：</strong>将数据结构存储在固定的数组中，然在遍历速度上有一定的优势，但因所占空间比较大，是非主流二叉树。二叉树通常以链式存储。<br><img src="https://raw.githubusercontent.com/xiongzf/img/master/%E6%A0%91%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8.png" alt=""><br><strong>链式存储：</strong><br><img src="https://raw.githubusercontent.com/xiongzf/img/master/%E6%A0%91%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8.png" alt=""><br>由于对节点的个数无法掌握，常见树的存储表示都转换成二叉树进行处理，子节点个数最多为2。</p>
+<h2 id="常见的一些树的应用场景"><a href="#常见的一些树的应用场景" class="headerlink" title="常见的一些树的应用场景"></a>常见的一些树的应用场景</h2><ol>
+<li>xml，html等，那么编写这些东西的解析器的时候，不可避免用到树</li>
+<li>路由协议就是使用了树的算法</li>
+<li>mysql数据库索引</li>
+<li>文件系统的目录结构</li>
+<li>所以很多经典的AI算法其实都是树搜索，此外机器学习中的decision tree也是树结构<br><img src="https://raw.githubusercontent.com/xiongzf/img/master/%E7%BD%91%E9%A1%B5%E7%BB%93%E6%9E%84.jpg" alt=""></li>
+</ol>
+<h2 id="二叉树-1"><a href="#二叉树-1" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树的基本概念"><a href="#二叉树的基本概念" class="headerlink" title="二叉树的基本概念"></a>二叉树的基本概念</h3><p>二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”和“右子树”。</p>
+<h3 id="二叉树的性质（特性）"><a href="#二叉树的性质（特性）" class="headerlink" title="二叉树的性质（特性）"></a>二叉树的性质（特性）</h3><p><strong>性质1:</strong>在二叉树的第i层上至多有2^(i-1)个节点（i &gt; 0）；<br><strong>性质2:</strong>深度为k的二叉树至多2^k -1个节点；<br><strong>性质3:</strong>对于任意一棵二叉树，如果其叶节点数为N0，而度数为2的节点总数为N1，则N0 = N1 + 1；<br><strong>性质4:</strong>具有n个节点的完全二叉树的深度必为log2(n + 1)；<br><strong>性质5:</strong>对完全二叉树，若从上至下、从左至右编号，则编号为i 的结点，其左孩子编号必为2i，其右孩子编号必为2i＋1；其双亲的编号必为i/2（i＝1 时为根,除外）</p>
+<p>(1)完全二叉树——若设二叉树的高度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第h层有叶子结点，并且叶子结点都是从左到右依次排布，这就是完全二叉树。<br><img src="https://raw.githubusercontent.com/xiongzf/img/master/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt=""></p>
+<p>(2)满二叉树——除了叶结点外每一个结点都有左右子叶且叶子结点都处在最底层的二叉树。<br><img src="https://raw.githubusercontent.com/xiongzf/img/master/%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt=""></p>
+<h3 id="二叉树的创建"><a href="#二叉树的创建" class="headerlink" title="二叉树的创建"></a>二叉树的创建</h3><p><strong>创建节点：</strong><br>通过使用Node类中定义三个属性，分别为elem本身的值，还有lchild左孩子和rchild右孩子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 二叉树节点</span><br><span class="line">@interface Binary_Tree_Node()</span><br><span class="line">@property(nonatomic, assign) int elem;</span><br><span class="line">@property(nonatomic, strong) Binary_Tree_Node *lChild;</span><br><span class="line">@property(nonatomic, strong) Binary_Tree_Node *rChild;</span><br><span class="line">- (instancetype)initWithItem:(int)item;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Binary_Tree_Node</span><br><span class="line">/**</span><br><span class="line"> 初始化节点</span><br><span class="line"> </span><br><span class="line"> @param item 节点的值</span><br><span class="line"> @return 返回节点</span><br><span class="line"> */</span><br><span class="line">- (instancetype)initWithItem:(int)item &#123;</span><br><span class="line">    if (self = [super init]) &#123;</span><br><span class="line">        self.elem = item;</span><br><span class="line">        self.lChild = nil;</span><br><span class="line">        self.rChild = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><strong>创建树：</strong><br>树的创建,创建一个树的类，并给一个root根节点，一开始为空，随后添加节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 二叉树</span><br><span class="line">@interface Binary_Tree()</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Binary_Tree</span><br><span class="line">- (instancetype)init &#123;</span><br><span class="line">    if (self = [super init]) &#123;</span><br><span class="line">        self.root_Node = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - 添加节点</span><br><span class="line">/**</span><br><span class="line"> 添加节点</span><br><span class="line"></span><br><span class="line"> @param item 节点的值</span><br><span class="line"> */</span><br><span class="line">- (void)add:(int)item &#123;</span><br><span class="line">    Binary_Tree_Node *node = [[Binary_Tree_Node alloc] initWithItem:item];</span><br><span class="line">    </span><br><span class="line">    if (self.root_Node == nil) &#123;</span><br><span class="line">        self.root_Node = node;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSMutableArray &lt;Binary_Tree_Node *&gt;*nodeArray = [NSMutableArray array];</span><br><span class="line">    [nodeArray addObject:self.root_Node];</span><br><span class="line">    </span><br><span class="line">    while (nodeArray.count) &#123;</span><br><span class="line">        Binary_Tree_Node *cur_node = nodeArray[0];</span><br><span class="line">        </span><br><span class="line">        if (cur_node.lChild == nil) &#123;</span><br><span class="line">            cur_node.lChild = node;</span><br><span class="line">            return;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            [nodeArray addObject:cur_node.lChild];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (cur_node.rChild == nil) &#123;</span><br><span class="line">            cur_node.rChild = node;</span><br><span class="line">            return;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            [nodeArray addObject:cur_node.rChild];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        [nodeArray removeObjectAtIndex:0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h3><p>树的遍历是一种重要的运算。所谓遍历是指对树中所有结点的信息的访问，即依次对树中每个结点访问一次且仅访问一次，我们把这种对所有节点的访问称为遍历（traversal）。那么树的两种重要的遍历模式是<strong>深度优先遍历</strong>和<strong>广度优先遍历</strong>,<strong>深度优先一般用递归，广度优先一般用队列。一般情况下能用递归实现的算法大部分也能用堆栈来实现</strong>。</p>
+<p><strong>广度优先遍历：（层次遍历）</strong><br>从树的root开始，从上到下从左到右遍历整个树的节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 广度遍历</span><br><span class="line">/**</span><br><span class="line"> 遍历二叉树的每一个节点</span><br><span class="line"> */</span><br><span class="line">- (void)breadth_travel &#123;</span><br><span class="line">    if (self.root_Node == nil) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSMutableArray &lt;Binary_Tree_Node *&gt;*nodeArray = [NSMutableArray array];</span><br><span class="line">    [nodeArray addObject:self.root_Node];</span><br><span class="line">    </span><br><span class="line">    while (nodeArray.count) &#123;</span><br><span class="line">        Binary_Tree_Node *cur_node = nodeArray[0];</span><br><span class="line">        NSLog(@&quot;%d&quot;, cur_node.elem);</span><br><span class="line">        </span><br><span class="line">        if (cur_node.lChild != nil) &#123;</span><br><span class="line">            [nodeArray addObject:cur_node.lChild];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (cur_node.rChild != nil) &#123;</span><br><span class="line">            [nodeArray addObject:cur_node.rChild];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        [nodeArray removeObjectAtIndex:0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>深度优先遍历：</strong><br>对于一棵二叉树，深度优先搜索是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。<br>那么深度遍历有三种方法，这三种方式常被用于访问树的节点，他们之间的不同在于访问每个节点的次序不同。这三种遍历分别叫做先序遍历(preorder)，中序遍历(inorder)和后序遍历(postorder)。</p>
+<ul>
+<li>先序遍历，我们先访问根节点，然后递归使用先序遍历访左问子树，再递归使用先序遍历访问右子树</li>
+</ul>
+<p>根节点-&gt;左节点-&gt;右节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 1.前序遍历 根节点-&gt;左子树-&gt;右子树</span><br><span class="line">/**</span><br><span class="line"> 前序遍历 根节点-&gt;左子树-&gt;右子树</span><br><span class="line"></span><br><span class="line"> @param node 传进来的节点</span><br><span class="line"> */</span><br><span class="line">- (void)preOrder:(Binary_Tree_Node *)node &#123;</span><br><span class="line">    if (node == nil) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;%d&quot;, node.elem);</span><br><span class="line">    [self preOrder:node.lChild];</span><br><span class="line">    [self preOrder:node.rChild];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>中序遍历，我们递归使用中序遍历访问左子树，然后访问根节点，最后再递归使用中序遍历访问右子树</li>
+</ul>
+<p>左子树-&gt;根节点-&gt;右子树</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 2.中序遍历 左子树-&gt;根节点-&gt;右子树</span><br><span class="line">/**</span><br><span class="line"> 中序遍历 左子树-&gt;根节点-&gt;右子树</span><br><span class="line"></span><br><span class="line"> @param node 传进来的节点</span><br><span class="line"> */</span><br><span class="line">- (void)inOrder:(Binary_Tree_Node *)node &#123;</span><br><span class="line">    if (node == nil) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [self inOrder:node.lChild];</span><br><span class="line">    NSLog(@&quot;%d&quot;, node.elem);</span><br><span class="line">    [self inOrder:node.rChild];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后序遍历，我们先递归使用后序遍历访问左子树和右子树，最后访问根节点</li>
+</ul>
+<p>左子树-&gt;右子树-&gt;根节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 3.前序遍历 左子树-&gt;右子树-&gt;根节点</span><br><span class="line">/**</span><br><span class="line"> 左子树-&gt;右子树-&gt;根节点</span><br><span class="line"></span><br><span class="line"> @param node 传进来的节点</span><br><span class="line"> */</span><br><span class="line">- (void)postOrder:(Binary_Tree_Node *)node &#123;</span><br><span class="line">    if (node == nil) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [self postOrder:node.lChild];</span><br><span class="line">    [self postOrder:node.rChild];</span><br><span class="line">    NSLog(@&quot;%d&quot;, node.elem);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/xiongzf/img/master/%E4%B8%89%E7%A7%8D%E9%81%8D%E5%8E%86%E7%BB%93%E6%9E%9C.jpg" alt=""></p>
+<p>本文代码地址<a href="https://github.com/xzf1993/Arithmetic.git" target="_blank" rel="noopener">请点我</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2018-04-05-binary-tree/" target="_blank" title="数据结构算法之 二叉树">http://yoursite.com/2018-04-05-binary-tree/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-04-25-NSProxy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          NSProxy
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018-03-31-arithmetic/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">数据结构算法之 常见算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">1.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树的概念"><span class="nav-number">1.1.</span> <span class="nav-text">树的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的术语"><span class="nav-number">1.2.</span> <span class="nav-text">树的术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的种类"><span class="nav-number">1.3.</span> <span class="nav-text">树的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的存储与表示"><span class="nav-number">1.4.</span> <span class="nav-text">树的存储与表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的一些树的应用场景"><span class="nav-number">1.5.</span> <span class="nav-text">常见的一些树的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树-1"><span class="nav-number">1.6.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的基本概念"><span class="nav-number">1.6.1.</span> <span class="nav-text">二叉树的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的性质（特性）"><span class="nav-number">1.6.2.</span> <span class="nav-text">二叉树的性质（特性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的创建"><span class="nav-number">1.6.3.</span> <span class="nav-text">二叉树的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的遍历"><span class="nav-number">1.6.4.</span> <span class="nav-text">二叉树的遍历</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

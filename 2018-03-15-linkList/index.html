@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构算法之 链表 | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="链表的原理及实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构算法之 链表">
+<meta property="og:url" content="http://yoursite.com/2018-03-15-linkList/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="链表的原理及实现">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Singly-linked-list.svg/408px-Singly-linked-list.svg.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20160420141138723">
+<meta property="og:image" content="http://img.blog.csdn.net/20160420134010570">
+<meta property="og:image" content="http://img.blog.csdn.net/20160420134000174">
+<meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Doubly-linked-list.svg/610px-Doubly-linked-list.svg.png">
+<meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Circularly-linked-list.svg/350px-Circularly-linked-list.svg.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20170402142807766?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbW9yaXhpbmd1YW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2018-07-08T06:28:45.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构算法之 链表">
+<meta name="twitter:description" content="链表的原理及实现">
+<meta name="twitter:image" content="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Singly-linked-list.svg/408px-Singly-linked-list.svg.png">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2018-03-15-linkList" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      数据结构算法之 链表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018-03-15-linkList/" class="article-date">
+	  <time datetime="2018-03-14T16:00:00.000Z" itemprop="datePublished">2018-03-15</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="链表概念"><a href="#链表概念" class="headerlink" title="链表概念"></a>链表概念</h2><p><strong>链表</strong>是一种<strong>数据结构</strong>，和数组同级。比如，java中我们使用的ArrayList，其实现原理是数组。而LinkedList的实现原理就是链表了。链表在进行循环遍历的效率不高，但是插入和删除时优势明显。<br><strong>链表</strong>就是<strong>链式存储的线性表</strong>。根据指针域的不同，链表分为<strong>单向链表</strong>，<strong>双向链表</strong>，<strong>循环链表</strong>等等。</p>
+<h3 id="单向节点"><a href="#单向节点" class="headerlink" title="单向节点"></a>单向节点</h3><p>链表中最简单的一种就是单向链表，它包含两个域，一个信息域和一个指针域。这个链表指向链表中的下一个节点，而最后一个节点则指向一个空值。<br><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Singly-linked-list.svg/408px-Singly-linked-list.svg.png" alt=""><br>单向链表是一种线性表，实际上是由节点(Node)组成的，一个链表拥有不定数量的节点。其数据在内存中存储是不连续的，它存储的数据分散在内存中，每个节点只能也只有它能知道下一个节点的存储位置。由N个节点(Node)组成单向链表，每一个节点记录本节点的数据和下一个节点。向外暴露的只有一个头节点(Head)，我们对联标的所有操作，都是直接或者间接的通过其头节点来进行的。<br><img src="http://img.blog.csdn.net/20160420141138723" alt=""><br>上图中最左边的节点即为头节点(Head)，但是添加节点的顺序是从右向左的，添加的新节点会被作为新节点。最先添加的节点对下一节点的引用可以为空。引用是引用下一节点而非下一个节点的对象。因为有着不断地引用，所以头节点就可以操作所有的节点了。<br>下图描述了单向链表存储情况。存储是分散的，每一个节点只要记录下一节点，就把所有数据串了起来，形成一个单向链表。<br><img src="http://img.blog.csdn.net/20160420134010570" alt=""><br>节点是由一个需要存储的对象及对下一个节点的引用组成的。也就是说，节点拥有两个成员：存储的对象、对下一个节点的引用。如下图：<br><img src="http://img.blog.csdn.net/20160420134000174" alt=""></p>
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><p>双向链表是一种更复杂的链表。每个节点有两个连接：一个指向前一个节点，(当此”连接”为第一个”连接”时，指向空值或者空列表)；而当另一个指向下一个节点，(当此“连接”为最后一个“连接”时，指向空值或者空列表)<br><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Doubly-linked-list.svg/610px-Doubly-linked-list.svg.png" alt=""><br>一个双向链表有三个整数值：<strong>数值</strong>，<strong>向后的节点链接</strong>，<strong>向前的节点链接</strong>。<br>双向链表也叫双链表。双向链表中不仅有指向后一个节点的指针，还有指向前一个节点的指针。这样就可以从任何一个节点访问前一个节点，当然也可以访问后一个节点么，以至整个链表。一般是在需要大批量的另外储存数据在链表中的位置的时候用。双向链表也可以配合下面的其他链表的扩展使用。<br>由于另外储存了指向链表内容的指针，并且可能会修改相邻的节点，有的时候第一个节点可能会被删除或者在之前添加一个新的节点。这时候就要修改指向首个节点的指针。有一种方便的可以消除这种特殊情况的方法是在最后一个节点之后、第一个节点之前储存一个永远不会被删除或者移动的虚拟节点，形成一个下面说的循环链表。这个虚拟节点之后的节点就是真正的第一个节点。这种情况通常可以用这个虚拟节点直接表示这个链表，对于把链表单独的存在数组里的情况，也可以直接用这个数组表示链表并用第0个或者第-1个(如果编译器支持)节点固定的表示这个虚拟节点。</p>
+<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><p>在一个循环链表中，首节点和末节点被连接在一起。这种方式在单向和双向链表中皆可实现。要转换一个循环链表，你开始于任意一个节点然后沿着列表的任一方向知道返回开始的节点。再来看另一种方法，循环链表可以被视为“无头无尾”。这种列表很利于节约数据存储缓存，假定你在一个列表中有一个对象并且希望所有其他对象迭代在一个非特殊的排列下。<br>指向整个列表的指针可以被称作存储指针。<br><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Circularly-linked-list.svg/350px-Circularly-linked-list.svg.png" alt=""><br>如上图用单向链表构建的循环链表。<br>循环链表中第一个节点就是最后一个节点，反之亦然。循环链表的无边界使得在这样的链表上设计算法会比普通链表更加容易。对于新加入的节点应该是在第一个节点之前还是最后一个节点之后可以根据实际要求灵活处理，区别不大。当然，如果只会在最后插入数据(或者只会在之前)，处理也很容易。<br>另外一种模拟的循环链表，就是在访问到最后一个节点之后的时候，手动跳转到第一个节点。访问到第一个节点之前的时候，也一样。这样也可以实现循环链表的功能，在直接用循环链表比较麻烦或者可能会出现问题的时候可以用。</p>
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>链表中的节点不需要以特定的方式存储，但是集中存储也是可以的，主要分下面几种具体的存储方法：</p>
+<ul>
+<li><p><strong>共用存储空间：</strong><br>链表的节点和其他的数据共用存储空间，优点是可以存储无限多的内容(不过要处理器支持这个大小，并且存储空间足够的情况下)，不需要提前分配内存；缺点是由于内容分散，有时候可能不方便调试。   </p>
+</li>
+<li><p><strong>独立存储空间：</strong><br>一个链表或者多个链表使用独立的存储空间，一般用数组或者类似结构实现，优点是可以自动获得一个附加数据：唯一的编号，并且方便调试；缺点是不能动态的分配内存。当然，另外的在上面加一层块状链表用来分配内存也是可以的，这样就解决了这个问题。这种方法有时候被叫做<strong>数组模拟链表</strong>，但是事实上只是用表示在数组中的位置的下标索引代替了指向内存地址的指针，这种下标索引其实也是逻辑上的指针，整个结构还是链表，并不算是被模拟的(但是可以说成是用<strong>数组实现的链表</strong>)。</p>
+</li>
+</ul>
+<h2 id="链表的几大特性"><a href="#链表的几大特性" class="headerlink" title="链表的几大特性"></a>链表的几大特性</h2><h3 id="链表主要有以下几个特性："><a href="#链表主要有以下几个特性：" class="headerlink" title="链表主要有以下几个特性："></a>链表主要有以下几个特性：</h3><ol>
+<li>解决数组无法存储多种数据类型的问题</li>
+<li>解决数组中，元素个数无法改变的限制</li>
+<li>数组移动元素的过程中，要对元素进行大范围的移动，很耗时间，效率也不高。</li>
+</ol>
+<h3 id="链表的应用"><a href="#链表的应用" class="headerlink" title="链表的应用"></a>链表的应用</h3><p>连表用来构建许多其他的数据结构，如堆栈，行列和他们的衍生。<br>节点的数据域，也可以成为另一个链表。通过这种手段，我们可以用列表来构建许多链性数据结构；这个实例产生于Lisp编程语言，在Lisp中链表是初级数据结构，并且成为了常见的基础编程模式。有时候，链表用来生成联合数组，在这种情况下我们称之为联合数列。这种情况下用链表会优于其他数据结构，如自平衡二叉查找树(self-balancing binary search trees)甚至是一些小的数据集合。不管怎样，一些时候一个链表在这样一个树中建立一个节点子集，并且以此来更有效率的转换这个集合。</p>
+<h3 id="C代码实例"><a href="#C代码实例" class="headerlink" title="C代码实例"></a>C代码实例</h3><p>链表的数据结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct list_node &#123;</span><br><span class="line">    int data; //数据域，用于存储数据</span><br><span class="line">    struct list_node *next; //指针，可以用来访问节点数据，也可以遍历，指向下一个节点</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>创建一个链表的一个节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">struct list_node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct list_node *next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef struct list_node list_single;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">    list_single *node = NULL; //1、首先定义一个头指针</span><br><span class="line">    node = (list_single *)malloc(sizeof(list_single)); //2、然后分配内存空间</span><br><span class="line">    </span><br><span class="line">    if (node == NULL) &#123;</span><br><span class="line">        printf(&quot;malloc fair!\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    memset(node, 0, sizeof(list_single)); //3、清一下</span><br><span class="line">    node-&gt;data = 100; //4、给链表节点的数据赋值</span><br><span class="line">    node-&gt;next = NULL; //5、将链表的指针域指向空</span><br><span class="line">    printf(&quot;%d\n&quot;, node-&gt;data);</span><br><span class="line">    free(node);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把创建节点封装成一个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">list_single *create_list_node(int data) &#123;</span><br><span class="line">    list_single *node = NULL; //1、首先定义一个头指针</span><br><span class="line">    node = (list_single *)malloc(sizeof(list_single)); //2、然后分配内存空间</span><br><span class="line">    </span><br><span class="line">    if (node == NULL) &#123;</span><br><span class="line">        printf(&quot;malloc fair!\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    memset(node, 0, sizeof(list_single)); //3、清一下</span><br><span class="line">    node-&gt;data = data; //4、给链表节点的数据赋值</span><br><span class="line">    node-&gt;next = NULL; //5、将链表的指针域指向空</span><br><span class="line">    printf(&quot;%d\n&quot;, node-&gt;data);</span><br><span class="line">    free(node);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着完成上面的程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">struct list_node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct list_node *next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef struct list_node list_single;</span><br><span class="line"></span><br><span class="line">list_single *create_list_node(int data) &#123;</span><br><span class="line">    list_single *node = NULL; //1、首先定义一个头指针</span><br><span class="line">    node = (list_single *)malloc(sizeof(list_single)); //2、然后分配内存空间</span><br><span class="line">    </span><br><span class="line">    if (node == NULL) &#123;</span><br><span class="line">        printf(&quot;malloc fair!\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    memset(node, 0, sizeof(list_single)); //3、清一下</span><br><span class="line">    node-&gt;data = data; //4、给链表节点的数据赋值</span><br><span class="line">    node-&gt;next = NULL; //5、将链表的指针域指向空</span><br><span class="line">    printf(&quot;%d\n&quot;, node-&gt;data);</span><br><span class="line">    free(node);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">    int data = 100;</span><br><span class="line">    list_single *node = create_list_node(data);</span><br><span class="line">    printf(&quot;node-&gt;data = %d\n&quot;, node-&gt;data);</span><br><span class="line">    printf(&quot;node-&gt;next = %d\n&quot;, node-&gt;next);</span><br><span class="line">    free(node);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果<br><img src="http://img.blog.csdn.net/20170402142807766?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbW9yaXhpbmd1YW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>范例代码是一个ADT（抽象数据类型）双向环形链表的基本操作部分的实例（未包含线程安全机制），全部遵从ANSI C标准，由User:JohnBull贡献，代码遵从GPL版权许可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">//声明接口</span><br><span class="line">#ifndef LLIST_H</span><br><span class="line">#define LLIST_H</span><br><span class="line"></span><br><span class="line">typedef void node_proc_fun_t(void *);</span><br><span class="line">typedef int node_comp_fun_t(const void*, const void*);</span><br><span class="line"></span><br><span class="line">typedef void LLIST_T;</span><br><span class="line"></span><br><span class="line">LLIST_T *llist_new(int elmsize);</span><br><span class="line">int llist_delete(LLIST_T *);</span><br><span class="line"></span><br><span class="line">int llist_node_append(LLIST_T *, const void *);</span><br><span class="line">int llist_node_prepend(LLIST_T *, const void *);</span><br><span class="line"></span><br><span class="line">int llist_travel(LLIST_T *, node_proc_fun_t*);</span><br><span class="line">int llist_sort(LLIST_T *, node_comp_fun_t*);</span><br><span class="line"></span><br><span class="line">void *llist_node_delete(LLIST_T *, node_comp_fun_t *, const void *key);</span><br><span class="line">void *llist_node_find(LLIST_T *, node_comp_fun_t *, const void *key);</span><br><span class="line"></span><br><span class="line">//类型确定</span><br><span class="line">struct node_st&#123;</span><br><span class="line">    void *datap;</span><br><span class="line">    struct node_st *next, *prev;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct llist_st&#123;</span><br><span class="line">    struct node_st head;</span><br><span class="line">    int elmsize;</span><br><span class="line">    int elmnr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//初始化和销毁</span><br><span class="line">LLIST_T *llist_new(int elmsize)&#123;</span><br><span class="line">    struct llist_st *newlist;</span><br><span class="line">    newlist = malloc(sizeof(struct llist_st));</span><br><span class="line">    </span><br><span class="line">    if (newlist == NULL) &#123;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    newlist -&gt; head.datap = NULL;</span><br><span class="line">    newlist -&gt; head.next = &amp;newlist -&gt; head;</span><br><span class="line">    newlist -&gt; head.prev = &amp;newlist -&gt; head;</span><br><span class="line">    </span><br><span class="line">    newlist -&gt; elmsize = elmsize;</span><br><span class="line">    </span><br><span class="line">    return (void *)newlist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int llist_delete(LLIST_T *ptr) &#123;</span><br><span class="line">    struct llist_st *me = ptr;</span><br><span class="line">    struct node_st *curr, *save;</span><br><span class="line">    </span><br><span class="line">    for (curr = me -&gt; head.next; curr != &amp;me -&gt; head; curr = save) &#123;</span><br><span class="line">        save = curr -&gt; next;</span><br><span class="line">        free(curr -&gt; datap);</span><br><span class="line">        free(curr);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    free(me);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//节点插入</span><br><span class="line">int llist_node_append(LLIST_T *ptr, const void *datap) &#123;</span><br><span class="line">    struct llist_st *me = ptr;</span><br><span class="line">    struct node_st *newnodep;</span><br><span class="line">    </span><br><span class="line">    newnodep = malloc(sizeof(struct node_st));</span><br><span class="line">    </span><br><span class="line">    if (newnodep == NULL) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    newnodep -&gt; datap = malloc(me -&gt; elmsize);</span><br><span class="line">    </span><br><span class="line">    if (newnodep -&gt; datap == NULL) &#123;</span><br><span class="line">        free(newnodep);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    memcpy(newnodep -&gt; datap, datap, me -&gt; elmsize);</span><br><span class="line">    </span><br><span class="line">    me -&gt; head.prev -&gt; next = newnodep;</span><br><span class="line">    newnodep -&gt; prev = me -&gt; head.prev;</span><br><span class="line">    me -&gt; head.prev = newnodep;</span><br><span class="line">    newnodep -&gt; next = &amp;me -&gt; head;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//遍历</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class ChainIterator &#123;</span><br><span class="line">    public: T* Initialize(const Chain&lt;T&gt; &amp;c) &#123;</span><br><span class="line">        location = c.first;</span><br><span class="line">        if (!location) return &amp;location -&gt; data;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    T *Next() &#123;</span><br><span class="line">        if (!location) return 0;</span><br><span class="line">        location = location -&gt; link;</span><br><span class="line">        if (location) return &amp;location -&gt; data;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private: ChainNode&lt;T&gt; *location;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下代码摘自Linux内核2.6.21.5源码(部分)，展示了链表的另一种实现思路，未采用ANSI C标准，采用GNU C标准，遵从GPL版权许可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">struct list_head &#123;</span><br><span class="line">    struct list_head *next, *prev;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">#define LIST_HEAD_INIT(name) &#123; &amp;(name), &amp;(name) &#125;</span><br><span class="line"> </span><br><span class="line">#define LIST_HEAD(name) /</span><br><span class="line">    struct list_head name = LIST_HEAD_INIT(name)</span><br><span class="line"> </span><br><span class="line">static inline void INIT_LIST_HEAD(struct list_head *list) &#123;</span><br><span class="line">    list-&gt;next = list;</span><br><span class="line">    list-&gt;prev = list;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static inline void __list_add(struct list_head *new, </span><br><span class="line">                        struct list_head *prev, </span><br><span class="line">                        struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">    next-&gt;prev = new;</span><br><span class="line">    new-&gt;next = next;</span><br><span class="line">    new-&gt;prev = prev;</span><br><span class="line">    prev-&gt;next = new;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static inline void list_add(struct list_head *new, struct list_head *head) &#123;</span><br><span class="line">    __list_add(new, head, head-&gt;next);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static inline void __list_del(struct list_head * prev, struct list_head * next) &#123;</span><br><span class="line">    next-&gt;prev = prev;</span><br><span class="line">    prev-&gt;next = next;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">static inline void list_del(struct list_head *entry) &#123;</span><br><span class="line">    __list_del(entry-&gt;prev, entry-&gt;next);</span><br><span class="line">    entry-&gt;next = NULL;</span><br><span class="line">    entry-&gt;prev = NULL;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">#define __list_for_each(pos, head) /</span><br><span class="line">    for (pos = (head)-&gt;next; pos != (head); pos = pos-&gt;next)</span><br><span class="line"> </span><br><span class="line">#define list_for_each_entry(pos, head, member)                          /</span><br><span class="line">    for (pos = list_entry((head)-&gt;next, typeof(*pos), member);      /</span><br><span class="line">    prefetch(pos-&gt;member.next), &amp;pos-&gt;member != (head);        /</span><br><span class="line">    pos = list_entry(pos-&gt;member.next, typeof(*pos), member))</span><br></pre></td></tr></table></figure>
+<h3 id="python代码的实现"><a href="#python代码的实现" class="headerlink" title="python代码的实现"></a>python代码的实现</h3><h4 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a><strong>单向链表</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">class SingleNode(object):</span><br><span class="line">    &quot;&quot;&quot;单链表的节点&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, element):</span><br><span class="line">        self.elem = element</span><br><span class="line">        self.next = None</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class SingleLinkedList(object):</span><br><span class="line">    &quot;&quot;&quot;单链表&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, node = None):</span><br><span class="line">        self._head = node</span><br><span class="line"></span><br><span class="line">    def is_empty(self):</span><br><span class="line">        &quot;&quot;&quot;判断是否为空&quot;&quot;&quot;</span><br><span class="line">        return self._head == None</span><br><span class="line"></span><br><span class="line">    def length(self):</span><br><span class="line">        &quot;&quot;&quot;返回链表的长度&quot;&quot;&quot;</span><br><span class="line">        # cur游标 用来遍历节点</span><br><span class="line">        cur = self._head</span><br><span class="line">        # count 记录数量</span><br><span class="line">        count = 0</span><br><span class="line"></span><br><span class="line">        while cur != None:</span><br><span class="line">            count += 1</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        return count</span><br><span class="line"></span><br><span class="line">    def travel(self):</span><br><span class="line">        &quot;&quot;&quot;遍历整个链表&quot;&quot;&quot;</span><br><span class="line">        # cur游标 用来遍历节点</span><br><span class="line">        cur = self._head</span><br><span class="line"></span><br><span class="line">        while cur != None:</span><br><span class="line">            print (cur.elem)</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">    def add(self, item):</span><br><span class="line">        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;</span><br><span class="line">        node = SingleNode(item)</span><br><span class="line">        node.next = self._head</span><br><span class="line">        self._head = node</span><br><span class="line"></span><br><span class="line">    def append(self, item):</span><br><span class="line">        &quot;&quot;&quot;链表尾部添加元素&quot;&quot;&quot;</span><br><span class="line">        node = SingleNode(item)</span><br><span class="line"></span><br><span class="line">        if self.is_empty():</span><br><span class="line">            self._head = node</span><br><span class="line">        else:</span><br><span class="line">            cur = self._head</span><br><span class="line">            while cur.next != None:</span><br><span class="line">                cur = cur.next</span><br><span class="line">            cur.next = node</span><br><span class="line"></span><br><span class="line">    def insert(self, pos, item):</span><br><span class="line">        &quot;&quot;&quot;指定位置添加元素&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">        if pos &lt;= 0:</span><br><span class="line">            self.add(item)</span><br><span class="line">        elif pos &gt; (self.length() - 1):</span><br><span class="line">            self.append(item)</span><br><span class="line">        else:</span><br><span class="line">            pre = self._head</span><br><span class="line">            count = 0</span><br><span class="line"></span><br><span class="line">            while count &lt;= (pos - 1):</span><br><span class="line">                count += 1</span><br><span class="line">                pre = pre.next</span><br><span class="line">            # 当循环结束后，pre指向pos-1的位置</span><br><span class="line">            node = SingleNode(item)</span><br><span class="line">            node.next = pre.next</span><br><span class="line">            pre.next = node</span><br><span class="line"></span><br><span class="line">    def remove(self, item):</span><br><span class="line">        &quot;&quot;&quot;删除节点&quot;&quot;&quot;</span><br><span class="line">        cur = self._head</span><br><span class="line">        pre = None</span><br><span class="line">        while cur != None:</span><br><span class="line">            if cur.elem == item:</span><br><span class="line">                if cur == self._head:</span><br><span class="line">                    self._head = cur.next</span><br><span class="line">                else:</span><br><span class="line">                     pre.next = cur.next</span><br><span class="line">                break</span><br><span class="line">            else:</span><br><span class="line">                pre = cur</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def search(self, item):</span><br><span class="line">        &quot;&quot;&quot;查找节点是否存在&quot;&quot;&quot;</span><br><span class="line">        cur = self._head</span><br><span class="line">        while cur != None:</span><br><span class="line">            if cur.elem == item:</span><br><span class="line">                return True</span><br><span class="line">            else:</span><br><span class="line">                cur = cur.next</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
+<h4 id="双向链表-1"><a href="#双向链表-1" class="headerlink" title="双向链表"></a><strong>双向链表</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">class Node(object):</span><br><span class="line">    &quot;&quot;&quot;结点&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, item):</span><br><span class="line">        self.elem = item</span><br><span class="line">        self.next = None</span><br><span class="line">        self.prev = None</span><br><span class="line"></span><br><span class="line">class DoubleLinkedList(object):</span><br><span class="line">    &quot;&quot;&quot;双链表&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def __init__(self, node=None):</span><br><span class="line">        self._head = node</span><br><span class="line"></span><br><span class="line">    def is_empty(self):</span><br><span class="line">        &quot;&quot;&quot;判断是否为空&quot;&quot;&quot;</span><br><span class="line">        return self._head == None</span><br><span class="line"></span><br><span class="line">    def length(self):</span><br><span class="line">        &quot;&quot;&quot;返回链表的长度&quot;&quot;&quot;</span><br><span class="line">        # cur游标 用来遍历节点</span><br><span class="line">        cur = self._head</span><br><span class="line">        # count 记录数量</span><br><span class="line">        count = 0</span><br><span class="line"></span><br><span class="line">        while cur != None:</span><br><span class="line">            count += 1</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        return count</span><br><span class="line"></span><br><span class="line">    def travel(self):</span><br><span class="line">        &quot;&quot;&quot;遍历整个链表&quot;&quot;&quot;</span><br><span class="line">        # cur游标 用来遍历节点</span><br><span class="line">        cur = self._head</span><br><span class="line"></span><br><span class="line">        while cur != None:</span><br><span class="line">            print (cur.elem)</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">    def add(self, item):</span><br><span class="line">        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;</span><br><span class="line">        node = Node(item)</span><br><span class="line">        node.next = self._head</span><br><span class="line">        self._head = node</span><br><span class="line">        node.next.prev = node</span><br><span class="line"></span><br><span class="line">    def append(self, item):</span><br><span class="line">        &quot;&quot;&quot;链表尾部添加元素&quot;&quot;&quot;</span><br><span class="line">        node = Node(item)</span><br><span class="line"></span><br><span class="line">        if self.is_empty():</span><br><span class="line">            self._head = node</span><br><span class="line">        else:</span><br><span class="line">            cur = self._head</span><br><span class="line">            while cur.next != None:</span><br><span class="line">                cur = cur.next</span><br><span class="line">            cur.next = node</span><br><span class="line">            node.prev = cur</span><br><span class="line"></span><br><span class="line">    def insert(self, pos, item):</span><br><span class="line">        &quot;&quot;&quot;指定位置添加元素&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">        if pos &lt;= 0:</span><br><span class="line">            self.add(item)</span><br><span class="line">        elif pos &gt; (self.length() - 1):</span><br><span class="line">            self.append(item)</span><br><span class="line">        else:</span><br><span class="line">            cur = self._head</span><br><span class="line">            count = 0</span><br><span class="line"></span><br><span class="line">            while count &lt;= pos:</span><br><span class="line">                count += 1</span><br><span class="line">                cur = cur.next</span><br><span class="line">            # 当循环结束后，pre指向pos-1的位置</span><br><span class="line">            node = Node (item)</span><br><span class="line">            node.next = cur</span><br><span class="line">            node.prev = cur.prev</span><br><span class="line">            cur.prev.next = node</span><br><span class="line">            cur.prev = node</span><br><span class="line"></span><br><span class="line">    def remove(self, item):</span><br><span class="line">        &quot;&quot;&quot;删除节点&quot;&quot;&quot;</span><br><span class="line">        cur = self._head</span><br><span class="line">        while cur != None:</span><br><span class="line">            if cur.elem == item:</span><br><span class="line">                if cur == self._head:</span><br><span class="line">                    self._head = cur.next</span><br><span class="line">                    if cur.next:</span><br><span class="line">                        #判断链表是否只有一个节点</span><br><span class="line">                        cur.next.prev = None</span><br><span class="line">                else:</span><br><span class="line">                    cur.prev.next = cur.next</span><br><span class="line">                    if cur.prev.next:</span><br><span class="line">                        cur.next.prev = cur.prev</span><br><span class="line">                break</span><br><span class="line">            else:</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line">    def search(self, item):</span><br><span class="line">        &quot;&quot;&quot;查找节点是否存在&quot;&quot;&quot;</span><br><span class="line">        cur = self._head</span><br><span class="line">        while cur != None:</span><br><span class="line">            if cur.elem == item:</span><br><span class="line">                return True</span><br><span class="line">            else:</span><br><span class="line">                cur = cur.next</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
+<h4 id="单向链表实现的循环链表"><a href="#单向链表实现的循环链表" class="headerlink" title="单向链表实现的循环链表"></a><strong>单向链表实现的循环链表</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line">class SingleNode(object):</span><br><span class="line">    &quot;&quot;&quot;单链表的节点&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, element):</span><br><span class="line">        self.elem = element</span><br><span class="line">        self.next = None</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class SingleCycleLinkedList(object):</span><br><span class="line">    &quot;&quot;&quot;单向循环链表&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, node = None):</span><br><span class="line">        self._head = node</span><br><span class="line"></span><br><span class="line">        if node:</span><br><span class="line">            node.next = node</span><br><span class="line"></span><br><span class="line">    def is_empty(self):</span><br><span class="line">        &quot;&quot;&quot;判断是否为空&quot;&quot;&quot;</span><br><span class="line">        return self._head == None</span><br><span class="line"></span><br><span class="line">    def length(self):</span><br><span class="line">        &quot;&quot;&quot;返回链表的长度&quot;&quot;&quot;</span><br><span class="line">        if self.is_empty():</span><br><span class="line">            return 0</span><br><span class="line">        # cur游标 用来遍历节点</span><br><span class="line">        cur = self._head</span><br><span class="line">        # count 记录数量</span><br><span class="line">        count = 1</span><br><span class="line"></span><br><span class="line">        while cur.next != self._head:</span><br><span class="line">            count += 1</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        return count</span><br><span class="line"></span><br><span class="line">    def travel(self):</span><br><span class="line">        &quot;&quot;&quot;遍历整个链表&quot;&quot;&quot;</span><br><span class="line">        # cur游标 用来遍历节点</span><br><span class="line">        cur = self._head</span><br><span class="line"></span><br><span class="line">        while cur.next != self._head:</span><br><span class="line">            print (cur.elem)</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        # 退出循环，打印尾节点</span><br><span class="line">        print (cur.elem)</span><br><span class="line"></span><br><span class="line">    def add(self, item):</span><br><span class="line">        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;</span><br><span class="line">        node = SingleNode(item)</span><br><span class="line"></span><br><span class="line">        if self.is_empty():</span><br><span class="line">            self._head = node</span><br><span class="line">            node.next = node</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        cur = self._head</span><br><span class="line"></span><br><span class="line">        while cur.next != self._head:</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        node.next = self._head</span><br><span class="line">        self._head = node</span><br><span class="line">        cur.next = node</span><br><span class="line"></span><br><span class="line">    def append(self, item):</span><br><span class="line">        &quot;&quot;&quot;链表尾部添加元素&quot;&quot;&quot;</span><br><span class="line">        node = SingleNode(item)</span><br><span class="line"></span><br><span class="line">        if self.is_empty():</span><br><span class="line">            self._head = node</span><br><span class="line">            node.next = node</span><br><span class="line">        else:</span><br><span class="line">            cur = self._head</span><br><span class="line"></span><br><span class="line">            while cur.next != self._head:</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line">            cur.next = node</span><br><span class="line">            node.next = self._head</span><br><span class="line"></span><br><span class="line">    def insert(self, pos, item):</span><br><span class="line">        &quot;&quot;&quot;指定位置添加元素&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">        if pos &lt;= 0:</span><br><span class="line">            self.add(item)</span><br><span class="line">        elif pos &gt; (self.length() - 1):</span><br><span class="line">            self.append(item)</span><br><span class="line">        else:</span><br><span class="line">            pre = self._head</span><br><span class="line">            count = 0</span><br><span class="line"></span><br><span class="line">            while count &lt;= (pos - 1):</span><br><span class="line">                count += 1</span><br><span class="line">                pre = pre.next</span><br><span class="line">            # 当循环结束后，pre指向pos-1的位置</span><br><span class="line">            node = SingleNode(item)</span><br><span class="line">            node.next = pre.next</span><br><span class="line">            pre.next = node</span><br><span class="line"></span><br><span class="line">    def remove(self, item):</span><br><span class="line">        &quot;&quot;&quot;删除节点&quot;&quot;&quot;</span><br><span class="line">        if self.is_empty():</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        cur = self._head</span><br><span class="line">        pre = None</span><br><span class="line">        while cur.next != self._head:</span><br><span class="line">            if cur.elem == item:</span><br><span class="line">                if cur == self._head:</span><br><span class="line">                    # 头节点情况</span><br><span class="line">                    # 找尾节点</span><br><span class="line">                    rear = self._head</span><br><span class="line">                    while rear.next != self._head:</span><br><span class="line">                        rear = rear.next</span><br><span class="line">                    self._head = cur.next</span><br><span class="line">                    rear.next = self._head</span><br><span class="line">                else:</span><br><span class="line">                     pre.next = cur.next</span><br><span class="line">                return</span><br><span class="line">            else:</span><br><span class="line">                pre = cur</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line">        # 退出循环，cur指向尾节点</span><br><span class="line">        if cur.elem == item:</span><br><span class="line">            if cur == self._head:</span><br><span class="line">                # 链表只有一个节点</span><br><span class="line">                self._head = None</span><br><span class="line">            else:</span><br><span class="line">                pre.next = cur.next</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def search(self, item):</span><br><span class="line">        &quot;&quot;&quot;查找节点是否存在&quot;&quot;&quot;</span><br><span class="line">        if self.is_empty():</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">        cur = self._head</span><br><span class="line">        while cur.next != self._head:</span><br><span class="line">            if cur.elem == item:</span><br><span class="line">                return True</span><br><span class="line">            else:</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line">        if cur.elem == item:</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
+<p>只要弄懂了链表的原理，其实不管用什么语言实现，只不过是一种描述方式而已。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2018-03-15-linkList/" target="_blank" title="数据结构算法之 链表">http://yoursite.com/2018-03-15-linkList/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-03-31-arithmetic/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据结构算法之 常见算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018-01-30-new/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">记录Photos框架的使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链表概念"><span class="nav-number">1.1.</span> <span class="nav-text">链表概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单向节点"><span class="nav-number">1.1.1.</span> <span class="nav-text">单向节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向链表"><span class="nav-number">1.1.2.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环链表"><span class="nav-number">1.1.3.</span> <span class="nav-text">循环链表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储结构"><span class="nav-number">1.2.</span> <span class="nav-text">存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的几大特性"><span class="nav-number">1.3.</span> <span class="nav-text">链表的几大特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表主要有以下几个特性："><span class="nav-number">1.3.1.</span> <span class="nav-text">链表主要有以下几个特性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表的应用"><span class="nav-number">1.3.2.</span> <span class="nav-text">链表的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C代码实例"><span class="nav-number">1.3.3.</span> <span class="nav-text">C代码实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python代码的实现"><span class="nav-number">1.3.4.</span> <span class="nav-text">python代码的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向链表"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">单向链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表-1"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向链表实现的循环链表"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">单向链表实现的循环链表</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

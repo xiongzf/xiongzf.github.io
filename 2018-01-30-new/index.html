@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>记录photos框架的使用 | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="Photos里的一些坑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录Photos框架的使用">
+<meta property="og:url" content="http://yoursite.com/2018-01-30-new/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="Photos里的一些坑">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/xiongzf/img/blob/master/Snip20180129_1.png?raw=true">
+<meta property="og:updated_time" content="2018-07-08T06:28:21.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录Photos框架的使用">
+<meta name="twitter:description" content="Photos里的一些坑">
+<meta name="twitter:image" content="https://github.com/xiongzf/img/blob/master/Snip20180129_1.png?raw=true">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2018-01-30-new" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      记录Photos框架的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018-01-30-new/" class="article-date">
+	  <time datetime="2018-01-29T16:00:00.000Z" itemprop="datePublished">2018-01-30</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="记录Photos框架的使用"><a href="#记录Photos框架的使用" class="headerlink" title="记录Photos框架的使用"></a>记录Photos框架的使用</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几天项目里用到了图片选择器，就想把之前项目里用<strong>ALAssetsLibrary</strong>框架封装的图片选择器拿过来用，但是<strong>ALAssetsLibrary</strong>框架在9.0之后就被弃用了。所以，就要试试<strong>Photos</strong>框架了。<br>在网上找了几篇blog研究了一下，就搞了起来。期间也踩了几个坑，所以开篇记录一下。</p>
+<h2 id="第一波-获取用户相册"><a href="#第一波-获取用户相册" class="headerlink" title="第一波 获取用户相册"></a>第一波 获取用户相册</h2><p>先介绍一些概念，大家可以参考一下<a href="http://kayosite.com/ios-development-and-detail-of-photo-framework.html" target="_blank" rel="noopener">这篇blog</a></p>
+<ul>
+<li><strong>PHAsset：</strong>代表照片库中的一个资源，跟 ALAsset 类似，通过 PHAsset 可以获取和保存资源</li>
+<li><strong>PHFetchOptions：</strong>获取资源时的参数，可以传 nil，即使用系统默认值</li>
+<li><strong>PHFetchResult：</strong>表示一系列的资源集合，也可以是相册的集合</li>
+<li><strong>PHAssetCollection：</strong>表示一个相册或者一个时刻，或者是一个「智能相册（系统提供的特定的一系列相册，例如：最近删除，视频列表，收藏等等，如下图所示）</li>
+<li><strong>PHImageManager：</strong>用于处理资源的加载，加载图片的过程带有缓存处理，可以通过传入一个 PHImageRequestOptions 控制资源的输出尺寸等规格</li>
+<li><strong>PHImageRequestOptions：</strong>如上面所说，控制加载图片时的一系列参数</li>
+</ul>
+<p>先上一段获取相册的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//所有智能相册</span><br><span class="line">        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)</span><br><span class="line"></span><br><span class="line">         weak var weakSelf = self</span><br><span class="line">        DispatchQueue.global().async &#123;</span><br><span class="line">            smartAlbums.enumerateObjects(&#123; (collection, index, stop) in</span><br><span class="line">                if (collection.isKind(of: PHAssetCollection.self)) &#123;</span><br><span class="line">                    if (collection.localizedTitle == &quot;Recently Added&quot; || collection.localizedTitle == &quot;All Photos&quot;) &#123;</span><br><span class="line">                        weakSelf?.allAlbums.append(collection)</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            </span><br><span class="line">            DispatchQueue.main.async &#123;</span><br><span class="line">                weakSelf?.tableView?.reloadData()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>上述方法中的第一第二个参数的类型介绍：</p>
+<ol>
+<li><p><strong>PHAssetCollectionType</strong>有三个值：</p>
+<ul>
+<li><strong>album：</strong>自定义相册，例如：QQ</li>
+<li><strong>smartAlbum：</strong>相机胶卷、我的照片流、屏幕截图、全景照片等</li>
+<li><strong>moment：</strong>时刻</li>
+</ul>
+</li>
+<li><p><strong>PHAssetCollectionSubtype</strong>一些值：</p>
+<ul>
+<li><strong>albumRegular：</strong>用户在Photos中创建的相册，也就是我所谓的逻辑相册</li>
+<li><strong>albumSyncedEvent：</strong>使用iTunes从Photos照片库或者iPhoto照片库同步过来的事件。然而，在iTunes 12以及iOS 9.0 beta4上，选用该类型没法获取同步的事件相册，而必须使用AlbumSyncedAlbum。</li>
+<li><strong>albumSyncedFaces：</strong>使用iTunes从Photos照片库或者iPhoto照片库同步的人物相册。</li>
+<li><strong>albumSyncedAlbum：</strong>做了AlbumSyncedEvent应该做的事</li>
+<li><strong>albumImported：</strong>从相机或是外部存储导入的相册，完全没有这方面的使用经验，没法验证。</li>
+</ul>
+</li>
+</ol>
+<!--PHAssetCollectionSubtypeAlbumRegular//用户在Photos中创建的相册，也就是我所谓的逻辑相册
+PHAssetCollectionSubtypeAlbumSyncedEvent//使用iTunes从Photos照片库或者iPhoto照片库同步过来的事件。然而，在iTunes 12以及iOS 9.0 beta4上，选用该类型没法获取同步的事件相册，而必须使用AlbumSyncedAlbum。
+PHAssetCollectionSubtypeAlbumSyncedFaces//使用iTunes从    Photos照片库或者iPhoto照片库同步的人物相册。
+PHAssetCollectionSubtypeAlbumSyncedAlbum//做了AlbumSyncedEvent应该做的事
+PHAssetCollectionSubtypeAlbumImported//从相机或是外部存储导入的相册，完全没有这方面的使用经验，没法验证。
+PHAssetCollectionSubtypeAlbumMyPhotoStream//用户的iCloud照片流
+PHAssetCollectionSubtypeAlbumCloudShared//用户使用iCloud共享的相册
+PHAssetCollectionSubtypeSmartAlbumGeneric//文档解释为非特殊类型的相册，主要包括从iPhoto同步过来的相册。由于本人的iPhoto已被Photos替代，无法验证。不过，在我的iPad mini上是无法获取的，而下面类型的相册，尽管没有包含照片或视频，但能够获取到。
+PHAssetCollectionSubtypeSmartAlbumPanoramas//相机拍摄的全景照片
+PHAssetCollectionSubtypeSmartAlbumVideos//相机拍摄的视频
+PHAssetCollectionSubtypeSmartAlbumFavorites//收藏文件夹
+PHAssetCollectionSubtypeSmartAlbumTimelapses//延时视频文件夹，同时也会出现在视频文件夹中
+PHAssetCollectionSubtypeSmartAlbumAllHidden//包含隐藏照片或视频的文件夹
+PHAssetCollectionSubtypeSmartAlbumRecentlyAdded//相机近期拍摄的照片或视频
+PHAssetCollectionSubtypeSmartAlbumBursts//连拍模式拍摄的照片，在iPad mini上按住快门不放就可以了，但是照片依然没有存放在这个文件夹下，而是在相机相册里。
+PHAssetCollectionSubtypeSmartAlbumSlomoVideos//Slomo是slow motion的缩写，高速摄影慢动作解析，在该模式下，iOS设备以120帧拍摄。不过我的iPad mini不支持，没法验证。
+PHAssetCollectionSubtypeSmartAlbumUserLibrary//这个命名最神奇了，就是相机相册，所有相机拍摄的照片或视频都会出现在该相册中，而且使用其他应用保存的照片也会出现在这里。
+PHAssetCollectionSubtypeAny//包含所有类型-->
+<p>从上面的方法中我们可以获取到用户相关的相册，<code>collection.localizedTitle</code>获取相册名字，对应的中英文对照如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[&quot;Slo-mo&quot; : &quot;慢动作&quot;, </span><br><span class="line">&quot;Recently Added&quot; : &quot;最近添加&quot;, </span><br><span class="line">&quot;Favorites&quot; : &quot;个人收藏&quot;, </span><br><span class="line">&quot;Recently Deleted&quot; : &quot;最近删除&quot;,</span><br><span class="line">&quot;Videos&quot; : &quot;视频&quot;,</span><br><span class="line">&quot;All Photos&quot; : &quot;所有照片&quot;,</span><br><span class="line">&quot;Selfies&quot; : &quot;自拍&quot;,</span><br><span class="line">&quot;Screenshots&quot; : &quot;屏幕快照&quot;,</span><br><span class="line">&quot;Camera Roll&quot; : &quot;相机胶卷&quot;,</span><br><span class="line">&quot;Panoramas&quot; : &quot;全景照片&quot;,</span><br><span class="line">&quot;Hidden&quot; : &quot;已隐藏&quot;,</span><br><span class="line">&quot;Time-lapse&quot; : &quot;延时拍摄&quot;,</span><br><span class="line">&quot;Bursts&quot; : &quot;连拍快照&quot;.</span><br><span class="line">&quot;Depth Effect&quot; : &quot;景深效果&quot;]</span><br></pre></td></tr></table></figure>
+<h2 id="第二波-获取相册中的资源"><a href="#第二波-获取相册中的资源" class="headerlink" title="第二波 获取相册中的资源"></a>第二波 获取相册中的资源</h2><p>先来一波代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let options = PHFetchOptions()</span><br><span class="line">options.sortDescriptors = [NSSortDescriptor.init(key: &quot;creationDate&quot;, ascending: true)]</span><br><span class="line">options.predicate = NSPredicate.init(format: &quot;mediaType == %ld&quot;, PHAssetMediaType.image.rawValue)</span><br><span class="line">let fetchResult = PHAsset.fetchAssets(in: phCollection!, options: options)</span><br><span class="line">        </span><br><span class="line">weak var weakSelf = self</span><br><span class="line">DispatchQueue.global().async &#123;</span><br><span class="line">    fetchResult.enumerateObjects &#123; (asset, index, stop) in</span><br><span class="line">        weakSelf?.dataSource.append(asset)</span><br><span class="line">    &#125;</span><br><span class="line">            </span><br><span class="line">    DispatchQueue.main.async &#123;</span><br><span class="line">         ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中，通过谓词<strong>NSPredicate</strong>筛选出所有的照片资源。<br><strong>PHAssetMediaType</strong>有四个值：</p>
+<ul>
+<li>unknown：未知</li>
+<li>image：图片</li>
+<li>video：视频</li>
+<li>audio：音频</li>
+</ul>
+<p><strong>PHAsset</strong>代表照片库中的一个资源，跟<strong>ALAsset</strong>类似，通过<strong>PHAsset</strong>我们可以获取和保存资源。<br>打印asset显示包含如下信息：<br><img src="https://github.com/xiongzf/img/blob/master/Snip20180129_1.png?raw=true" alt=""></p>
+<h2 id="第三波-获取相册里的图片"><a href="#第三波-获取相册里的图片" class="headerlink" title="第三波 获取相册里的图片"></a>第三波 获取相册里的图片</h2><p>废话不多说，直接上代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DispatchQueue.global().async &#123;</span><br><span class="line">    let requestOptions = PHImageRequestOptions()</span><br><span class="line">    requestOptions.resizeMode = .fast</span><br><span class="line">            </span><br><span class="line">    weak var weakSelf = self</span><br><span class="line">    let manager = PHImageManager.default()</span><br><span class="line">    manager.requestImage(for: asset, targetSize: self.getTargetSize(), contentMode: .aspectFit, options: requestOptions, resultHandler: &#123; (image, dic) in</span><br><span class="line">        DispatchQueue.main.async &#123;</span><br><span class="line">            if image != nil &#123;</span><br><span class="line">                weakSelf?.imgView.image = image</span><br><span class="line">                ...</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>图片的获取是通过<strong>PHImageManager</strong>来获得，在这里遇到了一个坑，在网上普遍看到的写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DispatchQueue.global().async &#123;</span><br><span class="line">    let requestOptions = PHImageRequestOptions()</span><br><span class="line">    requestOptions.deliveryMode = .highQualityFormat</span><br><span class="line">    requestOptions.isSynchronous = true</span><br><span class="line">    //requestOptions.isNetworkAccessAllowed = true</span><br><span class="line">    weak var weakSelf = self</span><br><span class="line">    let manager = PHImageManager.default()</span><br><span class="line">    manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: requestOptions, resultHandler: &#123; (image, dic) in</span><br><span class="line">        DispatchQueue.main.async &#123;</span><br><span class="line">            if image != nil &#123;</span><br><span class="line">                weakSelf?.imgView.image = image</span><br><span class="line">                weakSelf?.kXZFImage = image</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中不包含<code>requestOptions.isNetworkAccessAllowed = true</code>此句代码，在模拟器上获取到了图片，但是在真机上调试的时候，打印出来的<strong>image = nil</strong>，很是纳闷，然后各种搜索查代码，然后把<strong>targetSize</strong>，给替换成了一个固定的值，结果打印出来的图片尺寸全部都是一样，并不是原图。最后又是各种尝试，查找资料，发现一篇文章里的代码包含这一句<code>requestOptions.isNetworkAccessAllowed = true</code>代码，然后再去尝试，发现获取原图成功了。应该是<strong>PHImageManager</strong>需要从Apple方获取原图。<br>如果想获取自定义的图片尺寸，就按照第一种写法，可以快速的获取到图片。如果想获取原图，就需要按照第二种写法，获取，把注释掉的代码释放出来，这样有一个问题就是，相册图片比较多，图片比较大的时候，加载会比较慢。</p>
+<p>第一种写法的<strong>requestOptions.resizeMode</strong>有三个可选项</p>
+<ul>
+<li><strong>none</strong> // no resize 不重设size</li>
+<li><strong>fast</strong> // use targetSize as a hint for optimal decoding when the source image is a compressed format (i.e. subsampling), the delivered image may be larger than targetSize  （当源图像是压缩格式(即次采样)时，使用Target Size作为最佳解码提示时，交付的图像可能大于Target Size）</li>
+<li><strong>exact</strong> // same as above but also guarantees the delivered image is exactly targetSize (must be set when a normalizedCropRect is specified) （与上面相同，但也保证交付的图像是准确的目标大小(必须在指定了规范化的CropRect时设置)）</li>
+</ul>
+<p>第二种写法的<strong>requestOptions.deliveryMode</strong></p>
+<ul>
+<li><strong>opportunistic</strong> // client may get several image results when the call is asynchronous or will get one result when the call is synchronous （当调用是异步的时，客户端可能会得到多个映像结果，或者在调用是同步的时候会得到一个结果。）</li>
+<li><strong>highQualityFormat</strong> // client will get one result only and it will be as asked or better than asked (sync requests are automatically processed this way regardless of the specified mode)（客户端将只获得一个结果，并且它将被问到或者比被请求的结果更好(同步请求将以这种方式自动处理，而不管指定的模式如何)。）</li>
+<li><strong>fastFormat</strong> // client will get one result only and it may be degraded （客户端只会得到一个结果，并且可能会降级。）</li>
+</ul>
+<p>具体的详解，可以看开篇提到的这篇blog，有系列的介绍。本次遇到的坑就是这些，记录一下，以防下次再踩。结尾，谢谢网上各位的分享，让知识传播起来。本文源码<a href="https://github.com/xiongzf/code.git" target="_blank" rel="noopener">请戳这里</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2018-01-30-new/" target="_blank" title="记录Photos框架的使用">http://yoursite.com/2018-01-30-new/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018-03-15-linkList/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据结构算法之 链表
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017-11-14-socket/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS深入学习 - Socket</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#记录Photos框架的使用"><span class="nav-number">1.</span> <span class="nav-text">记录Photos框架的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一波-获取用户相册"><span class="nav-number">1.2.</span> <span class="nav-text">第一波 获取用户相册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二波-获取相册中的资源"><span class="nav-number">1.3.</span> <span class="nav-text">第二波 获取相册中的资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三波-获取相册里的图片"><span class="nav-number">1.4.</span> <span class="nav-text">第三波 获取相册里的图片</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

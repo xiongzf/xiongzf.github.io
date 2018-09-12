@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ios深入学习 - runtime | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="iOS深入学习 - Runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS深入学习 - Runtime">
+<meta property="og:url" content="http://yoursite.com/2017-10-20-runtime/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="iOS深入学习 - Runtime">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-c24b99d58f101b85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-b605d548fb60ef79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-628a7025a37e51c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-b1d3cdf3d638b6c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1975901-e8f7ee567dfff051.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-08T06:27:26.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS深入学习 - Runtime">
+<meta name="twitter:description" content="iOS深入学习 - Runtime">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1975901-c24b99d58f101b85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2017-10-20-runtime" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      iOS深入学习 - Runtime
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017-10-20-runtime/" class="article-date">
+	  <time datetime="2017-10-19T16:00:00.000Z" itemprop="datePublished">2017-10-20</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SmallTalk-与-C-的融合–Objective-C"><a href="#SmallTalk-与-C-的融合–Objective-C" class="headerlink" title="SmallTalk 与 C 的融合–Objective-C"></a>SmallTalk 与 C 的融合–Objective-C</h2><p>三十几年前，Brad Cox 和 Tom Love在主流且高效的C语言基础上，借鉴Smalltalk的面向对象与消息机制，想要搞出一个易用且轻量的C语言扩展，但C和Smalltalk的思想和语法格格不入，比如在Smalltalk中一切皆对象，一切调用都是消息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">233 log</span><br></pre></td></tr></table></figure>
+<p>再比如用一个工厂方法来实例化一个对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p := Person name: &apos;sunnyxx&apos; age: 26</span><br></pre></td></tr></table></figure>
+<p>在当时来看，一个具有面向对象功能的C语言真的是非常有吸引力，但必须得解决消息语法的转换，于是乎他们开发了一个Preprocessor(预编译程序)，去解析Smalltalk风格的语法，再转换成C语言的代码，进而和其他C代码一起编译。想法很美好，但Smalltalk语法里又是空格、又是冒号的，万一遇到个什么复杂嵌套调用，语法解析多难写呀，于是乎他们想，把消息两边加个中括号吧，这样Parser写起来简单多了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Person name: &quot;sunnyxx&quot; age: 26];</span><br></pre></td></tr></table></figure>
+<p>这就造就了Objective-C奇怪的中括号、冒号四不像语法，这怎么看都是个临时的方案，但当时可能是唯一的方法，借用已有的C的编译器比重造一个成本低多了，而且完全兼容C语言。随着这几年Apple开发的火热，Objective-C越来越成为Apple不爽的地方，先是恨透了在GCC上给Objective-C加支持，自己重建了个Clang，后是干脆重新发明了Swift来彻底代替，用了30年的时间终于还完了技术债。</p>
+<p>虽然有了个<strong>Preprocessor</strong>，但只能做到把<strong>Smalltalk</strong>风格的代码分析并转译成C，还需要解决两个问题：</p>
+<ol>
+<li>C语言上实现一个<strong>OOP</strong>对象模型</li>
+<li>将<strong>Smalltalk</strong>风格的<strong>Message</strong>机制转换成C函数调用</li>
+</ol>
+<p><strong>对象模型</strong>的设计倒很省事，直接搬照<strong>Smalltalk</strong>的就好了：如<strong>Class/Meta Class/Instance Method/Class Method</strong>这些概念，还有一些关键字如<strong>self/super/nil</strong>等全都是<strong>Smalltalk</strong>的。这步转换在<strong>Preprocessing</strong>过程中就可以完成，因为重写后的<strong>Class</strong>就是原原本本的C语言的<strong>Struct</strong>，只需要按<strong>Smalltalk</strong>中“类-元类”的模型设置好即可，无需额外的支持。<br><strong>消息机制</strong>就不一样了，要实现向一个<strong>target(class/instance)</strong>发送消息名<strong>(selector)</strong>动态寻找到函数实现地址<strong>(IMP)</strong>并调用的过程，还要处理消息向父类传递、消息转发(Smallltalk中叫<strong>“Message-Not-Understood”</strong>)等，这些行为无法在<strong>Preprocessing</strong>或<strong>Build Time</strong>实现，需要提供若干运行时的C函数进行支持，所有这些函数打个包，便形成了最原始的Runtime。</p>
+<p>所以最初的<strong>Objective-C = C + Preprocessor + Runtime</strong></p>
+<p><strong>注：GCC中一开始用预处理器来支持Objective-C，之后作为一个编译器模块，再后来都交给了Clang实现。</strong></p>
+<p>作为单纯的C语言扩展，Runtime中只要实现几个最基础的函数(如objc_msgSend)即可，但为了构建整套Objective-C面向对象的基础库(如Foundation)，Runtime还需要提供像NSObject这样的Root Class作为面向对象的起点、提供运行时反射机制以及运行时对Class结构修改的API等。再后来，即便是Objective-C语言本身的不断发展，新语言特性的加入，也不在乎是扩展Clang和扩展Runtime，比如：</p>
+<ul>
+<li>ARC：编译器分析对象引用关系，在合适的位置插入内存管理的函数，并需要把这些函数打包加到Runtime中，如 ==objc_storeStrong==,==objc_storeWeak==等。同时还要处理dealloc函数，自动加入对super的调用等，具体可以看<a href="http://blog.sunnyxx.com/2014/04/02/objc_dig_arc_dealloc/" target="_blank" rel="noopener">这篇文章</a>。</li>
+<li>Lightweight Generics：叫做“轻量泛型”是因为只增加了编译器检查支持，而泛型信息并未影响到运行时，所以Runtime库无需改动。</li>
+<li>Syntax Sugars：比如Boxed Expr(<code>@123</code>)、Array Literal(<code>@[...]</code>)、Dictionary Literal(<code>@{...}</code>)和轻量泛型一样，只是把如<code>@123</code>在编译rewrite成<code>[NSNumber numberWithInt: 123]</code>而已，无需改动Runtime。</li>
+<li>Non Fragile Ivars: 类实例变量的动态调整技术，用于实现Objective-C Binary的兼容性，随着Objective-C 2.0出现，需要编译器和Runtime的共同配合，感兴趣的可以看<a href="http://quotation.github.io/objc/2015/05/21/objc-runtime-ivar-access.html" target="_blank" rel="noopener">这篇文章</a>。</li>
+</ul>
+<p>因此，Runtime的精髓并非在于平日里很少接触的那些所谓的“黑魔法”Runtime API、也并非各种Swizzle大法，而是Objective-C语言层面如何处理Type、处理Value、如何设计OOP数据结构和消息机制、如何设计ABI等，去了解这么一个小而精美的C语言运行时扩展是怎么设计出来的。</p>
+<p>相关的文章：<br><a href="https://zh.wikipedia.org/wiki/Objective-C" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Objective-C</a><br><a href="http://web.cecs.pdx.edu/~harry/musings/SmalltalkOverview.html" target="_blank" rel="noopener">http://web.cecs.pdx.edu/~harry/musings/SmalltalkOverview.html</a></p>
+<h2 id="Runtime简介"><a href="#Runtime简介" class="headerlink" title="Runtime简介"></a>Runtime简介</h2><p>作为一门动态语言，Objective-C会尽可能的将编译和链接时要做的事情推迟到运行时。只要有可能，Objective-C总是使用动态的方式来解决问题。这意味着Objective-C语言不仅需要一个编译环境，同时也需要一个运行时系统来执行编译好的代码。运行时系统(runtime)扮演的角色类似于Objective-C语言的操作系统，Objective-C基于该系统来工作的。因此，runtime好比Objective-C的灵魂，很多东西都是在这个基础上出现的。所以它是值得你花功夫去理解的。</p>
+<h3 id="与静态语言编译后的区别"><a href="#与静态语言编译后的区别" class="headerlink" title="与静态语言编译后的区别"></a>与静态语言编译后的区别</h3><h4 id="1、静态语言"><a href="#1、静态语言" class="headerlink" title="1、静态语言"></a>1、静态语言</h4><p>一个静态语言程序，如下所示的C程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main(int argc, const char **argv[]) &#123;</span><br><span class="line">    printf(&quot;Hello World&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>会经过编译器的语法分析，优化然后将你最佳化的代码编译成汇编语言，然后完全按照你设计的逻辑和你的代码自上而下执行。</p>
+<h4 id="2、Objective-C-动态语言"><a href="#2、Objective-C-动态语言" class="headerlink" title="2、Objective-C 动态语言"></a>2、Objective-C 动态语言</h4><p>很常见的一个消息发送语句：</p>
+<blockquote>
+<p>[receiver message]</p>
+</blockquote>
+<p>会被编译器转化成</p>
+<blockquote>
+<p>objc_msgSend(receiver, selector)</p>
+</blockquote>
+<p>如果有参数则为</p>
+<blockquote>
+<p>objc_msgSend(receiver, selector, arg1, arg2, …)</p>
+</blockquote>
+<p>消息只有到运行时才会和函数实现绑定起来，而不是按照编译好的逻辑一成不变的执行。按照作者的理解，<strong>编译阶段只是确定了要去向receiver对象发送message消息，但是却没有发送，真正发送是等到运行的时候进行。因此，编译阶段完全不知道message方法的具体实现，甚至，该方法到底有没有被实现也不知道</strong>。这就有可能导致运行时奔溃问题。</p>
+<h3 id="Objective-C-Runtime的几点说明"><a href="#Objective-C-Runtime的几点说明" class="headerlink" title="Objective-C Runtime的几点说明"></a>Objective-C Runtime的几点说明</h3><p> <strong>1、runtime是开源的</strong></p>
+<p>目前Apple公司和GNU公司各自维护一个开源的runtime版本，这两个版本之间都在努力的保持一致。其中Apple的版本可以在工程中引用<br><code>#import &lt;objc/runtime.h&gt; 点击右键jump to definition，进去查看</code></p>
+<p><strong>2、runtime是由<a href="http://lib.csdn.net/base/c" target="_blank" rel="noopener">C语言</a>实现的</strong></p>
+<p>runtime作为Objective-C最核心的部分，几乎全部由C语言实现。这里的“几乎”所指的例外就包含有的方法(比如下面要说到的objc_msgSend方法)甚至是用汇编实现的</p>
+<p><strong>3、runtime的两个版本</strong></p>
+<p>Objective-C运行时系统有两个已知版本：早期版本(Legacy)和现行版本(Modern)。<br>在现行版本中，最显著的新特性就是实例变量是“健壮”(non-fragile)的：</p>
+<blockquote>
+<p>在早期版本中，如果你改变类中实例变量的布局，你必须重新编译该类的所有子类。<br>在现行版本中，如果你改变类中实例变量的布局，你无需重新编译该类的任何子类。<br>此外，现行版本支持声明property的synthesis属性器。</p>
+</blockquote>
+<h3 id="和Runtime-system交互的三种方式"><a href="#和Runtime-system交互的三种方式" class="headerlink" title="和Runtime system交互的三种方式"></a>和Runtime system交互的三种方式</h3><p><strong>1、通过Objective-C源代码</strong></p>
+<p>大部分情况下，运行时系统在后台自动运行，我们只需要编写和编译Objective-C源代码。<br>当编译Objective-C类和方法时，编译器为实现语言动态特性将自动创建一些<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="noopener">数据结构</a>和函数。这些数据结构包含类定义和协议定义中的信息，如在Objective-C 2.0 程序设计语言中定义类和协议类一节所讨论的<strong>类的对象</strong>和<strong>协议类的对象</strong>，方法选标，实例变量模板，以及其他来自于源代码的信息。运行时系统的主要功能就是根据源代码中的表达式发送消息。</p>
+<p><strong>2、通过类NSObject的方法</strong></p>
+<p>Cocoa程序中绝大部分类都是NSObject类的子类，所以大部分都继承了NSObject类的方法，因而继承了NSObject的行为(NSProxy类是个例外)。然而，某些情况下，NSObject类仅仅定义了完成某件事情的模板，而没有提供所有需要的代码。</p>
+<p>例如，NSObject类定义了description方法，返回该类内容的字符串表示。这主要是用来调试程序–GDB中的print-object方法就是直接打印出该方法返回的字符串。NSObject类中该方法的实现并不知道子类中的内容，所以它只是返回类的名字和对象的地址。NSObject的子类可以重新实现该方法以提供更多的信息。</p>
+<p>某些NSObject的方法只是简单的从运行时系统中获取信息，从而允许对象进行一定程度的自我检查。</p>
+<p>例如，<strong>class返回对象的类；isKindOfClass:和isMemberOfClass:则检查对象是否在指定的类继承体系中；respondsToSelector:检查对象能否响应指定的消息；conformsToProtocol:检查对象是否实现了指定协议类的方法；methodForSelector:则返回指定方法实现的地址</strong>。</p>
+<p><strong>3、通过运行时系统的函数</strong></p>
+<p>运行时系统是一个有公开接口的动态库，由一些数据接口和函数的集合组成，这些数据结构和函数的声明头文件在<strong>/usr/include/objc</strong>中。这些函数支持用纯C的函数来实现和Objective-C同样的功能。还有一些函数构成了NSObject类方法的基础。这些函数使得访问运行时系统接口和提供开发工具成为可能。尽管大部分情况下它们在Objective-C程序不是必须的，但是有时候对于Objective-C程序来说某些函数是非常有用的。这些函数的文档参见Objective-C 2.0运行时系统参考库。</p>
+<h2 id="Runtime的几个概念"><a href="#Runtime的几个概念" class="headerlink" title="Runtime的几个概念"></a>Runtime的几个概念</h2><h3 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h3><p>SEL又叫方法选择器，这到底是个什么玩意呢？在objc.h中是这样定义的：</p>
+<blockquote>
+<p>typedef struct objc_selector *SEL;</p>
+</blockquote>
+<p>这个SEL表示什么？首先，说白了，方法选择器仅仅是一个char*指针，仅仅表示它所代表的方法名字罢了。Objective-C在编译的时候，会根据方法的名字，生成一个用来区分这个方法的唯一的一个ID，这个ID就是SEL类型的。我们需要注意的是，只要方法的名字相同，那么它们的ID都是相同的。就是说，不管是超类还是子类，不管有没有超类和子类的关系，只要名字相同那么ID就是一样的。</p>
+<p>而这也就导致了Objective-C在处理有相同函数名和参数个数但参数类型不同的函数的能力非常的弱，比如当你想在程序中实现下面两个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-(void)setWidth: (int)width;</span><br><span class="line">-(void)setWidth: (double)width;</span><br></pre></td></tr></table></figure>
+<p>这样的函数则被认为是一种编译错误，而这最终导致了一个非常非常奇怪的Objective-C特色的函数命名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-(void)setWidthIntValue: (int)width;</span><br><span class="line">-(void)setWidthDoubleValue: (double)width;</span><br></pre></td></tr></table></figure>
+<p>可能有人会问，runtime费了老半天劲，究竟想做什么？</p>
+<p>刚才我们说道，编译器会根据每个方法的方法名为那个方法生成唯一的SEL，这些SEL组成一个Set集合，这个Set简单的说就是一个经过了优化过的hash表。而Set的特点就是唯一，也就是SEL是唯一的，因此，如果我们想到这个方法集合中查找某个方法时，只需要去找到这个方法对应的SEL就行了，SEL实际上就是根据方法名hash化了的一个字符串，而对于字符串的比较仅仅需要比较他们的地址就可以了，犀利，速度上无与伦比。但是，有一个问题，就是数量增多会增大hash冲突而导致的性能下降(或是没有冲突，因为也可能用的是perfect hash)。但是不管使用什么样的方法加速，如果能够将总量减少(多个方法可能对应同一个SEL),那将是最犀利的方法。那么，我们就不难理解，为什么SEL仅仅是函数名了。</p>
+<p>到这里，我们明白了，本质上，SEL只是一个指向方法的指针(准确的说，只是一个根据方法名hash化了的KEY值，能唯一代表一个方法)，它的存在只是为了加快方法的查询速度。</p>
+<p>通过下面三种方法可以获取SEL：</p>
+<ol>
+<li>sel_registerName函数</li>
+<li>Objective-C 编译器提供的@selector()</li>
+<li>NSSelectorFromString()方法</li>
+</ol>
+<h3 id="IMP，方法实现的指针"><a href="#IMP，方法实现的指针" class="headerlink" title="IMP，方法实现的指针"></a>IMP，方法实现的指针</h3><p>IMP在objc.h中是如此定义的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef id(*IMP)(id, SEL, ...);</span><br></pre></td></tr></table></figure>
+<p>第一个参数：是指向self的指针(如果是实例方法，则是类实例的内存地址；如果是类方法，则是指向元类的指针)，这个比SEL要好理解多了，熟悉C语言的同学都知道，这其实是一个函数指针。<br>第二个参数：是方法选择器(selector)</p>
+<p>接下来的参数：方法的参数列表</p>
+<p>前面介绍过的SEL就是为了查找方法的最终实现IMP的，由于每个方法对应唯一的SEL，因此我们可以通过SEL方便快速准确的获得它所对应的IMP，查找过程将在下面讨论。取得IMP后，我们就获得了执行这个方法代码的入口点，此时，我们可以像调用普通的C语言函数一样来使用这个函数指针了。</p>
+<p>下面的例子，介绍了取得函数指针，即函数指针的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void(* performMessage)(id, SEL);//定义一个IMP(函数指针)</span><br><span class="line">performMessage = (void)(*)(id, SEL)[self methodForSelector: @selector(message)];//通过methodForSelector方法根据SEL获取对应的函数指针</span><br><span class="line">performMessage(self, @selector(message));//通过取到的IMP（函数指针）跳过runtime消息传递机制，直接执行message方法</span><br></pre></td></tr></table></figure>
+<p>用IMP的方式，省去了runtime消息传递过程中所做的一系列动作，比直接向对象发送消息效率高效一些。</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><p>Method用于表示类定义中的方法，则定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_method *Methodstructobjc_method &#123;</span><br><span class="line">    SEL method_name   OBJC2_UNAVAILABLE; //方法名</span><br><span class="line">    char *method_types OBJC2_UNAVAILABLE;</span><br><span class="line">    IMP method_imp OBJC2_UNAVAILABLE; //方法实现</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到该结构体中包含一个SEL和IMP，实际上相当于在SEL和IMP之间作了一个映射。有了SEL，我们便可以找到对应的IMP，从而调节方法的实现代码</p>
+<h3 id="元类-Meta-Class"><a href="#元类-Meta-Class" class="headerlink" title="元类(Meta Class)"></a>元类(Meta Class)</h3><p>meta-class是一个类对象的类(注意是类对象)。<br>在上面我们提到，所有的类自身也是一个对象，我们可以向这个对象发送消息(即调用类方法)。<br>既然是对象，那么它也是一个objc_object指针，它包含了一个指向其类的一个isa指针。那么，这个isa指针指向什么呢？<br>为了调用类方法，这个类的isa指针必须指向一个包含这些类方法的一个objc_class结构体。这就引出了meta-class的概念，meta-class中存储着一个类的所有类方法。</p>
+<p>所以，调用类方法的这个类对象的isa指针指向的就是meta-class。</p>
+<p>当我们向一个对象发送消息时，runtime会在这个对象所属的这个类的方法列表中查找方法；而向一个类发送消息时，会在这个类的meta-class的方法列表中查找。</p>
+<p>再深入一下，meta-class也是一个类，也可以向他发送一个消息，那么它的isa又是指向什么呢？为了不让这种结构无线延伸下去，Objective-C的设计者让所有的meta-class的isa指向基类的meta-class，以此作为他们的所属类。即，任何NSObject继承体系下的meta-class都使用NSObject的meta-class作为自己的所属类，而基类的meta-class的isa指针是指向它自己。</p>
+<p>通过上面的描述，再加上对objc_class结构体中super_class指针的分析，我们就可以描绘出类及相对应meta-class类的一个继承体系，如下图：<br><img src="http://upload-images.jianshu.io/upload_images/1975901-c24b99d58f101b85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h3><p>Category是表示一个指向分类的结构体的指针，其定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_category* Category &#123;</span><br><span class="line">    char *category_name OBJC2_UNAVAILABLE; //分类名char *cla</span><br><span class="line">    ss_name OBJC2_UNAVAILABLE; //分类所属的类名structobjc</span><br><span class="line">    _method_list *instance_methods OBJC2_UNAVAILABLE; //实例方法列表struc</span><br><span class="line">    tobjc_method_list *class_methods OBJC2_UNAVAILABLE; //类方法列表str</span><br><span class="line">    uctobjc_protocol_list *protocols OBJC2_UNAVAILABLE; //分类所实现的协议列表</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个结构体主要包含了分类定义的实例方法与类方法，其中instance_methods列表是objc_class中方法列表的一个子集，而class_methods列表是元类方法列表的一个子集。</p>
+<p>可发现，类别中没有ivar成员变量指针，也就意味着：类别中不能够添加实例变量和属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct objc_ivar_list *ivars  OBJC2_UNAVAILABLE; //该类的成员变量链表</span><br></pre></td></tr></table></figure>
+<h3 id="objc-class"><a href="#objc-class" class="headerlink" title="objc_class"></a>objc_class</h3><p>Objective-C类是由Class类型来表示的，它实际上是一个指向objc_class结构体的指针。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef struct object_class *Class</span><br></pre></td></tr></table></figure>
+<p>它的定义如下：</p>
+<p>查看objc/runtime.h中objc_class结构体的定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">struct object_class &#123;</span><br><span class="line">    Class isa OBJC_ISA_AVAILABILITY;</span><br><span class="line">    #if!__OBJC2__</span><br><span class="line">    Class super_class  OBJC2_UNAVAILABLE; //父类</span><br><span class="line">    const char *name  OBJC2_UNAVAILABLE; //类名</span><br><span class="line">    long version  OBJC2_UNAVAILABLE; //类的版本信息，默认0 </span><br><span class="line">    long info  OBJC2_UNAVAILABLE; //类信息，供运行期使用的一些位标识</span><br><span class="line">    long  instance_size  OBJC2_UNAVAILABLE; //该类的实例变量大小</span><br><span class="line">    struct objc_ivar_list *ivars  OBJC2_UNAVAILABLE; //该类的成员变量链表</span><br><span class="line">    struct objc_method_list *methodLists  OBJC2_UNAVAILABLE; //方法定义的链表</span><br><span class="line">    struct objc_cache *cache  OBJC2_UNAVAILABLE; //方法缓存</span><br><span class="line">    struct objc_protocol_list *protocol  OBJC2_UNAVAILABLE; //协议链表</span><br><span class="line">    #endif</span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br></pre></td></tr></table></figure>
+<h3 id="objc-object"><a href="#objc-object" class="headerlink" title="objc_object"></a>objc_object</h3><p>objc_object是表示一个类的实例的结构体</p>
+<blockquote>
+<p>它的定义如下(objc/objc.h):<br>struct objc_object { Class isa OBJC_ISA_AVAILABILITY;};<br>typedef struct objc_object *id;</p>
+</blockquote>
+<p>可以看到，这个结构体只有指向类的isa指针。这样，当我们向一个Objective-C对象发送消息时，运行时库会根据实例对象的isa指针找到这个实例对象所属的类。runtime库会在类的方法列表及父类的的方法列表中去寻找与消息对应的selector指向的方法，找到后即运行这个方法。</p>
+<h2 id="消息调用流程"><a href="#消息调用流程" class="headerlink" title="消息调用流程"></a>消息调用流程</h2><h3 id="传递消息所用的几个runtime方法"><a href="#传递消息所用的几个runtime方法" class="headerlink" title="传递消息所用的几个runtime方法"></a>传递消息所用的几个runtime方法</h3><p>前面我们说过，下面的方法：</p>
+<blockquote>
+<p><code>[receiver message]</code><br><code>objc_msgSend(receiver, selector)</code></p>
+</blockquote>
+<p>实际上，同objc_msgSend方法类似的还有几个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">objc_msgSend_stret (返回值是结构体)</span><br><span class="line">objc_msgSend_fpret (返回值是浮点型)</span><br><span class="line">objc_msgSendSuper (调用父类方法)</span><br><span class="line">objc_msgSendSuper_stret (调用父类方法，返回值是结构体)</span><br></pre></td></tr></table></figure>
+<p>它们的作用都是类似的，为了简单起见，后续介绍消息和消息传递机制都以objc_msgSend方法为例。</p>
+<h3 id="消息调用"><a href="#消息调用" class="headerlink" title="消息调用"></a>消息调用</h3><p>一切还是从消息表达式[receiver message]开始，在被转换成objc_msgSend(receiver, SEL)后，在运行时，runtime system会做以下事情：</p>
+<ol>
+<li>检查忽略的Selector，比如当我们运行在有垃圾回收机制的环境中，将会忽略retain和release消息。</li>
+<li>检查receiver是否为nil。不像其他语言，nil在Objective-C中是完全合法的，并且这里有很多原因你也愿意这样，比如，至少我们省去了给一个对象发送消息前检查对象是否为空的操作。如果receiver为空，则会将selector也设置为空，并且直接返回到消息调用的地方。如果对象非空，就继续下一步。</li>
+<li>接下来会根据SEL到当前类中查找对应的IMP，首先会在cache中检索它，如果找到了就根据函数指针跳转到这个函数执行，否则进行下一步。</li>
+<li>检索当前类对象中的方法表(method list)，如果找到了，加入cache中，并且跳转到这个函数执行，否则进行下一步。</li>
+<li>从父类中寻找，直到根类：NSObject类。找到了就将方法加入对应类的cache表中，如果仍未找到，则要进入后文介绍的内容：<strong>动态方法决议</strong>。</li>
+<li>如果动态方法决议仍不能解决问题，只能进行最后一次尝试，进入<strong>消息转发流程</strong>。</li>
+<li>如果还不行，会奔溃。</li>
+</ol>
+<p>这里的调用可以分成两部分<br><strong>1、调用的方法可以找到（执行步骤1-4）</strong><br>下面的图部分展示了这个调用过程：<br>当消息发送给一个对象时，首先从运行时系统缓存使用过的方法中寻找。如果找到，执行方法，如果没有找到继续执行下面的步骤。objc_msgSend通过对象的isa指针获取到类的结构体，然后在方法分发表里面查找方法的selector。如果没有找到selector， objc_msgSend结构体中的指向父类的指针找到其父类，并在父类的分发表里面查找方法的selector。依此，会一直沿着类的继承体系到达NSObject类。一旦定位到selector，函数就获取到了实现的入口点，并传入相应的参数来执行方法的具体实现，并将该方法添加进入缓存中，如果最后没有定位到selector，则会走动态解析流程。<br><img src="http://upload-images.jianshu.io/upload_images/1975901-b605d548fb60ef79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><strong>2、调用的方法找不到（消息转发机制）</strong><br>当一个对象能接收一个消息时，就会走正常的方法调用流程。但如果一个对象无法接收指定消息时，又会发生什么事呢？默认情况下，如果是以[objc message]的方式调用方法，如果object无法响应message消息时，编译器会报错。但如果是以perform…的形式来调用，此时编译器不会报错，需要等到运行时才能确定object是否能接收message消息。如果不能，则程序奔溃。</p>
+<p>通常，我们不能确定一个对象是否能接受某个消息时，会先调用respondsToSelector: 来判断一下。如下代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (self respondsToSelector: @selector(method)) &#123;</span><br><span class="line">    [self performSelector: @selector(method)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过，我们这边想讨论下不使用respondsToSelector: 判断的情况。<br>当一个对象无法接收某一消息时，就会启动所谓”消息转发(message forwarding)”机制，通过这一机制，我们可以告诉对象如何处理位置消息。默认情况下，对象接收到未知的消息，会导致程序奔溃，通过控制台，我么可以看到以下异常信息：<br>这段异常信息实际上是由NSObject的“doesNotRecongnizeSelector”方法抛出的。不过，我们可以采取一些措施，在程序奔溃前执行特定的逻辑，而避免程序奔溃。<br>消息转发机制基本上分为三个步骤：</p>
+<ol>
+<li>动态方法解析</li>
+<li>备用接收者</li>
+<li>完整转发</li>
+</ol>
+<p>消息的转发流程图：<br><img src="http://upload-images.jianshu.io/upload_images/1975901-628a7025a37e51c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>动态方法解析</strong><br>对象在接收到未知消息时，首先会调用所属类的类方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ resolveInstanceMethod: (实例方法) 或者</span><br><span class="line">+ resolveClassMethod: (类方法)</span><br></pre></td></tr></table></figure>
+<p>让我们可以在程序运行时动态的为一个selector提供实现，如果我们添加了函数的实现，并返回YES，运行时系统会重启一次消息的放松过程，调用动态添加的方法。例如，下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)resolveInstanceMethod: (SEL)sel &#123;</span><br><span class="line">    if (sel == @selector(foo)) &#123;</span><br><span class="line">        class_addMethod([self class], sel, (IMP)dynamicMethodIMP, &quot;V@:&quot;);</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return [super resolveInstanceMethod: sel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void dynamicMethodIMP(id self, SEL _cmd) &#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;, __PRETTY_FUNCTION__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，我们有机会为该未知消息新增一个“处理方法”，通过运行时class_addMethod函数动态的添加到类里面就可以了。</p>
+<p>这种方案更多的是为了实现@dynamic属性。<strong>注：@dynamic 关键字就是告诉编译器不要做这些事，同时在使用了存储方法时也不要报错，即让编译器相信存储方法会在运行时找到。</strong></p>
+<p><strong>备用接收者</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (id)forwardingTargetForSelector: (SEL)aSelector</span><br></pre></td></tr></table></figure>
+<p>如果在上一步无法处理消息，则runtime会继续调用以下方法：<br>如果一个对象实现了这个方法，并返回一个非nil的结果，则这个对象会作为消息的新接收者，且消息会被分发到这个对象。当然这个对象不能是self自身，否则就是出现无限循环。当然，如果我们没有指定相应的对象来处理aSelector，则应该调用父类的实现来返回结果。</p>
+<p>这一步合适于我们只想将消息转发到另一个能处理该消息的对象上。但这一步无法对消息进行处理，如操作消息的参数和返回值。</p>
+<p><strong>完整消息转发</strong><br>如果在上一步还不能处理未知消息，则唯一能做的就是启用完整的消息转发机制。我们首先要通过，指定方法签名，若返回nil，则表示不处理。<br>如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (NSMethodSignature *)methodSignatureForSelector: (SEL)aSelector &#123;</span><br><span class="line">    if ([NSStringFromSelector(aSelector) isEqualToString: @&quot;testInstanceMethod&quot;]) &#123;</span><br><span class="line">        return [NSMethodSignature signatureWithObjcTypes: &quot;v@:&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return [super methodSignatureForSelector];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若返回方法签名，则会进入下一步调用以下方法，对象会创建一个表示消息的NSInvocation对象，把与尚未处理的消息有关的全部细节都封装在Invocation中，包括selector，目标(target)和参数。<br>我们可以在forwardInvocation方法中选择将消息转发给其它对象。我们可以通过Invocation做很多处理，比如修改实现方法，修改响应对象等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)forwardInvaocation: (NSInvocation)anInvocation &#123;</span><br><span class="line">    [anInvocation invokeWithTarget: _helper];</span><br><span class="line">    [anInvocation setSelector: @selector(run)];</span><br><span class="line">    [anInvocation invokeWithTarget: self];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函数检索优化措施"><a href="#函数检索优化措施" class="headerlink" title="函数检索优化措施"></a>函数检索优化措施</h2><h3 id="通过SEL进行IMP匹配"><a href="#通过SEL进行IMP匹配" class="headerlink" title="通过SEL进行IMP匹配"></a>通过SEL进行IMP匹配</h3><p>先来看看类对象中保存的方法列表和方法的<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="noopener">数据结构</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">typedef struct method_list_t &#123;</span><br><span class="line">    uint32_t entsize_NEVER_USE;</span><br><span class="line">    uint32_t count;</span><br><span class="line">    struct method_t first; </span><br><span class="line">&#125; method_list_t;</span><br><span class="line"></span><br><span class="line">typedef struct method_t &#123;</span><br><span class="line">    SEL name;</span><br><span class="line">    const char *types; //参数类型和返回值类型</span><br><span class="line">    IMP imp;</span><br><span class="line">&#125; method_t;</span><br></pre></td></tr></table></figure>
+<p>在前面介绍SEL的时候，我们已经说过了苹果在通过SEL检索IMP时做的努力，这里不再累述。</p>
+<h3 id="cache缓存"><a href="#cache缓存" class="headerlink" title="cache缓存"></a>cache缓存</h3><p>cache的原则就是缓存那些可能要执行的函数地址，那么下次调用的时候，速度就可以快速很多。这个和CPU的各种缓存原理相同。说了这么多，再来认识几个名词：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct objc_cache &#123;</span><br><span class="line">    uintptr_tmask;</span><br><span class="line">    uintptr_toccupied;</span><br><span class="line">    cache_entry *buckets[1];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef struct &#123;</span><br><span class="line">    SEL name;</span><br><span class="line">    void *unused;</span><br><span class="line">    IMP imp;</span><br><span class="line">&#125; cache_entry;</span><br></pre></td></tr></table></figure>
+<p>看这个结构，还是hash table。<br>objc_msgSend 首先在cache list中找SEL，没有找到就在class method中找，super class method中找（当然super class 也有cache list）。而cache的缓存机制则非常复杂了，由于Objective-C是动态语言。所以，这里面还有很多的多线程同步问题，而这些锁又是效率的大敌，相关的内容已经远远超过文本讨论的范围。<br>如果在缓存中已经有了需要的方法选标，则消息仅仅比函数调用慢一点。如果程序运行了足够长的时间，几乎每个消息都能在缓存中找到方法实现。程序运行时，缓存也讲随着新的消息的增加而增加。据牛人说(没有亲测过)，苹果通过这些优化，在消息传递和直接的函数调用上的差距已经相当的小了。</p>
+<h2 id="方法调用中的隐藏参数"><a href="#方法调用中的隐藏参数" class="headerlink" title="方法调用中的隐藏参数"></a>方法调用中的隐藏参数</h2><p>在进行面向对象编程的时候，在实例方法中都是用过self关键字，可是你有没有想过，<strong>为什么在一个实例方法中，通过self关键字就能调取到当前方法的对象呢？</strong>这就要归功于runtime system消息的隐藏参数了。<br>当objc_msgSend找到方法对应的实现时，它将直接调用该方法实现，并将消息中所有的参数都传递给方法实现，同时，它还将传递两个隐藏的参数：</p>
+<ul>
+<li>接收消息的对象（也就是self指向的内容）</li>
+<li>方法选标（_cmd指向的内容）</li>
+</ul>
+<p>这些参数帮助方法实现获得了消息表达式的信息。它们被认为是“隐藏”的，是因为它们并没有在在定义方法的源码中声明，而是在代码编译时是插入方法的实现中的。尽管这些参数没有被显示声明，但在源码中仍然可以引用它们（就像可以引用消息接收者对象的实例变量一样）。在方法中可以通过self来引用消息接收者，通过标选_cmd来引用方法本身。下面的例子很好的说明了这个问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)message &#123;</span><br><span class="line">    self.name = @&quot;James&quot;; //通过self关键字给当前对象的属性赋值</span><br><span class="line">    SEL currentSel = _cmd; //通过_cmd关键字取到当前函数对应的SEL</span><br><span class="line">    NSLog(@&quot;currentSel is: %s&quot;, (char *)currentSel);</span><br><span class="line">&#125;</span><br><span class="line">打印结果：ObjcRuntime[693:403] currentSel is: message</span><br></pre></td></tr></table></figure>
+<p>当然，在这两参数中，self更有用，更常用一些。实际上，它是在方法实现中访问消息接收者对象的实例变量的途径。</p>
+<h2 id="方法交换Swizzling"><a href="#方法交换Swizzling" class="headerlink" title="方法交换Swizzling"></a>方法交换Swizzling</h2><p>使用场景：系统自带的方法功能不够，给系统自带的方法扩展一些功能，并且保持原有的功能。<br>方式一：继承系统的类，重写方法。<br>方式二：使用runtime，交换方法。<br>在Objective-C中调用一个方法，其实是向一个对象发送消息，而查找消息的唯一依据是selector的名字。所以，我们可以利用Objective-C的runtime机制，实现在运行时交换selector对应的方法实现以达到我们的目的。每个类都有一个方法列表，存放着selector的名字和方法实现的映射关系。IMP有点类似函数指针，指向具体的Method实现。我们先看看SEL与IMP之间的关系图：<br><img src="http://upload-images.jianshu.io/upload_images/1975901-b1d3cdf3d638b6c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>从上图可以看出来，每一个SEL与一个IMP一一对应，正常情况下通过SEL可以查找到对应消息的IMP实现。但是，现在我们要做的就是把链接线解开，然后链接到我们自定义的函数的IMP上。当然，交换了两个SEL的IMP，还是可以再次交换回来了。交换后变成这样的，如下图<br><img src="http://upload-images.jianshu.io/upload_images/1975901-e8f7ee567dfff051.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>从图中可以看出，我们通过swizzling特性，将selectorC的方法实现IMPc与selectorN的方法实现IMPn交换了，当我们调用selectorC，也就是给对象发送selectorC消息时，所查找到的对应的方法实现就是IMPn而不是IMPc了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;UIViewController+swizzling.h&quot;</span><br><span class="line">@implementation UIViewController(swizzling)</span><br><span class="line">//load方法会在类第一次加载的时候被调用，调用的时间比较靠前，适合在这个方法里做方法交换</span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    //方法交换应该被保证，在程序中只会执行一次</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        //获得viewController的生命周期方法的selector</span><br><span class="line">        SEL systemSel = @selector(viewWillAppear:);</span><br><span class="line">        //自己实现的将要被交换的方法的selector</span><br><span class="line">        SEL swizzSel = @selector(swiz_viewWillAppear:);</span><br><span class="line">        //两个方法的Method</span><br><span class="line">        Method systemMethod = class_getInstanceMethod([self class], systemSel);</span><br><span class="line">        Method swizzMethod = class_getInstanceMethod([self class], swizzSel);</span><br><span class="line">        //首先动态添加方法，实现是被交换的方法，返回值表示添加成功还是失败</span><br><span class="line">        BOOL isAdd = class_addMethod(self, swizzMethod, method_getImplementation(swizzMethod), method_getTypeEncoding(swizzMethod));</span><br><span class="line">        </span><br><span class="line">        if (isAdd) &#123;</span><br><span class="line">            //如果成功，说明类中不存在这个方法的实现</span><br><span class="line">            //将被交换方法的实现替换到这个并不存在的实现</span><br><span class="line">            class_replaceMethod(self, swizzMethod, method_getImplementation(systemMethod), method_getTypeEncoding(systemMethod));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            //否则，交换两个方法的实现</span><br><span class="line">            method_exchangeImplementations(systemMethod, swizzMethod);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)swiz_viewWillApper: (BOOL)animated &#123;</span><br><span class="line">    //这时候调用自己，看起来像死循环</span><br><span class="line">    //但是其实自己的实现已经被替换了</span><br><span class="line">    [self swiz_ViewWillAppear: animated];</span><br><span class="line">    NSLog(@&quot;swizzle&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>在一个自己定义的viewController中重写viewWillAppear</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewWillAppear: (BOOL)animated &#123;</span><br><span class="line">    [super viewWillAppear: animated];</span><br><span class="line">    NSLog(@&quot;viewWillAppear&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置关联值"><a href="#设置关联值" class="headerlink" title="设置关联值"></a>设置关联值</h2><p>使用场景：现在你准备一个系统的类，但是系统的类并不能满足你的需求，你需要额外添加一个属性。给一个类声明属性，其实本质就是给这个类添加关联，并不会直接把这个值的内存空间添加到类存储空间。分类只能添加方法。<br><strong>设置关联值</strong><br>这种情况的一般解决办法就是继承。但是只增加一个属性，就去继承一个类，总觉得太麻烦。这个时候，runtime的关联属性就发挥它的作用了。<br><strong>添加关联对象</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)addAssociatedObject: (id)object &#123;</span><br><span class="line">    objc_setAssociatedObject(self, @selector(getAssociatedObject), object, OBJC_ASSOCIATION_RETAIN_NONATOMIC)</span><br><span class="line">&#125;</span><br><span class="line">//获取关联对象</span><br><span class="line">- (id)getAssociatedObject &#123;</span><br><span class="line">    return objc_getAssociatedObject(self, _cmd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意，这里面我们把getAssociatedObject方法的地址作为唯一的key，_cmd代表当前调用方法的地址。</strong><br>参数说明：<br>object：与谁关联，通常是传self<br>key：唯一键，在获取值时通过该键获取，通常是使用static const void * 来声明<br>value：关联所设置的值<br>policy：内存管理策略，比如使用copy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy)</span><br></pre></td></tr></table></figure>
+<p><strong>获取关联值</strong><br>参数说明：<br>object：与谁关联，通常是传self，在设置关联时所指定的与哪个对象关联的那个对象<br>key：唯一键，在设置关联时所指定的键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id objc_getAssociatedObject(id object, const void *key)</span><br></pre></td></tr></table></figure>
+<p><strong>取消关联</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void objc_removeAssociatedObjects(id object)</span><br></pre></td></tr></table></figure>
+<p><strong>关联策略</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">typedef OBJC_ENUM(uintptr_t, objc_AssociationPolicy) &#123;</span><br><span class="line">    OBJC_ASSOCIATION_ASSIGN = 0, //表示弱引用关联，通常是基本数据类型</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, //表示强引用关联对象，是线程安全的</span><br><span class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = 3, //表示关联对象copy，是线程安全的</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN = 01401, //表示强引用关联对象，不是线程安全的</span><br><span class="line">    OBJC_ASSOCIATION_COPY = 01403 //表示关联对象copy，不是线程安全的</span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    //给系统NSObject类动态添加属性name</span><br><span class="line">    NSObject *objc = [[NSObject alloc] init];</span><br><span class="line">    objc.name = @&quot;123&quot;;</span><br><span class="line">    NSLog(@&quot;%@&quot;, objc.name);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//定义关联的key </span><br><span class="line">static const char *key = &quot;name&quot;; </span><br><span class="line"></span><br><span class="line">@implementation NSObject(Property)</span><br><span class="line">- (NSString *)name &#123;</span><br><span class="line">    //根据关联的key，获取关联的值。</span><br><span class="line">    return objc_getAssociatedObject(self, key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setName: (NSString *)name &#123;</span><br><span class="line">    //第一个参数：给对象添加关联</span><br><span class="line">    //第二个参数：关联的key，通过这个key获取</span><br><span class="line">    //第三个参数：关联的value</span><br><span class="line">    //第四个参数：关联的策略</span><br><span class="line">    objc_setAssociatedObject(self, key, name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="动态添加方法"><a href="#动态添加方法" class="headerlink" title="动态添加方法"></a>动态添加方法</h2><p>使用场景：如果一个类方法非常多，加载类到内存的时候也比较耗费资源，需要给每个方法生成映射表，可以使用动态给某个类添加方法解决。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@implementation ViewController</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    Person *p = [[Person alloc] init]; //默认person，没有实现eat方法，可以通过performSelector调用，但是会报错。</span><br><span class="line">    //动态添加方法就不会报错</span><br><span class="line">    [p performSelector: @selector(eat)];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Person </span><br><span class="line"></span><br><span class="line">void(*)() </span><br><span class="line">//默认方法都有两个隐式参数</span><br><span class="line">void eat(id self, SEL sel) &#123;</span><br><span class="line">    NSLog(@&quot;%@ %@&quot;, self, NSStringFromSelector(sel));</span><br><span class="line">&#125;</span><br><span class="line">// 当一个对象调用未实现的方法，会调用这个方法处理，并且会吧对应的方法列表传过来</span><br><span class="line">// 刚好可以用来判断，未实现的方法是不是我们想要动态添加的方法</span><br><span class="line"></span><br><span class="line">+ (BOOL)resolveInstanceMethod: (SEL)sel &#123;</span><br><span class="line">    if (sel == @selector(eat)) &#123;</span><br><span class="line">        //动态添加eat方法</span><br><span class="line">        //第一个参数：给哪个类添加方法</span><br><span class="line">        //第二个参数：添加方法的方法编号</span><br><span class="line">        //第三个参数：添加方法的函数实现（函数地址）</span><br><span class="line">        //第四个参数：函数的类型（返回值+参数类型）v:void  @:对象-&gt;self  :表示SEL-&gt;_cmd</span><br><span class="line">        class_addMethod(self, @selector(eat), eat, &quot;v@:&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return [super resolveInstanceMethod];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="字典转模型"><a href="#字典转模型" class="headerlink" title="字典转模型"></a>字典转模型</h2><h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><p>模型属性，通常需要跟字典中的key一一对应<br>问题：一个一个的生成模型属性，很慢？<br>需求：能不能自动根据一个字典，生成对应的属性。<br>解决：提供一个分类，专门根据字典生成对应的属性字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">@implementation NSObject(Log)</span><br><span class="line">//自动打印属性字符串</span><br><span class="line">+ (void)resolveDict: (NSDictionary *)dict &#123;</span><br><span class="line">    //拼接属性字符串代码</span><br><span class="line">    NSMutableString *strM = [NSMutableString string];</span><br><span class="line">    //1、遍历字典，把字典中的所有key取出来，生成对应的属性代码</span><br><span class="line">    [dict enumerateKeysAndObjectsUsingBlock:^(id_Nonnull key, id_Nonnull obj, BOOL_Nonnull stop)&#123;</span><br><span class="line">    //类型经常变，抽出来</span><br><span class="line">        NSString *type;</span><br><span class="line">        if ([obj isKindOfClass:NSClassFromString(@&quot;__NSCFString&quot;)]) &#123;</span><br><span class="line">            type = @&quot;NSString&quot;;</span><br><span class="line">        &#125; else if ([obj isKindOfClass:NSClassFromString(@&quot;__NSCFArray&quot;)]) &#123;</span><br><span class="line">            type = @&quot;NSArray&quot;;</span><br><span class="line">        &#125; else if ([obj isKindOfClass:NSClassFromString(@&quot;__NSCFNumber&quot;)]) &#123;</span><br><span class="line">            type = @&quot;NSNumber&quot;;</span><br><span class="line">        &#125; else if ([obj isKindOfClass:NSClassFromString(@&quot;__NSCFDictionary&quot;)]) &#123;</span><br><span class="line">            type = @&quot;NSDictionary&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //属性字符串</span><br><span class="line">        NSString *str;</span><br><span class="line">        if ([type containsString: @&quot;NS&quot;]) &#123;</span><br><span class="line">            str = [NSString stringWithFormat: @&quot;@property(nonatomic, strong) %@ *%@;&quot;, type, key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            str = [NSString stringWithFormat: @&quot;@property(nonatomic, assign) %@ %@;&quot;, type, key];</span><br><span class="line">        &#125;</span><br><span class="line">          //每生成属性字符串，就自动换行。</span><br><span class="line">          [strM appendFormat: @&quot;\n%@\n&quot;, str];</span><br><span class="line">          </span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    //把拼接好的字符串打印出来</span><br><span class="line">    NSLog(@&quot;%@&quot;, strM);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><strong>字典转模型的方式一：KVC</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@implementation Status</span><br><span class="line">+ (instancetype)statusWithDict: (NSDictionary *)dict &#123;</span><br><span class="line">    Status *status = [[self alloc] init];</span><br><span class="line">    [status setValuesForKeysWithDictionary: dict];</span><br><span class="line">    return status;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>KVC字典转模型的弊端：必须保证，模型中的属性和字典中的key一一对应。如果不一致，就会调用<strong>[setValue:forUndefinedKey:]</strong>,报key找不到的错。<br>分析：模型中的属性和字典的ke不一一对应，系统就会调用<strong>[setValue:forUndefinedKey:]</strong>报错。<br>解决：重写对象的<strong>[setValue:forUndefinedKey:]</strong>，把系统方法覆盖，就能继续使用KVC，字典转模型了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)setValue: (id)Value forUndefinedKey:(NSString *)key&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>字典转模型的方式二：Runtime</strong><br>思路：利用运行时，遍历模型中所有属性，根据模型的属性名，去字典中查找key，取出对应的值，给模型的属性赋值。<br>步骤：提供一个NSObject类，专门字典转模型，以后所有的模型都可以通过这个分类转。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">@implementation ViewController</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    //解析plist文件</span><br><span class="line">    NSString *filePath = [[NSBundle mainBundle] pathForResource:@&quot;status.plist&quot; ofType:nil];</span><br><span class="line">    NSDictionary *statusDic = [NSDictionary dictionaryWithContentsOfFile:filePath];</span><br><span class="line">    //获取字典数组</span><br><span class="line">    NSArray *dictArr = statusDict[@&quot;statuses&quot;];</span><br><span class="line">    //自动生成模型的属性字符串</span><br><span class="line">    [NSObject resolveDict:dictArr[0][@&quot;user&quot;]];</span><br><span class="line">    _statuses = [NSMutableArray array];</span><br><span class="line">    //遍历字典数组</span><br><span class="line">    for(NSDictionary *dict in dictArr) &#123;</span><br><span class="line">        Status *status = [Status modelWithDict: dict];</span><br><span class="line">        [_statuses addObject:status];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation NSObject(Model)</span><br><span class="line">+ (instancetype)modelWithDict:(NSDictionary *)dict &#123;</span><br><span class="line">    // 思路：遍历模型中所有属性 -&gt;使用运行时</span><br><span class="line">    // 0、创建对应的对象</span><br><span class="line">    id objc = [[self alloc] init];</span><br><span class="line">    // 1、利用runtime给对象中成员属性赋值</span><br><span class="line">    // class_copyIvarList: 获取类中的所有成员属性</span><br><span class="line">    // Ivar: 成员属性的意思</span><br><span class="line">    // 第一个参数：表示获取哪个类中的成员属性</span><br><span class="line">    // 第二个参数：表示这个类有多少成员属性，传入一个int变量地址，会自动给这个变量赋值</span><br><span class="line">    // 返回值Ivar *：指的是一个ivar数组，会把所有的成员属性放在一个数组中，通过返回的数组就能全部获取到。</span><br><span class="line">    /*</span><br><span class="line">    Ivar ivar;</span><br><span class="line">    Ivar ivar1;</span><br><span class="line">    Ivar ivar2;</span><br><span class="line">    //定义一个ivar的数组a</span><br><span class="line">    Ivar a[] = &#123;ivar, ivar1, ivar2&#125;;</span><br><span class="line">    //用一个Ivar *指针指向数组的第一个元素</span><br><span class="line">    Ivar *ivarList = a;</span><br><span class="line">    //根据指针访问数组的第一个元素</span><br><span class="line">    ivarList[0];</span><br><span class="line">    */</span><br><span class="line">    </span><br><span class="line">    unsigned int count;</span><br><span class="line">    //获取类中的所有成员属性 </span><br><span class="line">    Ivar *ivarList = class_copyIvarList(self, &amp;count);</span><br><span class="line">    for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">        //根据角标，从数组取出对应的成员属性</span><br><span class="line">        Ivar ivar = ivarList[i];</span><br><span class="line">        //获取成员属性名</span><br><span class="line">        NSString *name = [NSString stringWithUTF8String:ivar_getName(ivar)];</span><br><span class="line">        //处理成员属性名-&gt;字典中的key</span><br><span class="line">        //从第一个角标开始截取</span><br><span class="line">        NSString *key = [name substringFromIndex: 1];</span><br><span class="line">        //根据成员属性名去字典中查找对应的value</span><br><span class="line">        id value = dict[key];</span><br><span class="line">        //二级转换：如果字典中还有字典，也需要把对应的字典转成模型</span><br><span class="line">        //判断下value是否是字典</span><br><span class="line">        if ([value isKindOfClass: [NSDictionary class]]) &#123;</span><br><span class="line">            //字典转模型</span><br><span class="line">            //获取模型的类对象，调用modelWithDict</span><br><span class="line">            //模型的类名已知，就是成员属性的类型</span><br><span class="line">            //获取成员属性类型</span><br><span class="line">            NSString *type = [NSString stringWithUTF8String: ivar_getTypeEncoding(ivar)];</span><br><span class="line">            //生成的是这种&quot;@\&quot;User\&quot;&quot;类型 -&gt; @&quot;User&quot;  在OC字符串中\&quot; -&gt; \是转义的意思，不占用字符串</span><br><span class="line">            //裁剪类型字符串</span><br><span class="line">            NSRanger ranger = [type rangeOfString:@&quot;\&quot;&quot;];</span><br><span class="line">            type = [type substringFromIndex:ranger.location + ranger.length];</span><br><span class="line">            range = [type rangeOfString:@&quot;\&quot;&quot;];</span><br><span class="line">            //裁剪到哪个角标，不包括当前角标</span><br><span class="line">            type = [type substringToIndex:range.location];</span><br><span class="line">            //根据字符串类名生成类对象</span><br><span class="line">            Class modelClass = NSClassFromString(type);</span><br><span class="line">            if (modelClass) &#123;</span><br><span class="line">                //有对应的模型才需要转</span><br><span class="line">                //把字典转模型</span><br><span class="line">                value = [modelClass modelWithDict:value];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //三级转换：NSArray中也是字典，把数组中的字典转换成模型</span><br><span class="line">        //判断值是否是数组</span><br><span class="line">        if ([value isKindOfClass:[NSArray class]]) &#123;</span><br><span class="line">            //判断对应类有没有实现字典数组转模型数组的协议</span><br><span class="line">            if ([self respondsToSelector:@selector(arrayContainModelClass)]) &#123;</span><br><span class="line">                //转换成id类型，就能调用任何对象的方法id</span><br><span class="line">                id Self = self;</span><br><span class="line">                //获取数组中字典对应的模型</span><br><span class="line">                NSString *type = [Self arrayContainModelClass][key];</span><br><span class="line">                //生成模型</span><br><span class="line">                Class classModel = NSClassFromString(type);</span><br><span class="line">                NSMutableArray *arrM = [NSMutableArray array];</span><br><span class="line">                //遍历字典数组，生成模型数组</span><br><span class="line">                for (NSDictionary *dict in value) &#123;</span><br><span class="line">                    //字典转模型 </span><br><span class="line">                    id model = [classModel modelWithDict: dict];</span><br><span class="line">                    [arrM addObject: model];</span><br><span class="line">                &#125;</span><br><span class="line">                //把模型数组赋值给value</span><br><span class="line">                value = arrM;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (value) &#123;</span><br><span class="line">            //有值，才需要给模型的属性赋值</span><br><span class="line">            //利用KVC给模型中的属性赋值</span><br><span class="line">            [objc setValue:value forKey:key];    </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return objc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://www.jianshu.com/p/e071206103a4" target="_blank" rel="noopener">http://www.jianshu.com/p/e071206103a4</a><br><a href="http://www.jianshu.com/p/adf0d566c887" target="_blank" rel="noopener">http://www.jianshu.com/p/adf0d566c887</a><br><a href="http://www.jianshu.com/p/927c8384855a" target="_blank" rel="noopener">http://www.jianshu.com/p/927c8384855a</a><br><a href="http://chun.tips/2014/11/05/objc-runtime-1/#more" target="_blank" rel="noopener">http://chun.tips/2014/11/05/objc-runtime-1/#more</a><br><a href="http://blog.sunnyxx.com/2016/08/13/reunderstanding-runtime-0/" target="_blank" rel="noopener">http://blog.sunnyxx.com/2016/08/13/reunderstanding-runtime-0/</a><br><a href="http://blog.csdn.net/wzzvictory/article/details/8624057" target="_blank" rel="noopener">http://blog.csdn.net/wzzvictory/article/details/8624057</a><br><a href="http://www.cocoachina.com/ios/20151208/14595.html" target="_blank" rel="noopener">http://www.cocoachina.com/ios/20151208/14595.html</a><br><a href="http://www.jianshu.com/p/46dd81402f63" target="_blank" rel="noopener">http://www.jianshu.com/p/46dd81402f63</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2017-10-20-runtime/" target="_blank" title="iOS深入学习 - Runtime">http://yoursite.com/2017-10-20-runtime/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017-11-14-socket/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          iOS深入学习 - Socket
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017-10-19-thread/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS深入学习 - 多线程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SmallTalk-与-C-的融合–Objective-C"><span class="nav-number">1.</span> <span class="nav-text">SmallTalk 与 C 的融合–Objective-C</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime简介"><span class="nav-number">2.</span> <span class="nav-text">Runtime简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与静态语言编译后的区别"><span class="nav-number">2.1.</span> <span class="nav-text">与静态语言编译后的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、静态语言"><span class="nav-number">2.1.1.</span> <span class="nav-text">1、静态语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Objective-C-动态语言"><span class="nav-number">2.1.2.</span> <span class="nav-text">2、Objective-C 动态语言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C-Runtime的几点说明"><span class="nav-number">2.2.</span> <span class="nav-text">Objective-C Runtime的几点说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和Runtime-system交互的三种方式"><span class="nav-number">2.3.</span> <span class="nav-text">和Runtime system交互的三种方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime的几个概念"><span class="nav-number">3.</span> <span class="nav-text">Runtime的几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SEL"><span class="nav-number">3.1.</span> <span class="nav-text">SEL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IMP，方法实现的指针"><span class="nav-number">3.2.</span> <span class="nav-text">IMP，方法实现的指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method"><span class="nav-number">3.3.</span> <span class="nav-text">Method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元类-Meta-Class"><span class="nav-number">3.4.</span> <span class="nav-text">元类(Meta Class)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category"><span class="nav-number">3.5.</span> <span class="nav-text">Category</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#objc-class"><span class="nav-number">3.6.</span> <span class="nav-text">objc_class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#objc-object"><span class="nav-number">3.7.</span> <span class="nav-text">objc_object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息调用流程"><span class="nav-number">4.</span> <span class="nav-text">消息调用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传递消息所用的几个runtime方法"><span class="nav-number">4.1.</span> <span class="nav-text">传递消息所用的几个runtime方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息调用"><span class="nav-number">4.2.</span> <span class="nav-text">消息调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数检索优化措施"><span class="nav-number">5.</span> <span class="nav-text">函数检索优化措施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SEL进行IMP匹配"><span class="nav-number">5.1.</span> <span class="nav-text">通过SEL进行IMP匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache缓存"><span class="nav-number">5.2.</span> <span class="nav-text">cache缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法调用中的隐藏参数"><span class="nav-number">6.</span> <span class="nav-text">方法调用中的隐藏参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法交换Swizzling"><span class="nav-number">7.</span> <span class="nav-text">方法交换Swizzling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置关联值"><span class="nav-number">8.</span> <span class="nav-text">设置关联值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态添加方法"><span class="nav-number">9.</span> <span class="nav-text">动态添加方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典转模型"><span class="nav-number">10.</span> <span class="nav-text">字典转模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式"><span class="nav-number">10.1.</span> <span class="nav-text">设计模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">11.</span> <span class="nav-text">参考文章</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
