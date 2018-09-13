@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用jekyll搭建个人的blog | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="hexo" />
+  
+  
+  
+  
+  <meta name="description" content="Hexo + Github 搭建个人blog最近花时间研究了一下 hexo + github 搭建个人 blog，觉得还不错。就把个人的 blog 的搭建换成了 hexo。而我之前用的是 jekyll + github 搭建的，二者各有千秋，看个人喜好。想要学习如何使用 jekyll 搭建自己的 blog，可以看一下我的这篇文章。 对比了一下两种搭建的方式，我们来看看二者的不同： 首先是 jek">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Jekyll搭建个人的Blog">
+<meta property="og:url" content="http://yoursite.com/hexo/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="Hexo + Github 搭建个人blog最近花时间研究了一下 hexo + github 搭建个人 blog，觉得还不错。就把个人的 blog 的搭建换成了 hexo。而我之前用的是 jekyll + github 搭建的，二者各有千秋，看个人喜好。想要学习如何使用 jekyll 搭建自己的 blog，可以看一下我的这篇文章。 对比了一下两种搭建的方式，我们来看看二者的不同： 首先是 jek">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/hexo/hexo.jpg">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537414834&di=dc7447af867cd3f1f737d074be946825&imgtype=jpg&er=1&src=http%3A%2F%2Fs5.51cto.com%2Foss%2F201808%2F09%2F0ab9ca24e4560f2cb49d0e1d25b2826f.jpeg-wh_651x-s_695405994.jpeg">
+<meta property="og:image" content="http://yoursite.com/hexo/目录.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3072214-a1cce579d49cb369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/484">
+<meta property="og:image" content="http://yoursite.com/hexo/15368213962039.jpg">
+<meta property="og:image" content="http://yoursite.com/hexo/15368215453664.jpg">
+<meta property="og:updated_time" content="2018-09-13T12:57:00.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Jekyll搭建个人的Blog">
+<meta name="twitter:description" content="Hexo + Github 搭建个人blog最近花时间研究了一下 hexo + github 搭建个人 blog，觉得还不错。就把个人的 blog 的搭建换成了 hexo。而我之前用的是 jekyll + github 搭建的，二者各有千秋，看个人喜好。想要学习如何使用 jekyll 搭建自己的 blog，可以看一下我的这篇文章。 对比了一下两种搭建的方式，我们来看看二者的不同： 首先是 jek">
+<meta name="twitter:image" content="http://yoursite.com/hexo/hexo.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-hexo" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      用Jekyll搭建个人的Blog
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/hexo/" class="article-date">
+	  <time datetime="2018-09-12T16:00:00.000Z" itemprop="datePublished">2018-09-13</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/搭建blog/">搭建blog</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/hexo/hexo.jpg" alt=""></p>
+<h1 id="Hexo-Github-搭建个人blog"><a href="#Hexo-Github-搭建个人blog" class="headerlink" title="Hexo + Github 搭建个人blog"></a>Hexo + Github 搭建个人blog</h1><p>最近花时间研究了一下 <strong>hexo + github</strong> 搭建个人 blog，觉得还不错。就把个人的 blog 的搭建换成了 hexo。而我之前用的是 <strong>jekyll + github</strong> 搭建的，二者各有千秋，看个人喜好。想要学习如何使用 <strong>jekyll</strong> 搭建自己的 blog，可以看一下我的<a href="https://xiongzf.cn/2017-03-02-first/" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>对比了一下两种搭建的方式，我们来看看二者的不同：</p>
+<p>首先是 <strong>jekyll</strong></p>
+<pre><code>jekyll 安装起来相对来说，繁琐一些
+jekyll 的配置主题修改起来相对简单一些，如果你有简单的 HTML 操作，在修改jekyll 样式的时候很方便
+jekyll 写完新的文章部署到 git 上，步骤相对多一些。多的操作也就是 git 的 add，push 等操作
+</code></pre><p>接着来看看 <strong>hexo</strong></p>
+<pre><code>hexo 安装方便
+hexo 主题样式的修改相对来说繁琐一些，文件太多
+hexo 部署简单，操作更少。两个指令就可解决
+hexo 更依赖于插件，来完善自己的功能
+</code></pre><p>同样，二者的主题都很多，你可以直接按照别人的文档修改就可。<a href="http://jekyllthemes.org/" target="_blank" rel="noopener">jekyll 主题</a>、<a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo 主题</a></p>
+<p>个人觉得，在更换不同的电脑，配置完环境，进行编写的时候， <strong>jekyll</strong> 更方便一些，直接把 <strong>git</strong> 仓库里的代码 <strong>clone</strong> 到本地就可以进行操作了。而 <strong>hexo</strong> 部署到 <strong>git</strong> 上的目录结构已经变了，所以 <strong>clone</strong> 以后并不能编辑，部署。需要生成指定的目录，把 <strong>git</strong> 仓库里的内容 <strong>clone</strong> 到指定的目录。</p>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>说了那么多，咱们开始步入正轨。由于 <strong>hexo</strong> 是依赖于 <strong>nodejs</strong> 的，安装 <strong>nodejs</strong> 我们可以使用 <strong>homebrew（Homebrew是以最简单，最灵活的方式来安装苹果公司在MacOS中不包含的UNIX工具）</strong>。</p>
+<p><strong>打开终端：</strong></p>
+<p>1、<strong>安装 homebrew</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br><span class="line">//如果你不知道什么是 ruby，请自行搜索，以及如何更换 ruby 源</span><br></pre></td></tr></table></figure>
+<p>2、<strong>安装 nodejs</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br><span class="line">//如有提示，按照提示安装相关依赖</span><br></pre></td></tr></table></figure>
+<p>3、<strong>安装 hexo</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>4、<strong>创建文件夹</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//你可以选择任意位置创建一个你个人 blog 的存放目录</span><br><span class="line">//在终端进入到创建好的文件夹</span><br><span class="line">cd /Users/XXX/Desktop/myBlog</span><br><span class="line">#初始化 hexo</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>5、<strong>生成静态网页</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//编译</span><br><span class="line">hexo generate</span><br><span class="line">//启动本地服务器  </span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>在浏览器上运行 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 就能看到类似于如下的网站首页：<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1537414834&amp;di=dc7447af867cd3f1f737d074be946825&amp;imgtype=jpg&amp;er=1&amp;src=http%3A%2F%2Fs5.51cto.com%2Foss%2F201808%2F09%2F0ab9ca24e4560f2cb49d0e1d25b2826f.jpeg-wh_651x-s_695405994.jpeg" alt=""></p>
+<h2 id="生成新的文章，修改配置"><a href="#生成新的文章，修改配置" class="headerlink" title="生成新的文章，修改配置"></a>生成新的文章，修改配置</h2><p>如何生成新的文章呢？</p>
+<h3 id="生成新的文章"><a href="#生成新的文章" class="headerlink" title="生成新的文章"></a><strong>生成新的文章</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//前提是你已经在终端进入到了上一步创建的文件夹</span><br><span class="line"></span><br><span class="line">hexo new post &quot;我的第一篇博客&quot;</span><br><span class="line"></span><br><span class="line">//然后你可以看到终端显示如下信息：</span><br><span class="line">//INFO  Created: ~/blog/source/_posts/我的第一篇博客.md</span><br><span class="line">//表名创建成功。然后直接使用 markdown 编辑器，编辑即可。</span><br><span class="line">//如果你不知道什么是 markdown 请自行搜索。</span><br></pre></td></tr></table></figure>
+<h3 id="如何修改-hexo-的配置呢？"><a href="#如何修改-hexo-的配置呢？" class="headerlink" title="如何修改 hexo 的配置呢？"></a>如何修改 hexo 的配置呢？</h3><p>你可以在根目录下看到 <strong>_config.yml</strong> 文件，打开之后如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: https://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"> </span><br><span class="line"># Site                 ##修改以适应搜索引擎的收录</span><br><span class="line">title: Hexo            ##定义网站的标题</span><br><span class="line">subtitle:              ##定义网站的副标题</span><br><span class="line">description:           ##定义网站的描述</span><br><span class="line">author: jason jwl      ##定义网站的负责人</span><br><span class="line">language:              ##定义网站的语言,默认zh-Hans，跟换主题后，根据主题提供的语言进行修改</span><br><span class="line">timezone:              ##定义网站的时区</span><br><span class="line"> </span><br><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: http://yoursite.com   ##定义网站访问的域名</span><br><span class="line">root: /      ##定义所在Web文件夹在哪个目录</span><br><span class="line">permalink: :year/:month/:day/:title/  ##定义时间格式</span><br><span class="line">permalink_defaults:</span><br><span class="line"> </span><br><span class="line"># Directory</span><br><span class="line">source_dir: source   ##定义从哪个文件夹获取博客资料</span><br><span class="line">public_dir: public   ##定义生成静态网站到哪个文件夹</span><br><span class="line"> </span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line">code_dir: downloads/code</span><br><span class="line">i18n_dir: :lang</span><br><span class="line">skip_render:</span><br><span class="line"> </span><br><span class="line"># Writing</span><br><span class="line">new_post_name: :title.md # File name of new posts</span><br><span class="line">default_layout: post</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link: true # Open external links in new tab</span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: false</span><br><span class="line">post_asset_folder: false</span><br><span class="line">relative_link: false</span><br><span class="line">future: true</span><br><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line">  auto_detect: false</span><br><span class="line">  tab_replace:</span><br><span class="line"> </span><br><span class="line"># Category &amp; Tag</span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"> </span><br><span class="line"># Date / Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"> </span><br><span class="line"># Pagination</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10  ##定义每一页多少条博客</span><br><span class="line">pagination_dir: page</span><br><span class="line"> </span><br><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: landscape  ##定义使用的主题</span><br><span class="line"> </span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type:</span><br></pre></td></tr></table></figure></p>
+<pre><code>1、我们可以参照上面的注释修改网站的主题，描述子标题等。
+2、需要注意的是 在跟换网站语言的时候，不同的主题，对应的中文的名称不一样，需要根据自己主题里的语言进行修改。
+3、permalink 选项决定你在浏览器地址栏所看见的文章地址，我是选择去掉了年月日。
+4、theme 第一次初始化之后，使用的是默认的主题 landscape，在此处配置不同主题。根目录 theme 文件夹下。
+5、deploy 用配置关联 github。
+</code></pre><h2 id="如果关联-github"><a href="#如果关联-github" class="headerlink" title="如果关联 github"></a>如果关联 github</h2><p>首先在 <strong>github</strong> 上创建一个 <strong>xxxxx.github.io</strong> 仓库(xxxxx是你<strong>github</strong> 的账号名)，然后把本地项目提交到 <strong>github</strong> 的远程项目。具体的操作，你可以参考我的 <a href="https://xiongzf.cn/2017-03-02-first/" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>然后在 <strong>_config.yml</strong> 文件，修改配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:  </span><br><span class="line">  type: git  </span><br><span class="line">  repo: https://github.com/xxx/xxx.github.io.git  </span><br><span class="line">  branch: master  </span><br><span class="line">  // xxx为个人github的name</span><br></pre></td></tr></table></figure>
+<p>最后运行下面的命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//清除缓存</span><br><span class="line">hexo clean</span><br><span class="line">//编译简写</span><br><span class="line">hexo g</span><br><span class="line">// 部署到git</span><br><span class="line">hexo d</span><br><span class="line">//如果报错如下：ERROR Deployer not found: git</span><br><span class="line">//安装下列插件，然后重复上面的操作就行了</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>如果发布新的文章，同样执行上面的三个指令就行了。</p>
+<h2 id="如何绑定自己的域名"><a href="#如何绑定自己的域名" class="headerlink" title="如何绑定自己的域名"></a>如何绑定自己的域名</h2><p>先去自己购买一个域名，设置一下。按照我上面文章的链接操作。唯一要注意的是<strong>在终端，进入到自己上面创建的存放 blog 的根目录下的 source 文件夹，执行<code>vi CNAME</code>，然后用文本编辑打开该文件（如果，你会使用vi操作，就直接输入即可），直接把个人域名地址放进去即可</strong></p>
+<h2 id="高级一点的"><a href="#高级一点的" class="headerlink" title="高级一点的"></a>高级一点的</h2><h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>前面，我已经把 hexo 的主题网址贴出来了，想换哪一个直接点进去，按照里面的描述，操作即可。</p>
+<p>但是，这里有一个坑，先看一下下面的图：<br><img src="/hexo/目录.png" alt=""></p>
+<p>这里一般新的主题只有前两个可以使用，后面的点击都会出现下面的情况：<br><img src="https://upload-images.jianshu.io/upload_images/3072214-a1cce579d49cb369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/484" alt=""><br>所以我们需要如下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//比如要创建标签文件夹，终端中输入（前提在Hexo文件路径下）：</span><br><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">输出：</span><br><span class="line">INFO  Created: ~/Desktop/MyBlog/Blog/source/tags/index.md</span><br></pre></td></tr></table></figure>
+<p>然后，坑就出现了，按照网上查的，有人说编辑上面路径的 <strong>index.md</strong> 如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: tags</span><br><span class="line">date: 2018-01-20 18:57:48</span><br><span class="line">type: &quot;tags&quot;</span><br></pre></td></tr></table></figure>
+<p>实际上应该是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: tags</span><br><span class="line">date: 2018-01-20 18:57:48</span><br><span class="line">layout: tags</span><br></pre></td></tr></table></figure>
+<p>这样当你在创建新的文章的时候，tags 才起作用。类推一下，<strong>分类</strong>、<strong>关于</strong>，你都可以按照上面的操作，来做。</p>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>对于搜索，在你 <strong>clone</strong> 下来的主题文件夹里，也有一个  <strong>_config.yml</strong> 文件，你可以按照配置文件后面的注释来操作，以及阅读该主题的 <strong>README</strong> 文档进行配置。基本上都是依赖插件来做的。</p>
+<h3 id="配置404"><a href="#配置404" class="headerlink" title="配置404"></a>配置404</h3><p>我的 blog 利用的是<strong>腾讯的404公益</strong>界面 。</p>
+<p>首先</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#进入 Hexo 所在文件夹（前面安装的时候，自己创建的），输入 </span><br><span class="line">hexo new page 404</span><br></pre></td></tr></table></figure>
+<p>接着</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#在根目录下 /source/404/index.md 添加以下代码：</span><br><span class="line">---</span><br><span class="line">title: 404 Not Found: 该页无法显示</span><br><span class="line">comments: false</span><br><span class="line">permalink: /404</span><br><span class="line">---</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;title&gt;404&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>切记 permalink: /404 必须添加，否则不生效</strong></p>
+<p>最后部署</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="添加评论功能"><a href="#添加评论功能" class="headerlink" title="添加评论功能"></a>添加评论功能</h3><p>由于<strong>网易的跟帖</strong>服务停止维护了，所以我们可以选择<strong>来必力</strong>。首先我们先到 <a href="https://livere.com" target="_blank" rel="noopener">https://livere.com</a> 网站注册账号，选择免费的<br><img src="/hexo/15368213962039.jpg" alt=""><br>然后点击客户中心，填写一些信息，就会得到下面的内容：<br><img src="/hexo/15368215453664.jpg" alt=""><br>拿到 <strong>data-uid</strong> 在你的主题配置文件里进行填写。部署一下就可以了。firefox 浏览器加载不了，其他的浏览器可以。估计是我的 firefox 浏览器的 jQuery 没打开。搜索功能也是的，firefox 不支持。</p>
+<h2 id="如何存放图片"><a href="#如何存放图片" class="headerlink" title="如何存放图片"></a>如何存放图片</h2><p>首先把 hexo 的配置文件打开，（不是主题的配置文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//找到下面的，设置为 true</span><br><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+<p>然后安装插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+<p>接着</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//等一小会儿，执行下面的命令</span><br><span class="line">hexo n &quot;xxxx&quot;</span><br><span class="line">//会生成一篇新的 xxxx.md 文件，以及一个同名的 xxxx 文件夹，把图片放入该文件夹中。</span><br><span class="line">//然后利用 ![你想输入的替代文字](xxxx/图片名.jpg) 语法，在你的 md 文件里使用图片</span><br></pre></td></tr></table></figure>
+<p>最后部署一下就可以了。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>总体来说，怎个流程都比较简单，你要相信，你遇到的问题，网上都有人遇到，所以，不知道如何操作，果断打开你的<strong>Google浏览器，百度一下</strong>，啥都有了。皮一下，很开心哦。</p>
+<p>另外，想添加一些骚操作的东西，可以看看这些文章：</p>
+<p><a href="https://blog.csdn.net/sugar_rainbow/article/details/57415705" target="_blank" rel="noopener">https://blog.csdn.net/sugar_rainbow/article/details/57415705</a></p>
+<p><a href="https://blog.csdn.net/qianqianstd/article/details/55823691" target="_blank" rel="noopener">https://blog.csdn.net/qianqianstd/article/details/55823691</a></p>
+<p><a href="https://www.jianshu.com/p/9f0e90cc32c2" target="_blank" rel="noopener">https://www.jianshu.com/p/9f0e90cc32c2</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/xiongzf/img/master/WechatIMG7.jpeg',
+  alipayImage: 'https://raw.githubusercontent.com/xiongzf/img/master/WechatIMG9.jpeg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/hexo/" target="_blank" title="用Jekyll搭建个人的Blog">http://yoursite.com/hexo/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018-04-27-hashTable/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">NSHashTable 和 NSMapTable</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo-Github-搭建个人blog"><span class="nav-number">1.</span> <span class="nav-text">Hexo + Github 搭建个人blog</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">安装 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成新的文章，修改配置"><span class="nav-number">1.2.</span> <span class="nav-text">生成新的文章，修改配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成新的文章"><span class="nav-number">1.2.1.</span> <span class="nav-text">生成新的文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何修改-hexo-的配置呢？"><span class="nav-number">1.2.2.</span> <span class="nav-text">如何修改 hexo 的配置呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果关联-github"><span class="nav-number">1.3.</span> <span class="nav-text">如果关联 github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何绑定自己的域名"><span class="nav-number">1.4.</span> <span class="nav-text">如何绑定自己的域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级一点的"><span class="nav-number">1.5.</span> <span class="nav-text">高级一点的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更换主题"><span class="nav-number">1.5.1.</span> <span class="nav-text">更换主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索"><span class="nav-number">1.5.2.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置404"><span class="nav-number">1.5.3.</span> <span class="nav-text">配置404</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加评论功能"><span class="nav-number">1.5.4.</span> <span class="nav-text">添加评论功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何存放图片"><span class="nav-number">1.6.</span> <span class="nav-text">如何存放图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">1.7.</span> <span class="nav-text">结语</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
