@@ -11,18 +11,25 @@
   
   
   
-  <meta name="description" content="来自一个菜鸟的记录">
+  <meta name="description" content="NginxNginx（发音同engine x）是异步框架的网页服务器，也可以用作反向代理、负载平衡器和 HTTP 缓存。该软件由伊戈尔·赛索耶夫创建并于2004年首次公开发布。2011年成立同名公司以提供支持。2019年3月11日，Nginx 公司被 F5 Networks 以6.7亿美元收购。 Nginx 是免费的开源软件，根据类 BSD 许可证的条款发布。一大部分 Web 服务器使用 Ngi">
 <meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx安装配置">
 <meta property="og:url" content="http://yoursite.com/Nginx安装配置/index.html">
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
-<meta property="og:description" content="来自一个菜鸟的记录">
+<meta property="og:description" content="NginxNginx（发音同engine x）是异步框架的网页服务器，也可以用作反向代理、负载平衡器和 HTTP 缓存。该软件由伊戈尔·赛索耶夫创建并于2004年首次公开发布。2011年成立同名公司以提供支持。2019年3月11日，Nginx 公司被 F5 Networks 以6.7亿美元收购。 Nginx 是免费的开源软件，根据类 BSD 许可证的条款发布。一大部分 Web 服务器使用 Ngi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-22T09:20:10.213Z">
+<meta property="og:image" content="http://yoursite.com/Nginx安装配置/nginx.jpg">
+<meta property="og:image" content="http://yoursite.com/Nginx安装配置/nginx2.png">
+<meta property="og:image" content="http://yoursite.com/Nginx安装配置/tomcat.jpg">
+<meta property="og:image" content="http://yoursite.com/Nginx安装配置/tomcat.jpg">
+<meta property="og:image" content="http://yoursite.com/Nginx安装配置/nginx3.jpg">
+<meta property="og:image" content="http://yoursite.com/Nginx安装配置/other.png">
+<meta property="og:updated_time" content="2019-07-22T10:32:27.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx安装配置">
-<meta name="twitter:description" content="来自一个菜鸟的记录">
+<meta name="twitter:description" content="NginxNginx（发音同engine x）是异步框架的网页服务器，也可以用作反向代理、负载平衡器和 HTTP 缓存。该软件由伊戈尔·赛索耶夫创建并于2004年首次公开发布。2011年成立同名公司以提供支持。2019年3月11日，Nginx 公司被 F5 Networks 以6.7亿美元收购。 Nginx 是免费的开源软件，根据类 BSD 许可证的条款发布。一大部分 Web 服务器使用 Ngi">
+<meta name="twitter:image" content="http://yoursite.com/Nginx安装配置/nginx.jpg">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -179,7 +186,7 @@
     <div class="article-meta">
       
 	<a href="/Nginx安装配置/" class="article-date">
-	  <time datetime="2019-07-22T09:17:03.000Z" itemprop="datePublished">2019-07-22</time>
+	  <time datetime="2018-09-25T09:17:03.000Z" itemprop="datePublished">2018-09-25</time>
 	</a>
 
       
@@ -195,7 +202,61 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p><img src="/Nginx安装配置/nginx.jpg" alt="nginx"></p>
+<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p><strong>Nginx</strong>（发音同engine x）是异步框架的网页服务器，也可以用作<strong>反向代理</strong>、<strong>负载平衡器</strong>和 <strong>HTTP</strong> 缓存。该软件由<strong>伊戈尔·赛索耶夫</strong>创建并于2004年首次公开发布。2011年成立同名公司以提供支持。2019年3月11日，<strong>Nginx</strong> 公司被 <strong>F5 Networks</strong> 以6.7亿美元收购。</p>
+<p><strong>Nginx</strong> 是免费的开源软件，根据类 <strong>BSD</strong> 许可证的条款发布。一大部分 Web 服务器使用 <strong>Nginx</strong>，通常作为负载均衡器。<br><strong>Nginx</strong> 可以部署在网络上使用 <strong>FastCGI 脚本</strong>、<strong>SCGI 处理程序</strong>、<strong>WSGI 应用服务器</strong>或 <strong>Phusion Passenger 模块的动态 HTTP 内容</strong>，并可作为软件负载均衡器。</p>
+<p><strong>Nginx</strong> 使用异步事件驱动的方法来处理请求。<strong>Nginx</strong> 的模块化事件驱动架构可以在高负载下提供更可预测的性能。</p>
+<p><strong>Nginx</strong> 是一款面向性能设计的HTTP服务器，相较于 <strong>Apache</strong>、<strong>lighttpd</strong> 具有<strong>占有内存少</strong>，<strong>稳定性高</strong>等优势。与旧版本（&lt;=2.2）的 <strong>Apache</strong> 不同，<strong>Nginx</strong> 不采用每客户机一线程的设计模型，而是充分使用异步逻辑从而削减了上下文调度开销，所以并发服务能力更强。整体采用模块化设计，有丰富的模块库和第三方模块库，配置灵活。 在 <strong>Linux</strong> 操作系统下，<strong>Nginx</strong> 使用 <strong>epoll</strong> 事件模型，得益于此，<strong>Nginx</strong> 在 <strong>Linux</strong> 操作系统下效率相当高。同时 <strong>Nginx</strong> 在 <strong>OpenBSD</strong> 或 <strong>FreeBSD</strong> 操作系统上采用类似于 <strong>epoll</strong> 的高效事件模型 <strong>kqueue</strong>。</p>
+<p>根据 <strong>Netcraft</strong> 在2016年11月网络服务器调查，<strong>Nginx</strong> 被发现是所有“活跃”站点（被调查站点的18.22%）和百万最繁忙站点（被调查站点的27.83%）中使用次数最多的Web服务器。根据 <strong>W3Techs</strong> 的数据，前100万个网站中的37.7%，前10万个网站中的49.7%，以及前10000个网站中的57.0%被使用。 据 <strong>BuiltWith</strong> 统计，在全球前10000个网站中，有38.2%的网站使用 <strong>Nginx</strong>。 维基百科使用 <strong>Nginx</strong> 作为其 <strong>SSL</strong> 终端代理。 从 <strong>OpenBSD 5.2</strong>版本（2012年11月1日）开始，<strong>Nginx</strong> 成为了 <strong>OpenBSD</strong> 基础系统的一部分，提供了替代 <strong>Apache 1.3</strong> 系统的替代方案， 但是后来被替换为 <strong>OpenBSD</strong> 自己的 <strong>httpd(8)</strong>。（来自<a href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="noopener">维基百科</a>）</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="第一步：安装-Homebrew"><a href="#第一步：安装-Homebrew" class="headerlink" title="第一步：安装 Homebrew"></a>第一步：安装 Homebrew</h2><p>打开终端输入一下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
+<p>关于 homebrew 的介绍看<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">这里</a></p>
+<h2 id="第二步安装-Nginx"><a href="#第二步安装-Nginx" class="headerlink" title="第二步安装 Nginx"></a>第二步安装 Nginx</h2><p>使用 homebrew 安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo brew install nginx</span><br></pre></td></tr></table></figure>
+<h2 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -v</span><br></pre></td></tr></table></figure>
+<pre><code>注意：
+brew安装的文件路径一般默认在
+/usr/local/Cellar/nginx/
+nginx的真正路径在:
+/usr/local/etc/nginx  
+</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">启动 sudo nginx</span><br></pre></td></tr></table></figure>
+<p>打开浏览器输入<code>http://localhost:8080</code><br><img src="/Nginx安装配置/nginx2.png" alt="nginx 默认启动图片"></p>
+<p>其他常用指令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">停止 sudo nginx -s stop</span><br><span class="line">重启 sudo nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<p>##常用配置</p>
+<h3 id="核心配置文件-nginx-conf"><a href="#核心配置文件-nginx-conf" class="headerlink" title="核心配置文件 nginx.conf"></a>核心配置文件 nginx.conf</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">位置 /usr/local/etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<p><strong>nginx</strong> 配置文件主要分为六个区域：</p>
+<ol>
+<li>main(全局设置)</li>
+<li>events(nginx工作模式)</li>
+<li>http(http设置)</li>
+<li>sever(主机设置)</li>
+<li>location(URL匹配)</li>
+<li>upstream(负载均衡服务器设置)。</li>
+</ol>
+<h3 id="nginx-conf-常用配置"><a href="#nginx-conf-常用配置" class="headerlink" title="nginx.conf 常用配置"></a>nginx.conf 常用配置</h3><ul>
+<li>server模块</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       8080;             #端口配置</span><br><span class="line">        server_name  localhost;        #域名配置</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">       ······</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>location模块</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;    </span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>location /表示匹配访问根目录。<br>root指令用于指定访问根目录时，虚拟主机的web目录，这个目录可以是相对路径（相对路径是相对于nginx的安装目录）。也可以是绝对路径。默认的html读取路径是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">路径  /usr/local/Cellar/nginx/[version]/html</span><br></pre></td></tr></table></figure>
+<p>这里的html文件夹实际上是一个替身（快捷方式），实际的默认文件位置是在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">默认文件路径 /usr/local/var/www</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其他参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">listen：表示当前的代理服务器监听的端口，默认的是监听80端口。注意，如果我们配置了多个server，这个listen要配置不一样，不然就不能确定转到哪里去了。</span><br><span class="line"></span><br><span class="line">server_name：表示监听到之后需要转到哪里去，这时我们直接转到本地，这时是直接到nginx文件夹内。</span><br><span class="line"></span><br><span class="line">location：表示匹配的路径，这时配置了/表示所有请求都被匹配到这里</span><br><span class="line"></span><br><span class="line">root：里面配置了root这时表示当匹配这个请求的路径时，将会在这个文件夹内寻找相应的文件，这里对我们之后的静态文件伺服很有用。</span><br></pre></td></tr></table></figure>
+<p>#配置 Tomcat</p>
+<p><img src="/Nginx安装配置/tomcat.jpg" alt="tomcat"><br>通过 <strong>proxy_pass</strong> 配置请求转发地址。即当访问 <strong>localhost 的 8080</strong> 端口时，请求会跳转至 <strong>localhost 的 8180</strong> 端口处。修改完 <strong>Nginx</strong> 的配置后不需要重启 <strong>Nginx</strong>，输入上面的重启命令即可。</p>
+<h2 id="负载均衡配置"><a href="#负载均衡配置" class="headerlink" title="负载均衡配置"></a>负载均衡配置</h2><p>当一台服务器出现故障后，我们需要将请求自动转向另一台服务器，此种需求该如何配置呢？利用Nginx 也是比较方便能够实现，具体配置如下：<br><img src="/Nginx安装配置/tomcat.jpg" alt="tomcat"></p>
+<pre><code>注意，上面还加上了一个weight属性，此属性表示各服务器被访问到的权重，weight越高访问到的几率越高。
+</code></pre><p>配置后访问 localhost:8080,跳转到 tomcat 的启动页：<br><img src="/Nginx安装配置/nginx3.jpg" alt="nginx 默认启动图片"></p>
+<h1 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h1><p><img src="/Nginx安装配置/other.png" alt="tomcat"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/zzk220106/article/details/72466765" target="_blank" rel="noopener">https://blog.csdn.net/zzk220106/article/details/72466765</a><br><a href="https://www.cnblogs.com/naaoveGIS/p/5478208.html" target="_blank" rel="noopener">https://www.cnblogs.com/naaoveGIS/p/5478208.html</a></p>
+
       
     </div>
     <footer class="article-footer">
@@ -284,7 +345,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx"><span class="nav-number">1.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：安装-Homebrew"><span class="nav-number">2.1.</span> <span class="nav-text">第一步：安装 Homebrew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步安装-Nginx"><span class="nav-number">2.2.</span> <span class="nav-text">第二步安装 Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看版本号"><span class="nav-number">2.3.</span> <span class="nav-text">查看版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">2.4.</span> <span class="nav-text">启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心配置文件-nginx-conf"><span class="nav-number">2.4.1.</span> <span class="nav-text">核心配置文件 nginx.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-conf-常用配置"><span class="nav-number">2.4.2.</span> <span class="nav-text">nginx.conf 常用配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡配置"><span class="nav-number">2.5.</span> <span class="nav-text">负载均衡配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他配置"><span class="nav-number">3.</span> <span class="nav-text">其他配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol>
     
     </div>
   </aside>
