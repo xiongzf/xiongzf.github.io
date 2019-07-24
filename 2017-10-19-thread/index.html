@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://images.cnitblog.com/i/450136/201406/241303355028628.png">
 <meta property="og:image" content="http://images.cnitblog.com/i/450136/201406/241315433467454.png">
 <meta property="og:image" content="http://images.cnitblog.com/i/450136/201406/241326487366534.png">
-<meta property="og:updated_time" content="2019-07-24T03:37:41.573Z">
+<meta property="og:updated_time" content="2019-07-24T03:41:59.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS深入学习 - 多线程">
 <meta name="twitter:description" content="多线程简单介绍进程和线程1、什么是进程进程是指在系统中正在运行的一个应用程序，每个进程之间是相互独立的，每个进程均运行在其专用且受保护的内存空间内。比如同时打开QQ、Xcode，系统会分别启动2个进程，通过“活动监视器”可以查看Mac系统中所开启的进程。2、什么是线程1个进程想要执行任务，必须得有线程(每一个进程至少要有一条线程即：主线程)，线程是进程的基本执行单元，一个进程(程序)的所有任务都">
@@ -274,7 +274,7 @@
 <li>创建线程后自动启动线程</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">* 隐式创建并启动线程</span><br></pre></td></tr></table></figure>
-<p>[self performSelectorInBackground:@selector(run) withObject:nil];<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**2、线程相关用法**</span><br></pre></td></tr></table></figure></p>
+<p>[self performSelectorInBackground:@selector(run) withObject:nil];<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**2、线程相关用法**</span><br></pre></td></tr></table></figure></p>
 <p>//获得主线程</p>
 <ul>
 <li>(NSThread *)mainThread;<br>//判断是否为主线程(对象方法)</li>
@@ -291,11 +291,11 @@
 <li>(NSString *)name;<br>//线程是否在执行</li>
 <li>(BOOL)isExecuting;<br>//线程是否被取消</li>
 <li>(BOOL)isCancelled;<br>//线程是否完成</li>
-<li>(BOOL)isFinished;</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**3、线程状态控制方法**</span><br><span class="line"></span><br><span class="line">* 启动线程方法</span><br></pre></td></tr></table></figure>
-<ul>
-<li>(void)start;<br>//线程进入就绪状态-&gt;运行状态。当线程任务执行完毕，自动进入死亡状态<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 阻塞(暂停)线程方法</span><br></pre></td></tr></table></figure>
+<li><p>(BOOL)isFinished;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**3、线程状态控制方法**</span><br><span class="line"></span><br><span class="line">* 启动线程方法</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>(void)start;<br>//线程进入就绪状态-&gt;运行状态。当线程任务执行完毕，自动进入死亡状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 阻塞(暂停)线程方法</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
