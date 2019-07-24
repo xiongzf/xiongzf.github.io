@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1877784-60021d1165ba05d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1877784-7c39f9d019cea9ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1877784-18eab813719d579d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-24T03:54:53.055Z">
+<meta property="og:updated_time" content="2019-07-24T05:38:12.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS深入学习 - 多线程">
 <meta name="twitter:description" content="多线程简单介绍进程和线程1、什么是进程进程是指在系统中正在运行的一个应用程序，每个进程之间是相互独立的，每个进程均运行在其专用且受保护的内存空间内。比如同时打开QQ、Xcode，系统会分别启动2个进程，通过“活动监视器”可以查看Mac系统中所开启的进程。2、什么是线程1个进程想要执行任务，必须得有线程(每一个进程至少要有一条线程即：主线程)，线程是进程的基本执行单元，一个进程(程序)的所有任务都">
@@ -205,7 +205,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/iOS深入学习/">iOS深入学习</a>
+    <a class="article-category-link" href="/categories/iOS-深入学习/">iOS 深入学习</a>
 
       
 	<a class="article-views">
@@ -365,8 +365,8 @@
 <p>5、主队列 + 同步执行<br>6、主队列 + 异步执行</p>
 </blockquote>
 <p>那么这几种不同组合方式各有什么区别呢？这里为了方便，先上结果，再来讲解。为图省事儿，直接查看表格结果。</p>
-<pre><code>|            并行队列      |          串行队列         |      主队列       
-</code></pre><p>————-|————————–| ————————|————————<br> 同步(sync)   | 没有开启新线程，串行执行任务 | 没有开启新线程，串行执行任务 | 没有开启新线程，串行执行任务<br> 异步(async)  | 有开启新线程，并行执行任务   | 有开启新线程(1条)，串行执行任务 | 没有开启新线程，串行执行任务</p>
+<pre><code>| 并行队列 | 串行队列 | 主队列       
+</code></pre><p>————–|————–| ————–|————–<br> 同步(sync)   | 没有开启新线程，串行执行任务 | 没有开启新线程，串行执行任务 | 没有开启新线程，串行执行任务<br> 异步(async)  | 有开启新线程，并行执行任务   | 有开启新线程(1条)，串行执行任务 | 没有开启新线程，串行执行任务</p>
 <p>下边我们来分别看看那这几种组合方式的使用方法</p>
 <h3 id="GCD的基本使用"><a href="#GCD的基本使用" class="headerlink" title="GCD的基本使用"></a>GCD的基本使用</h3><p>并行队列的两种使用方法：</p>
 <p><strong>1、并行队列 + 同步执行</strong></p>
