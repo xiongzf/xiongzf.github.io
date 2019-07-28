@@ -20,7 +20,7 @@
 <meta property="og:description" content="Redis (Remote Dictionary Server) 是一个由 SalvatoreSanfilippo 写的 key-value 存储系统。 Redis 是一个开源的使用 ANSI C语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的API。 它通常被称为数据结构服务器，因为值（value）可以是字符串(String),">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/Redis/1.png">
-<meta property="og:updated_time" content="2019-07-28T08:27:26.724Z">
+<meta property="og:updated_time" content="2019-07-28T08:30:09.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="Redis (Remote Dictionary Server) 是一个由 SalvatoreSanfilippo 写的 key-value 存储系统。 Redis 是一个开源的使用 ANSI C语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的API。 它通常被称为数据结构服务器，因为值（value）可以是字符串(String),">
@@ -303,13 +303,116 @@ Redis 支持数据的备份，即 master-slave 模式的数据备份。
 <li>本次主循环完毕，进入下一次主循环的 beforeSleep 逻辑，后者负责处理数据过期、增量持久化的文件写入等任务</li>
 </ol>
 <h1 id="redis-的持久化机制"><a href="#redis-的持久化机制" class="headerlink" title="redis 的持久化机制"></a>redis 的持久化机制</h1><p>redis 主要提供了两种持久化机制：RDB 和 AOF；</p>
-<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">默认开启，会按照配置的指定时间将内存中的数据快照到磁盘中，</span><br><span class="line">创建一个dump.rdb文件，redis启动时再恢复到内存中。</span><br><span class="line"></span><br><span class="line">redis会单独创建fork()一个子进程，将当前父进程的数据库数据复制到子进程的内存中，</span><br><span class="line">然后由子进程写入到临时文件中，持久化的过程结束了，再用这个临时文件替换上次的快照文件，</span><br><span class="line">然后子进程退出，内存释放。</span><br><span class="line"></span><br><span class="line">需要注意的是，每次快照持久化都会将主进程的数据库数据复制一遍，导致内存开销加倍，</span><br><span class="line">若此时内存不足，则会阻塞服务器运行，直到复制结束释放内存；</span><br><span class="line"></span><br><span class="line">都会将内存数据完整写入磁盘一次，所以如果数据量大的话，而且写操作频繁，必然会引起大量的磁盘I/O操作，</span><br><span class="line">严重影响性能，并且最后一次持久化后的数据可能会丢失；</span><br><span class="line">```       </span><br><span class="line">      </span><br><span class="line">## AOF</span><br></pre></td></tr></table></figure>
-<p>以日志的形式记录每个写操作（读操作不记录），只需追加文件但不可以改写文件，<br>redis启动时会根据日志从头到尾全部执行一遍以完成数据的恢复工作。包括flushDB也会执行。</p>
-<p>主要有两种方式触发：有写操作就写、每秒定时写（也会丢数据）。</p>
-<p>因为 AOF 采用追加的方式，所以文件会越来越大，针对这个问题，新增了重写机制，就是当日志文件大到一定程度的时候，<br>会 fork 出一条新进程来遍历进程内存中的数据，每条记录对应一条 set 语句，写到临时文件中，<br>然后再替换到旧的日志文件（类似 rdb 的操作方式）。<br>默认触发是当 aof 文件大小是上次重写后大小的一倍且文件大于 64M 时触发；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当两种方式同时开启时，数据恢复 redis 会优先选择 AOF 恢复。一般情况下，只要使用默认开启的 RDB 即可，因为相对于 AOF，RDB 便于进行数据库备份，并且恢复数据集的速度也要快很多。</span><br><span class="line"></span><br><span class="line">开启持久化缓存机制，对性能会有一定的影响，特别是当设置的内存满了的时候，更是下降到几百reqs/s。所以如果只是用来做缓存的话，可以关掉持久化。</span><br><span class="line"></span><br><span class="line"># redis 内存分析的设计思路</span><br><span class="line">## 主要有3种方式可以实现 </span><br><span class="line">1. keys命令：获取到所有的 key，再根据 key 获取所有的内容。缺点是如果 key 数量特别多，则会导致 redis 卡住影响业务</span><br><span class="line">2. aof：通过 aof 文件获取到所有数据。缺点是有一些 redis 实例写入频繁，不适合开启 aof，并且文件可能特别大，传输、解析效率差</span><br><span class="line">3. rdb：使用 bgsave 获取 rdb 文件，然后解析。缺点是 bgsave 在 fork 子进程时有可能会卡住主进程。当对于其他两种，在低峰期在从节点做 bgsave 获取 rdb 文件，相对安全可靠。</span><br><span class="line"></span><br><span class="line">## 设计思路： </span><br><span class="line">1. 在访问低峰期时根据 redis 获取 rdb 文件</span><br><span class="line">2. 解析 rdb 文件</span><br><span class="line">3. 根据相对应的数据结构及内容，估算内容消耗等</span><br><span class="line">4. 统计并生成报表</span><br><span class="line"></span><br><span class="line">开源框架：https://github.com/xueqiu/rdr</span><br><span class="line"></span><br><span class="line"># redis 集群（redis cluster）</span><br><span class="line">redis3以后，节点之间提供了完整的 sharding（分片）、replication（主备感知能力）、failover（故障转移）的特性</span><br><span class="line"></span><br><span class="line">配置一致性：每个节点（Node）内部都保存了集群的配置信息，存储在clusterState中，通过引入自增的epoch变量来使得集群配置在各个节点间保持一致</span><br><span class="line"></span><br><span class="line">sharding数据分片 </span><br><span class="line">1. 将所有数据划分为 16384 个分片（slot），每个节点会对应一部分 slot，每个 key 都会根据分布算法映射到 16384 个 slot 中的一个，分布算法为 slotId=crc16(key)%16384</span><br><span class="line">2. 当一个 client 访问的 key 不在对应节点的 slots 中，redis 会返回给 client 一个 moved 命令，告知其正确的路由信息从而重新发起请求。client 会根据每次请求来缓存本地的路由缓存信息，以便下次请求直接能够路由到正确的节点</span><br><span class="line">3. 分片迁移：分片迁移的触发和过程控制由外部系统完成，redis 只提供迁移过程中需要的原语支持。主要包含两种：一种是节点迁移状态设置，即迁移钱标记源、目标节点；另一种是key 迁移的原子化命令</span><br><span class="line"></span><br><span class="line">failover故障转移 </span><br><span class="line">1. 故障发现：节点间两两通过TCP保持连接，周期性进行PING、PONG交互，若对方的PONG相应超时未收到，则将其置为PFAIL状态，并传播给其他节点</span><br><span class="line">2. 故障确认：当集群中有一半以上的节点对某一个PFAIL状态进行了确认，则将起改为FAIL状态，确认其故障</span><br><span class="line">3. slave选举：当有一个 master 挂掉了，则其 slave 重新竞选出一个新的 master。主要根据各个 slave 最后一次同步 master 信息的时间，越新表示 slave 的数据越新，竞选的优先级越高，就更有可能选中。竞选成功之后将消息传播给其他节点。</span><br><span class="line"></span><br><span class="line">集群不可用的情况： </span><br><span class="line">1. 集群中任意 master 挂掉，且当前 master 没有 slave。</span><br><span class="line">2. 集群中超过半数以上 master 挂掉。</span><br><span class="line"></span><br><span class="line"># 其他</span><br><span class="line">## 普通哈希算法和一致性哈希算法对比 </span><br><span class="line">普通哈希：也称硬哈希，采用简单取模的方式，将机器进行散列，这在 cache 环境不变的情况下能取得让人满意的结果，但是当cache环境动态变化时，这种静态取模的方式显然就不满足单调性的要求（当增加或减少一台机子时，几乎所有的存储内容都要被重新散列到别的缓冲区中）。</span><br><span class="line"></span><br><span class="line">一致性哈希：将机器节点和key值都按照一样的 hash 算法映射到一个 0~2^32 的圆环上。当有一个写入缓存的请求到来时，计算 Key 值 k 对应的哈希值 Hash(k)，如果该值正好对应之前某个机器节点的 Hash 值，则直接写入该机器节点，如果没有对应的机器节点，则顺时针查找下一个节点，进行写入，如果超过 2^32 还没找到对应节点，则从 0 开始查找（因为是环状结构）。为了更可能的满足平衡性，可以引入虚拟节点，即一个实体节点映射到多个虚拟节点。</span><br><span class="line"></span><br><span class="line">参考：http://blog.huanghao.me/?p=14</span><br><span class="line"></span><br><span class="line">## 缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法</span><br><span class="line">* 缓存雪崩：可能是因为数据未加载到缓存中，或者缓存同一时间大面积的失效，从而导致所有请求都去查数据库，导致数据库CPU和内存负载过高，甚至宕机。解决思路： </span><br><span class="line"></span><br><span class="line">&gt; 加锁计数（即限制并发的数量，可以用semphore）或者起一定数量的队列来避免缓存失效时大量请求并发到数据库。但这种方式会降低吞吐量。</span><br><span class="line"></span><br><span class="line">&gt; 分析用户行为，然后失效时间均匀分布。或者在失效时间的基础上再加1~5分钟的随机数。</span><br><span class="line"></span><br><span class="line">&gt; 如果是某台缓存服务器宕机，则考虑做主备。</span><br><span class="line"></span><br><span class="line">* 缓存穿透：指用户查询数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，在缓存中找不到，每次都要去数据库中查询。解决思路： </span><br><span class="line"></span><br><span class="line">&gt; 如果查询数据库也为空，直接设置一个默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库。设置一个过期时间或者当有值的时候将缓存中的值替换掉即可。</span><br><span class="line"></span><br><span class="line">&gt; 可以给 key 设置一些格式规则，然后查询之前先过滤掉不符合规则的 Key。</span><br><span class="line"></span><br><span class="line">* 缓存并发：如果网站并发访问高，一个缓存如果失效，可能出现多个进程同时查询DB，同时设置缓存的情况，如果并发确实很大，这也可能造成DB压力过大，还有缓存频繁更新的问题。解决思路： </span><br><span class="line"></span><br><span class="line">&gt; 对缓存查询加锁，如果KEY不存在，就加锁，然后查DB入缓存，然后解锁；其他进程如果发现有锁就等待，然后等解锁后返回数据或者进入DB查询。</span><br><span class="line"></span><br><span class="line">* 缓存预热：目的就是在系统上线前，将数据加载到缓存中。解决思路： </span><br><span class="line"></span><br><span class="line">&gt; 数据量不大的话，在系统启动的时候直接加载。</span><br><span class="line"></span><br><span class="line">&gt; 自己写个简单的缓存预热程序。</span><br><span class="line"></span><br><span class="line">* 缓存算法： </span><br><span class="line"></span><br><span class="line">&gt; FIFO算法：First in First out，先进先出。原则：一个数据最先进入缓存中，则应该最早淘汰掉。也就是说，当缓存满的时候，应当把最先进入缓存的数据给淘汰掉。</span><br><span class="line"></span><br><span class="line">&gt; LFU算法：Least Frequently Used，最不经常使用算法。</span><br><span class="line"></span><br><span class="line">&gt; LRU算法：Least Recently Used，近期最少使用算法。</span><br><span class="line"></span><br><span class="line">&gt; LRU和LFU的区别。LFU算法是根据在一段时间里数据项被使用的次数选择出最少使用的数据项，即根据使用次数的差异来决定。而LRU是根据使用时间的差异来决定的。</span><br><span class="line"></span><br><span class="line">## 用redis实现分布式锁</span><br><span class="line"></span><br><span class="line">**主要使用的命令：**</span><br></pre></td></tr></table></figure></p>
-<p>setnx key val。当且仅当key不存在时，set一个key为val的字符串，返回1；若key存在，则什么都不做，返回0。</p>
-<p>expire key timeout。为key设置一个超时时间，单位为second，超过这个时间锁会自动释放，避免死锁。</p>
-<p>delete key。删除锁<br><code>`</code></p>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><pre><code>默认开启，会按照配置的指定时间将内存中的数据快照到磁盘中，
+创建一个dump.rdb文件，redis启动时再恢复到内存中。
+
+redis会单独创建fork()一个子进程，将当前父进程的数据库数据复制到子进程的内存中，
+然后由子进程写入到临时文件中，持久化的过程结束了，再用这个临时文件替换上次的快照文件，
+然后子进程退出，内存释放。
+
+需要注意的是，每次快照持久化都会将主进程的数据库数据复制一遍，导致内存开销加倍，
+若此时内存不足，则会阻塞服务器运行，直到复制结束释放内存；
+
+都会将内存数据完整写入磁盘一次，所以如果数据量大的话，而且写操作频繁，必然会引起大量的磁盘I/O操作，
+严重影响性能，并且最后一次持久化后的数据可能会丢失；      
+</code></pre><h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><pre><code>以日志的形式记录每个写操作（读操作不记录），只需追加文件但不可以改写文件，
+redis启动时会根据日志从头到尾全部执行一遍以完成数据的恢复工作。包括flushDB也会执行。
+
+主要有两种方式触发：有写操作就写、每秒定时写（也会丢数据）。
+
+因为 AOF 采用追加的方式，所以文件会越来越大，针对这个问题，新增了重写机制，就是当日志文件大到一定程度的时候，
+会 fork 出一条新进程来遍历进程内存中的数据，每条记录对应一条 set 语句，写到临时文件中，
+然后再替换到旧的日志文件（类似 rdb 的操作方式）。
+默认触发是当 aof 文件大小是上次重写后大小的一倍且文件大于 64M 时触发；
+</code></pre><p>当两种方式同时开启时，数据恢复 redis 会优先选择 AOF 恢复。一般情况下，只要使用默认开启的 RDB 即可，因为相对于 AOF，RDB 便于进行数据库备份，并且恢复数据集的速度也要快很多。</p>
+<p>开启持久化缓存机制，对性能会有一定的影响，特别是当设置的内存满了的时候，更是下降到几百reqs/s。所以如果只是用来做缓存的话，可以关掉持久化。</p>
+<h1 id="redis-内存分析的设计思路"><a href="#redis-内存分析的设计思路" class="headerlink" title="redis 内存分析的设计思路"></a>redis 内存分析的设计思路</h1><h2 id="主要有3种方式可以实现"><a href="#主要有3种方式可以实现" class="headerlink" title="主要有3种方式可以实现"></a>主要有3种方式可以实现</h2><ol>
+<li>keys命令：获取到所有的 key，再根据 key 获取所有的内容。缺点是如果 key 数量特别多，则会导致 redis 卡住影响业务</li>
+<li>aof：通过 aof 文件获取到所有数据。缺点是有一些 redis 实例写入频繁，不适合开启 aof，并且文件可能特别大，传输、解析效率差</li>
+<li>rdb：使用 bgsave 获取 rdb 文件，然后解析。缺点是 bgsave 在 fork 子进程时有可能会卡住主进程。当对于其他两种，在低峰期在从节点做 bgsave 获取 rdb 文件，相对安全可靠。</li>
+</ol>
+<h2 id="设计思路："><a href="#设计思路：" class="headerlink" title="设计思路："></a>设计思路：</h2><ol>
+<li>在访问低峰期时根据 redis 获取 rdb 文件</li>
+<li>解析 rdb 文件</li>
+<li>根据相对应的数据结构及内容，估算内容消耗等</li>
+<li>统计并生成报表</li>
+</ol>
+<p>开源框架：<a href="https://github.com/xueqiu/rdr" target="_blank" rel="noopener">https://github.com/xueqiu/rdr</a></p>
+<h1 id="redis-集群（redis-cluster）"><a href="#redis-集群（redis-cluster）" class="headerlink" title="redis 集群（redis cluster）"></a>redis 集群（redis cluster）</h1><p>redis3以后，节点之间提供了完整的 sharding（分片）、replication（主备感知能力）、failover（故障转移）的特性</p>
+<p>配置一致性：每个节点（Node）内部都保存了集群的配置信息，存储在clusterState中，通过引入自增的epoch变量来使得集群配置在各个节点间保持一致</p>
+<p>sharding数据分片 </p>
+<ol>
+<li>将所有数据划分为 16384 个分片（slot），每个节点会对应一部分 slot，每个 key 都会根据分布算法映射到 16384 个 slot 中的一个，分布算法为 slotId=crc16(key)%16384</li>
+<li>当一个 client 访问的 key 不在对应节点的 slots 中，redis 会返回给 client 一个 moved 命令，告知其正确的路由信息从而重新发起请求。client 会根据每次请求来缓存本地的路由缓存信息，以便下次请求直接能够路由到正确的节点</li>
+<li>分片迁移：分片迁移的触发和过程控制由外部系统完成，redis 只提供迁移过程中需要的原语支持。主要包含两种：一种是节点迁移状态设置，即迁移钱标记源、目标节点；另一种是key 迁移的原子化命令</li>
+</ol>
+<p>failover故障转移 </p>
+<ol>
+<li>故障发现：节点间两两通过TCP保持连接，周期性进行PING、PONG交互，若对方的PONG相应超时未收到，则将其置为PFAIL状态，并传播给其他节点</li>
+<li>故障确认：当集群中有一半以上的节点对某一个PFAIL状态进行了确认，则将起改为FAIL状态，确认其故障</li>
+<li>slave选举：当有一个 master 挂掉了，则其 slave 重新竞选出一个新的 master。主要根据各个 slave 最后一次同步 master 信息的时间，越新表示 slave 的数据越新，竞选的优先级越高，就更有可能选中。竞选成功之后将消息传播给其他节点。</li>
+</ol>
+<p>集群不可用的情况： </p>
+<ol>
+<li>集群中任意 master 挂掉，且当前 master 没有 slave。</li>
+<li>集群中超过半数以上 master 挂掉。</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="普通哈希算法和一致性哈希算法对比"><a href="#普通哈希算法和一致性哈希算法对比" class="headerlink" title="普通哈希算法和一致性哈希算法对比"></a>普通哈希算法和一致性哈希算法对比</h2><p>普通哈希：也称硬哈希，采用简单取模的方式，将机器进行散列，这在 cache 环境不变的情况下能取得让人满意的结果，但是当cache环境动态变化时，这种静态取模的方式显然就不满足单调性的要求（当增加或减少一台机子时，几乎所有的存储内容都要被重新散列到别的缓冲区中）。</p>
+<p>一致性哈希：将机器节点和key值都按照一样的 hash 算法映射到一个 0~2^32 的圆环上。当有一个写入缓存的请求到来时，计算 Key 值 k 对应的哈希值 Hash(k)，如果该值正好对应之前某个机器节点的 Hash 值，则直接写入该机器节点，如果没有对应的机器节点，则顺时针查找下一个节点，进行写入，如果超过 2^32 还没找到对应节点，则从 0 开始查找（因为是环状结构）。为了更可能的满足平衡性，可以引入虚拟节点，即一个实体节点映射到多个虚拟节点。</p>
+<p>参考：<a href="http://blog.huanghao.me/?p=14" target="_blank" rel="noopener">http://blog.huanghao.me/?p=14</a></p>
+<h2 id="缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法"><a href="#缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法" class="headerlink" title="缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法"></a>缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法</h2><ul>
+<li>缓存雪崩：可能是因为数据未加载到缓存中，或者缓存同一时间大面积的失效，从而导致所有请求都去查数据库，导致数据库CPU和内存负载过高，甚至宕机。解决思路： </li>
+</ul>
+<blockquote>
+<p>加锁计数（即限制并发的数量，可以用semphore）或者起一定数量的队列来避免缓存失效时大量请求并发到数据库。但这种方式会降低吞吐量。</p>
+</blockquote>
+<blockquote>
+<p>分析用户行为，然后失效时间均匀分布。或者在失效时间的基础上再加1~5分钟的随机数。</p>
+</blockquote>
+<blockquote>
+<p>如果是某台缓存服务器宕机，则考虑做主备。</p>
+</blockquote>
+<ul>
+<li>缓存穿透：指用户查询数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，在缓存中找不到，每次都要去数据库中查询。解决思路： </li>
+</ul>
+<blockquote>
+<p>如果查询数据库也为空，直接设置一个默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库。设置一个过期时间或者当有值的时候将缓存中的值替换掉即可。</p>
+</blockquote>
+<blockquote>
+<p>可以给 key 设置一些格式规则，然后查询之前先过滤掉不符合规则的 Key。</p>
+</blockquote>
+<ul>
+<li>缓存并发：如果网站并发访问高，一个缓存如果失效，可能出现多个进程同时查询DB，同时设置缓存的情况，如果并发确实很大，这也可能造成DB压力过大，还有缓存频繁更新的问题。解决思路： </li>
+</ul>
+<blockquote>
+<p>对缓存查询加锁，如果KEY不存在，就加锁，然后查DB入缓存，然后解锁；其他进程如果发现有锁就等待，然后等解锁后返回数据或者进入DB查询。</p>
+</blockquote>
+<ul>
+<li>缓存预热：目的就是在系统上线前，将数据加载到缓存中。解决思路： </li>
+</ul>
+<blockquote>
+<p>数据量不大的话，在系统启动的时候直接加载。</p>
+</blockquote>
+<blockquote>
+<p>自己写个简单的缓存预热程序。</p>
+</blockquote>
+<ul>
+<li>缓存算法： </li>
+</ul>
+<blockquote>
+<p>FIFO算法：First in First out，先进先出。原则：一个数据最先进入缓存中，则应该最早淘汰掉。也就是说，当缓存满的时候，应当把最先进入缓存的数据给淘汰掉。</p>
+</blockquote>
+<blockquote>
+<p>LFU算法：Least Frequently Used，最不经常使用算法。</p>
+</blockquote>
+<blockquote>
+<p>LRU算法：Least Recently Used，近期最少使用算法。</p>
+</blockquote>
+<blockquote>
+<p>LRU和LFU的区别。LFU算法是根据在一段时间里数据项被使用的次数选择出最少使用的数据项，即根据使用次数的差异来决定。而LRU是根据使用时间的差异来决定的。</p>
+</blockquote>
+<h2 id="用redis实现分布式锁"><a href="#用redis实现分布式锁" class="headerlink" title="用redis实现分布式锁"></a>用redis实现分布式锁</h2><p><strong>主要使用的命令：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setnx key val。当且仅当key不存在时，set一个key为val的字符串，返回1；若key存在，则什么都不做，返回0。</span><br><span class="line"></span><br><span class="line">expire key timeout。为key设置一个超时时间，单位为second，超过这个时间锁会自动释放，避免死锁。</span><br><span class="line"></span><br><span class="line">delete key。删除锁</span><br></pre></td></tr></table></figure>
 <p><strong>实现思想：</strong></p>
 <ol>
 <li><p>使用setnx加锁，如果返回1，则说明加锁成功，并设置超时时间，避免系统挂了，锁没法释放。在finally中delete删除锁释放。</p>
@@ -416,7 +519,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-特点"><span class="nav-number">1.</span> <span class="nav-text">redis 特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的-5-种存储类型"><span class="nav-number">2.</span> <span class="nav-text">redis 的 5 种存储类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string类型"><span class="nav-number">2.1.</span> <span class="nav-text">string类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list类型"><span class="nav-number">2.2.</span> <span class="nav-text">list类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map类型"><span class="nav-number">2.3.</span> <span class="nav-text">map类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类型"><span class="nav-number">2.4.</span> <span class="nav-text">set类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-set类型"><span class="nav-number">2.5.</span> <span class="nav-text">sorted-set类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-客户端与服务器的交互模式"><span class="nav-number">3.</span> <span class="nav-text">redis 客户端与服务器的交互模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行的请求-响应模式"><span class="nav-number">3.1.</span> <span class="nav-text">串行的请求/响应模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双工的请求-响应模式-pipeline"><span class="nav-number">3.2.</span> <span class="nav-text">双工的请求/响应模式(pipeline)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子化的批量请求-响应模式（事务）"><span class="nav-number">3.3.</span> <span class="nav-text">原子化的批量请求/响应模式（事务）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布-订阅模式"><span class="nav-number">3.4.</span> <span class="nav-text">发布/订阅模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本化的批量执行（脚本模式）"><span class="nav-number">3.5.</span> <span class="nav-text">脚本化的批量执行（脚本模式）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乐观锁流程"><span class="nav-number">4.</span> <span class="nav-text">乐观锁流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的网络协议"><span class="nav-number">5.</span> <span class="nav-text">redis 的网络协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-处理命令的主要逻辑"><span class="nav-number">6.</span> <span class="nav-text">redis 处理命令的主要逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的持久化机制"><span class="nav-number">7.</span> <span class="nav-text">redis 的持久化机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">7.1.</span> <span class="nav-text">RDB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-特点"><span class="nav-number">1.</span> <span class="nav-text">redis 特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的-5-种存储类型"><span class="nav-number">2.</span> <span class="nav-text">redis 的 5 种存储类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string类型"><span class="nav-number">2.1.</span> <span class="nav-text">string类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list类型"><span class="nav-number">2.2.</span> <span class="nav-text">list类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map类型"><span class="nav-number">2.3.</span> <span class="nav-text">map类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类型"><span class="nav-number">2.4.</span> <span class="nav-text">set类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-set类型"><span class="nav-number">2.5.</span> <span class="nav-text">sorted-set类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-客户端与服务器的交互模式"><span class="nav-number">3.</span> <span class="nav-text">redis 客户端与服务器的交互模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行的请求-响应模式"><span class="nav-number">3.1.</span> <span class="nav-text">串行的请求/响应模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双工的请求-响应模式-pipeline"><span class="nav-number">3.2.</span> <span class="nav-text">双工的请求/响应模式(pipeline)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子化的批量请求-响应模式（事务）"><span class="nav-number">3.3.</span> <span class="nav-text">原子化的批量请求/响应模式（事务）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布-订阅模式"><span class="nav-number">3.4.</span> <span class="nav-text">发布/订阅模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本化的批量执行（脚本模式）"><span class="nav-number">3.5.</span> <span class="nav-text">脚本化的批量执行（脚本模式）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乐观锁流程"><span class="nav-number">4.</span> <span class="nav-text">乐观锁流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的网络协议"><span class="nav-number">5.</span> <span class="nav-text">redis 的网络协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-处理命令的主要逻辑"><span class="nav-number">6.</span> <span class="nav-text">redis 处理命令的主要逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的持久化机制"><span class="nav-number">7.</span> <span class="nav-text">redis 的持久化机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">7.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">7.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-内存分析的设计思路"><span class="nav-number">8.</span> <span class="nav-text">redis 内存分析的设计思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要有3种方式可以实现"><span class="nav-number">8.1.</span> <span class="nav-text">主要有3种方式可以实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计思路："><span class="nav-number">8.2.</span> <span class="nav-text">设计思路：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-集群（redis-cluster）"><span class="nav-number">9.</span> <span class="nav-text">redis 集群（redis cluster）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">10.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#普通哈希算法和一致性哈希算法对比"><span class="nav-number">10.1.</span> <span class="nav-text">普通哈希算法和一致性哈希算法对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法"><span class="nav-number">10.2.</span> <span class="nav-text">缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用redis实现分布式锁"><span class="nav-number">10.3.</span> <span class="nav-text">用redis实现分布式锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">11.</span> <span class="nav-text">参考</span></a></li></ol>
     
     </div>
   </aside>
