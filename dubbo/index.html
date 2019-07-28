@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/dubbo/4.png">
 <meta property="og:image" content="http://yoursite.com/dubbo/5.png">
 <meta property="og:image" content="http://yoursite.com/dubbo/6.png">
-<meta property="og:updated_time" content="2019-07-28T08:44:32.912Z">
+<meta property="og:updated_time" content="2019-07-28T08:50:09.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dubbo">
 <meta name="twitter:description" content="官网 Dubbo 是 Alibaba 开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合（或者最大限度地松耦合）。从服务模型的角度来看，Dubbo 采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方（Provider）和服务消费方（Consumer）两个角色。关于注册中心、协议支持、服务监控等内容，">
@@ -249,7 +249,9 @@
 <pre><code>服务是围绕服务提供方和服务消费方的，服务提供方实现服务，而服务消费方调用服务。
 </code></pre><p><strong>服务注册</strong></p>
 <pre><code>对于服务提供方，它需要发布服务，而且由于应用系统的复杂性，服务的数量、类型也不断膨胀；
+
 对于服务消费方，它最关心如何获取到它所需要的服务，而面对复杂的应用系统，需要管理大量的服务调用。
+
 而且，对于服务提供方和服务消费方来说，他们还有可能兼具这两种角色，即既需要提供服务，有需要消费服务。
 </code></pre><p>通过将服务统一管理起来，可以有效地优化内部应用对服务发布/使用的流程和管理。服务注册中心可以通过特定协议来完成服务对外的统一。Dubbo 提供的注册中心有如下几种类型可供选择：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Multicast 注册中心</span><br><span class="line">Zookeeper 注册中心</span><br><span class="line">Redis 注册中心</span><br><span class="line">Simple 注册中心</span><br></pre></td></tr></table></figure>
@@ -257,6 +259,7 @@
 <pre><code>无论是服务提供方，还是服务消费方，他们都需要对服务调用的实际状态进行有效的监控，从而改进服务质量。
 </code></pre><p><strong>远程通信与信息交换</strong></p>
 <pre><code>远程通信需要指定通信双方所约定的协议，在保证通信双方理解协议语义的基础上，还要保证高效、稳定的消息传输。
+
 Dubbo继承了当前主流的网络通信框架，主要包括如下几个：
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mina</span><br><span class="line">Netty</span><br><span class="line">Grizzly</span><br></pre></td></tr></table></figure>
 <p><strong>服务调用</strong><br>下面从Dubbo官网直接拿来，看一下基于RPC层，服务提供方和服务消费方之间的调用关系，如图所示：<br>    <img src="/dubbo/1.png" alt=""><br>上图中，紫色的表示与业务有交互，淡蓝色的表示只对 Dubbo 内部交互。上述图所描述的调用流程如下：</p>

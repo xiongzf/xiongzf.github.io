@@ -557,9 +557,9 @@ SnapKitSnapKit 官网SnapKit 源码解读
     <div class="article-entry" itemprop="articleBody">
       
         <p class="article-excerpt-content">
-          Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用程序。
+          Apache Shiro 是一个强大且易用的 Java 安全框架,执行身份验证、授权、密码和会话管理。使用 Shiro 的易于理解的 API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用程序。
 主要功能三个核心组件：Subject, SecurityManager 和 Realms。
-Subject：即“当前操作用户”。但是，在 Shiro 中，Subject 这一概念并不仅仅指人，也可以是第三方进程、后台帐户（Daemon Account）或其他类似事物。它仅仅意味...
+Subject：即“当前操作用户”。但是，在 Shiro 中，Subject 这一概念并不仅仅指人，也可以是第三方进程、后台帐户（Daemon Account）或其他类似事物...
         </p>
         <p class="article-more-link">
           <a href="/Shiro/#more">阅读全文</a>
@@ -615,7 +615,7 @@ Subject：即“当前操作用户”。但是，在 Shiro 中，Subject 这一�
 用户向服务器发送用户名和密码
 服务器验证通过后，在 session 里保存相关的数据
 服务器向客户端返回一个 session_id ，写入客户端 cookie
-客户端在随后的每一次请求里，都会通过 cookie ，将 session_id 穿会给服务器
+客户端在随后的每一次请求里，都会通过 cookie ，将 session_id 传回给服务器
 服务器通过 session_id 判断用户身份。
 
 这种模式的问题在于，扩展性...
