@@ -20,7 +20,7 @@
 <meta property="og:description" content="Redis (Remote Dictionary Server) 是一个由 SalvatoreSanfilippo 写的 key-value 存储系统。 Redis 是一个开源的使用 ANSI C语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的API。 它通常被称为数据结构服务器，因为值（value）可以是字符串(String),">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/Redis/1.png">
-<meta property="og:updated_time" content="2019-07-28T08:34:12.750Z">
+<meta property="og:updated_time" content="2019-07-28T08:35:24.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="Redis (Remote Dictionary Server) 是一个由 SalvatoreSanfilippo 写的 key-value 存储系统。 Redis 是一个开源的使用 ANSI C语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的API。 它通常被称为数据结构服务器，因为值（value）可以是字符串(String),">
@@ -358,7 +358,7 @@ redis启动时会根据日志从头到尾全部执行一遍以完成数据的恢
 <li>集群中超过半数以上 master 挂掉。</li>
 </ol>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="普通哈希算法和一致性哈希算法对比"><a href="#普通哈希算法和一致性哈希算法对比" class="headerlink" title="普通哈希算法和一致性哈希算法对比"></a>普通哈希算法和一致性哈希算法对比</h2><p>普通哈希：也称硬哈希，采用简单取模的方式，将机器进行散列，这在 cache 环境不变的情况下能取得让人满意的结果，但是当cache环境动态变化时，这种静态取模的方式显然就不满足单调性的要求（当增加或减少一台机子时，几乎所有的存储内容都要被重新散列到别的缓冲区中）。</p>
-<p>一致性哈希：将机器节点和key值都按照一样的 hash 算法映射到一个 0~2^32 的圆环上。当有一个写入缓存的请求到来时，计算 Key 值 k 对应的哈希值 Hash(k)，如果该值正好对应之前某个机器节点的 Hash 值，则直接写入该机器节点，如果没有对应的机器节点，则顺时针查找下一个节点，进行写入，如果超过 2^32 还没找到对应节点，则从 0 开始查找（因为是环状结构）。为了更可能的满足平衡性，可以引入虚拟节点，即一个实体节点映射到多个虚拟节点。</p>
+<p>一致性哈希：将机器节点和 key 值都按照一样的 hash 算法映射到一个 0~2^32 的圆环上。当有一个写入缓存的请求到来时，计算 Key 值 k 对应的哈希值 Hash(k)，如果该值正好对应之前某个机器节点的 Hash 值，则直接写入该机器节点，如果没有对应的机器节点，则顺时针查找下一个节点，进行写入，如果超过 2^32 还没找到对应节点，则从 0 开始查找（因为是环状结构）。为了更可能的满足平衡性，可以引入虚拟节点，即一个实体节点映射到多个虚拟节点。</p>
 <p>参考：<a href="http://blog.huanghao.me/?p=14" target="_blank" rel="noopener">http://blog.huanghao.me/?p=14</a></p>
 <h2 id="缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法"><a href="#缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法" class="headerlink" title="缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法"></a>缓存雪崩，缓存穿透，缓存并发，缓存预热，缓存算法</h2><ul>
 <li>缓存雪崩：可能是因为数据未加载到缓存中，或者缓存同一时间大面积的失效，从而导致所有请求都去查数据库，导致数据库 CPU 和内存负载过高，甚至宕机。解决思路： </li>
