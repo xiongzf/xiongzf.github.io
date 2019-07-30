@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/kafka/5.png">
 <meta property="og:image" content="http://yoursite.com/kafka/6.png">
 <meta property="og:image" content="http://yoursite.com/kafka/7.png">
-<meta property="og:updated_time" content="2019-07-30T07:08:04.395Z">
+<meta property="og:updated_time" content="2019-07-30T07:20:40.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka">
 <meta name="twitter:description" content="官网 Kafka is a distributed, partitioned, replicated commit logservice。它提供了类似于 JMS 的特性，但是在实现上完全不同，此外它并不是 JMS 规范的实现。kafka 对消息保存时根据 Topic 进行归类，发送消息者成为 Producer,消息接受者成为 Consumer,此外 kafka 集群有多个 kafka 实例组成，每">
@@ -329,7 +329,7 @@ C) 在 &quot;Broker id registry&quot; 节点下, 注册一个 watch 用来监听
 <p>启动kafka02</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JMX_PORT=9998 bin/kafka-server-start.shconfig/server.properties &amp;  </span><br><span class="line">``` </span><br><span class="line">b) kafka03 操作步骤与 kafka01 雷同，不同的地方如下</span><br><span class="line">   修改 kafka03/config/server.properties</span><br></pre></td></tr></table></figure>
 <p>broker.id=3<br>port=9093</p>
-<p>##其他配置和kafka-0保持一致<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">启动 kafka03</span><br></pre></td></tr></table></figure></p>
+<p>##其他配置和kafka-0保持一致<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">启动 kafka03</span><br></pre></td></tr></table></figure></p>
 <p>JMX_PORT=9999 bin/kafka–start.shconfig/serverconfig/server.properties &amp;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6)创建 topic(包含一个分区，三个副本)</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>bin/kafka-create-topic.sh–zookeeper 192.168.0.1:2181 –replica 3 –partition 1 –topicmy-replicated-topic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7)查看 topic 情况</span><br></pre></td></tr></table></figure></p>
