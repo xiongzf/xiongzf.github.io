@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/kafka/5.png">
 <meta property="og:image" content="http://yoursite.com/kafka/6.png">
 <meta property="og:image" content="http://yoursite.com/kafka/7.png">
-<meta property="og:updated_time" content="2019-07-30T07:30:44.012Z">
+<meta property="og:updated_time" content="2019-07-30T07:33:00.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka">
 <meta name="twitter:description" content="官网 Kafka is a distributed, partitioned, replicated commit logservice。它提供了类似于 JMS 的特性，但是在实现上完全不同，此外它并不是 JMS 规范的实现。kafka 对消息保存时根据 Topic 进行归类，发送消息者成为 Producer,消息接受者成为 Consumer,此外 kafka 集群有多个 kafka 实例组成，每">
@@ -335,12 +335,13 @@ C) 在 &quot;Broker id registry&quot; 节点下, 注册一个 watch 用来监听
 <p>10) 杀掉 server1 上的 broker</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> &gt;pkill -9 -f config/.properties</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">11)查看 topic</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>bin/kafka-list-top.sh –zookeeper192.168.0.1:2181<br> topic: my-replicated-topic  partition: 0 leader: 1  replicas: 1,2,0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">发现 topic 还正常的存在</span><br><span class="line"></span><br><span class="line">12）创建消费者，看是否能查询到消息</span><br></pre></td></tr></table></figure></p>
+<p>bin/kafka-list-top.sh –zookeeper192.168.0.1:2181<br> topic: my-replicated-topic  partition: 0 leader: 1  replicas: 1,2,0</p>
 </blockquote>
+<p>p ##发现 topic 还正常的存在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">12）创建消费者，看是否能查询到消息</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>bin/kafka-console-consumer.sh –zookeeper192.168.0.1:2181 –from-beginning –topic my-replicated-topic<br>…<br>my test message 1<br>my test message 2<br>ctrl c<br><code>`</code></p>
+<p>bin/kafka-console-consumer.sh –zookeeper192.168.0.1:2181 –from-beginning –topic my-replicated-topic<br>…<br>my test message 1<br>my test message 2<br>ctrl c</p>
 </blockquote>
-<p>说明一切都是正常的。</p>
+<p>##说明一切都是正常的。<br><code>`</code></p>
 <pre><code>补充说明：
 1、public Map&lt;String, List&lt;KafkaStream&lt;byte[], byte[]&gt;&gt;&gt;     
 createMessageStreams(Map&lt;String, Integer&gt; topicCountMap)，其中该方法的参数Map 的 key 为 topic 名称，value 为 topic 对应的分区数，
