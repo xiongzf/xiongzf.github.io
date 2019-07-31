@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2Fboostnote%2F</url>
-    <content type="text"><![CDATA[{"folders":[],"version":"1.0"}]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[Dubbo Admin 新版]]></title>
     <url>%2FDubbo-Admin-%E6%96%B0%E7%89%88%2F</url>
     <content type="text"><![CDATA[dubbo-admin: dubbo的管理控制台，我们通过 dubbo 控制台可以查看 service 的 provider 以及 customer。 dubbo 已经被阿里捐赠给了 Apache。 新版的 dubbo-admin 该如何上手呢？ 上手 dubbo-admin新版的 dubbo-admin 已经被剥离出来了，地址看这里 1、下载 dubbo-admin 代码到本地1git clone https://github.com/apache/dubbo-admin.git 目录结构如下： 后端代码放在：`dubbo-admin-service` 目录下 前端代码放在：`dubbo-admin-ui` 目录下 2、运行后端代码在 ide 里打开后端代码，会自动引入依赖 jar 包。完成后启动服务。本地启动时遇到了 8080 端口被占用的问题。 第一种解决 8080 被占用的方法由于用的 mac，基于 mac 的操作：打开终端，输入如下指令 1lsof -i tcp:8080 可以查到如下结果： 然后输入kill -9 357 即可杀死相关的进程。然后重新启动即可。 第二种如果你不想杀死原进程，你可以修改 dubbo-admin-service 里的配置文件你可以只添加端口，也可以配置 context-path。 3、运行前端代码1、如果你改了后台服务的端口号，记得修改前端代码的配置：图中 1 对应的就是服务端的 url图中 2 对应的是你访问前端的页面的端口号，可以手动修改。 2、打开 终端 进入到 dubbo-admin-ui 目录下，输入如下指令： 1npm install 添加相关的依赖。 3、输入 npm run dev 启动项目 启动完成之后，在浏览器输入对应的地址，即可访问 dubbo-admin。 注意你也可以使用 mvn clean package 指令打包后台服务。当时我使用指令打包的时候，发现在 iTerm 里输入 mvn 无效。本地的 maven 也安装过。原因就是：mac 上装的 iTerm + zsh, 而我的 mvn 环境变量配置在了系统的 ~/.bash_profile 里，所以，需要在 ~/.zshrc 里加上一行source ~/.bash_profile，即可。]]></content>
