@@ -19,15 +19,15 @@
 <meta property="og:site_name" content="KNOWLEDGE IS POWER">
 <meta property="og:description" content="这两年比较火的混合开发的框架，那非 flutter 莫属了。根据朋友出去面试回来的反馈，好多公司现在都要求了解或者会 flutter 开发。 2020 年是特别的一年，我想更是促进了很多公司为了削减成本而选择一种混合开发的框架来开发移动端的 App。毕竟一个前端就能取代一个 Android 和一个 iOS 开发的活，肯定更能受到很多公司的追捧。刚好最近有时间，所以就看了一下 Flutter 相关">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/Users/xxx/Desktop/hexoBlog/source/_posts/iOS-集成-flutter/flutter.png">
-<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/Users/xxx/Desktop/hexoBlog/source/_posts/iOS-集成-flutter/iOS.jpg">
-<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/Users/xxx/Library/Application%20Support/typora-user-images/image-20200915181551243.png">
-<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/Users/xxx/Library/Application%20Support/typora-user-images/image-20200915181935840.png">
-<meta property="og:updated_time" content="2020-09-15T10:40:03.545Z">
+<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/flutter.png">
+<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/iOS.jpg">
+<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/1.png">
+<meta property="og:image" content="http://yoursite.com/iOS-集成-flutter/2.png">
+<meta property="og:updated_time" content="2020-09-15T10:46:12.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 集成 flutter">
 <meta name="twitter:description" content="这两年比较火的混合开发的框架，那非 flutter 莫属了。根据朋友出去面试回来的反馈，好多公司现在都要求了解或者会 flutter 开发。 2020 年是特别的一年，我想更是促进了很多公司为了削减成本而选择一种混合开发的框架来开发移动端的 App。毕竟一个前端就能取代一个 Android 和一个 iOS 开发的活，肯定更能受到很多公司的追捧。刚好最近有时间，所以就看了一下 Flutter 相关">
-<meta name="twitter:image" content="http://yoursite.com/iOS-集成-flutter/Users/xxx/Desktop/hexoBlog/source/_posts/iOS-集成-flutter/flutter.png">
+<meta name="twitter:image" content="http://yoursite.com/iOS-集成-flutter/flutter.png">
   
     <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
   
@@ -200,11 +200,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/iOS-集成-flutter/Users/xxx/Desktop/hexoBlog/source/_posts/iOS-集成-flutter/flutter.png" alt="flutter"></p>
+        <p><img src="/iOS-集成-flutter/flutter.png" alt="flutter"></p>
 <p>这两年比较火的混合开发的框架，那非 <strong>flutter</strong> 莫属了。根据朋友出去面试回来的反馈，好多公司现在都要求了解或者会 <strong>flutter</strong> 开发。</p>
 <p>2020 年是特别的一年，我想更是促进了很多公司为了削减成本而选择一种混合开发的框架来开发移动端的 App。毕竟一个前端就能取代一个 Android 和一个 iOS 开发的活，肯定更能受到很多公司的追捧。刚好最近有时间，所以就看了一下 <strong>Flutter</strong> 相关的内容。</p>
 <p>本文主要记录自己在 iOS 原生项目里对接 <strong>Flutter</strong> 内容记录。因为在整个对接的过程中，踩了一些坑，也找了不少的文章，东边借鉴一些，右边借鉴一些，终于在真机上跑起来了整个项目。</p>
-<p><img src="/iOS-集成-flutter/Users/xxx/Desktop/hexoBlog/source/_posts/iOS-集成-flutter/iOS.jpg" alt="iOS"></p>
+<p><img src="/iOS-集成-flutter/iOS.jpg" alt="iOS"></p>
 <p><a href="https://flutter.cn/docs/development/add-to-app/ios/project-setup" target="_blank" rel="noopener">Flutter Module 集成到 iOS 的中文文档</a> 可以参考一下，下面是自己实际对接的过程中一些主要的步骤。</p>
 <h2 id="iOS-项目对接-Flutter"><a href="#iOS-项目对接-Flutter" class="headerlink" title="iOS 项目对接 Flutter"></a>iOS 项目对接 Flutter</h2><p>打开 mac 的终端（Terminal）进入到你想创建项目的路径下 <code>cd /Users/xxx/Desktop</code></p>
 <p>1、创建一个 <strong>flutter module</strong></p>
@@ -213,11 +213,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter build ios --debug</span><br></pre></td></tr></table></figure>
 <p>3、用 Xcode 创建一个 iOS 项目。</p>
 <p>4、将 flutter 项目和 iOS 项目放到同一个文件夹下，如下：</p>
-<p><img src="/iOS-集成-flutter/Users/xxx/Library/Application Support/typora-user-images/image-20200915181551243.png" alt="image-20200915181551243"></p>
+<p><img src="/iOS-集成-flutter/1.png" alt="image-20200915181551243"></p>
 <p>5、修改 Podfile 文件。（本文主要是用 CocoaPods 托管第三方）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flutter_application_path = &apos;../job&apos;</span><br><span class="line">load File.join(flutter_application_path, &apos;.ios&apos;, &apos;Flutter&apos;, &apos;podhelper.rb&apos;)</span><br><span class="line"></span><br><span class="line">install_all_flutter_pods(flutter_application_path)</span><br></pre></td></tr></table></figure>
 <p>如下：</p>
-<p><img src="/iOS-集成-flutter/Users/xxx/Library/Application Support/typora-user-images/image-20200915181935840.png" alt="image-20200915181935840"></p>
+<p><img src="/iOS-集成-flutter/2.png" alt="image-20200915181935840"></p>
 <p>6、安装第三方的内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod install</span><br></pre></td></tr></table></figure>
 <p>7、修改 <strong>Appdelegate</strong> 文件</p>
