@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Markdown 自动生成目录]]></title>
     <url>%2FMarkdown-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95%2F</url>
-    <content type="text"><![CDATA[[toc] 方法一在文章的最顶端输入 [toc] 即可 方法二使用 npm 安装 doctoc 插件 1npm i doctoc -g //install 简写 i 如果你的markdown文件在 work 文件下，只需要 cd work 切换到当前文件目录下，执行 doctoc demo.md 文件，即可在文档中自动生成目录]]></content>
+    <content type="text"><![CDATA[方法一在文章的最顶端输入 [toc] 即可 方法二使用 npm 安装 doctoc 插件 1npm i doctoc -g //install 简写 i 如果你的markdown文件在 work 文件下，只需要 cd work 切换到当前文件目录下，执行 doctoc demo.md 文件，即可在文档中自动生成目录]]></content>
       <categories>
         <category>常用技巧</category>
       </categories>
