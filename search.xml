@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[hexo 常用指令]]></title>
+    <url>%2Fhexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[由于很久不写 blog，所以 hexo 常用的指令记不住，所以特写此篇文章记录一下 首先 进入到本地 hexo 的目录 12345678# 生成一篇新的 .md 文件hexo n "这是一篇博客"# 写作完成之后编译hexo g# 部署到 github 上hexo d]]></content>
+      <categories>
+        <category>常用技巧</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Markdown 自动生成目录]]></title>
     <url>%2FMarkdown-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95%2F</url>
     <content type="text"><![CDATA[方法一在文章的最顶端输入 [toc] 即可 方法二使用 npm 安装 doctoc 插件 1npm i doctoc -g //install 简写 i 如果你的markdown文件在 work 文件下，只需要 cd work 切换到当前文件目录下，执行 doctoc demo.md 文件，即可在文档中自动生成目录]]></content>
