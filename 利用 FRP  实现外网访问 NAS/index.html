@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>frp 内网穿透 | KNOWLEDGE IS POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="frp" />
+  
+  
+  
+  
+  <meta name="description" content="最近入手了一台群辉入门级的 nas，但是由于用的是长城的宽带，所以你们懂的，群辉自带的外网访问的配置根本不起任何作用。但是在公司里又没法用 quickConnect 访问自己的 nas，所以没办法只能利用 frp 这种方式来实现在公司或者其他地方访问自己的 nas。 刚好自己买的有阿里云的服务器，还有阿里云买的域名。然后说搞就开始搞咯。 第一步先在自己的域名控制台，解析好一个 A 类的二级域名，指">
+<meta name="keywords" content="frp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="frp 内网穿透">
+<meta property="og:url" content="http://yoursite.com/利用 FRP  实现外网访问 NAS/index.html">
+<meta property="og:site_name" content="KNOWLEDGE IS POWER">
+<meta property="og:description" content="最近入手了一台群辉入门级的 nas，但是由于用的是长城的宽带，所以你们懂的，群辉自带的外网访问的配置根本不起任何作用。但是在公司里又没法用 quickConnect 访问自己的 nas，所以没办法只能利用 frp 这种方式来实现在公司或者其他地方访问自己的 nas。 刚好自己买的有阿里云的服务器，还有阿里云买的域名。然后说搞就开始搞咯。 第一步先在自己的域名控制台，解析好一个 A 类的二级域名，指">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200409213018972.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200409215147666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQwMzI0MTA=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-12-30T07:54:46.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="frp 内网穿透">
+<meta name="twitter:description" content="最近入手了一台群辉入门级的 nas，但是由于用的是长城的宽带，所以你们懂的，群辉自带的外网访问的配置根本不起任何作用。但是在公司里又没法用 quickConnect 访问自己的 nas，所以没办法只能利用 frp 这种方式来实现在公司或者其他地方访问自己的 nas。 刚好自己买的有阿里云的服务器，还有阿里云买的域名。然后说搞就开始搞咯。 第一步先在自己的域名控制台，解析好一个 A 类的二级域名，指">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200409213018972.png">
+  
+    <link rel="alternate" href="/atom.xml" title="KNOWLEDGE IS POWER" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-利用 FRP  实现外网访问 NAS" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      frp 内网穿透
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/利用 FRP  实现外网访问 NAS/" class="article-date">
+	  <time datetime="2020-12-30T06:51:52.000Z" itemprop="datePublished">2020-12-30</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/frp/">frp</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近入手了一台群辉入门级的 nas，但是由于用的是长城的宽带，所以你们懂的，群辉自带的外网访问的配置根本不起任何作用。但是在公司里又没法用 quickConnect 访问自己的 nas，所以没办法只能利用 frp 这种方式来实现在公司或者其他地方访问自己的 nas。</p>
+<p>刚好自己买的有阿里云的服务器，还有阿里云买的域名。然后说搞就开始搞咯。</p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>先在自己的域名控制台，解析好一个 A 类的二级域名，指向自己的服务器的 ip。<br><img src="https://img-blog.csdnimg.cn/20200409213018972.png" alt="二级域名解析"></p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>在自己购买的服务器上安装配置 frp 服务端</p>
+<h3 id="1、查看自己的服务器的-linux-内核"><a href="#1、查看自己的服务器的-linux-内核" class="headerlink" title="1、查看自己的服务器的 linux 内核"></a>1、查看自己的服务器的 linux 内核</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># uname 指令</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line"># a</span><br><span class="line">Linux tegra-ubuntu 4.4.38-tegra #1 SMP PREEMPT Fri Jul 28 09:55:22 PDT 2017 aarch64 aarch64 aarch64 GNU/Linux</span><br><span class="line"># aarch64就是ARM架构</span><br><span class="line"></span><br><span class="line"># b</span><br><span class="line">Linux ubuntu 4.4.0-21-generic #37-Ubuntu SMP Mon Apr 18 18:33:37 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span><br><span class="line"># X86架构</span><br><span class="line"></span><br><span class="line"># c</span><br><span class="line">Linux DrogooBox 3.3.8 #33 Tue Mar 22 15:02:01 CST 2016 mips GNU/Linux</span><br><span class="line"># MIPS架构</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># arch命令</span><br><span class="line">arch</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line"># a</span><br><span class="line">aarch64</span><br><span class="line"></span><br><span class="line">#b</span><br><span class="line">x86_64</span><br></pre></td></tr></table></figure>
+<p>自己选择对应的版本号即可。<br>如果 frp 版本选的不对，运营会爆如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc: cannot execute binary file: Exec format error</span><br></pre></td></tr></table></figure>
+<h3 id="2、安装服务端"><a href="#2、安装服务端" class="headerlink" title="2、安装服务端"></a>2、安装服务端</h3><p><a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">FRP RELEASE</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#1、下载</span><br><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.12.0/frp_0.12.0_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line">#2、解压</span><br><span class="line">tar -zxvf frp_0.12.0_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line">#3、进入对应目录</span><br><span class="line">cd frp_0.12.0_linux_amd64</span><br><span class="line"></span><br><span class="line">#4、删除客户端内容</span><br><span class="line">rm -f frpc frpc_full.ini frpc.ini</span><br><span class="line"></span><br><span class="line">#5、配置服务端</span><br><span class="line">vim frps.ini</span><br></pre></td></tr></table></figure></p>
+<p>编辑如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">vhost_http_port = 8080</span><br><span class="line">max_pool_count = 5</span><br><span class="line">authentication_timeout = 900</span><br><span class="line"></span><br><span class="line">subdomain_host = lekee.cc</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">listen_port = 6000</span><br><span class="line">auth_token = 和客服端 token 对应</span><br></pre></td></tr></table></figure>
+<p>解释：</p>
+<blockquote>
+<p>[common] 必填的<br>bind_port Frp 服务端口（可自定义）<br>vhost_http_port http 访问端口（可自定义）<br>dashboard_port dashboard 界面端口 （可以不配置）<br>dashboard_user 登录 dashboard 用户名（可以不配置）<br>dashboard_pwd 登录 dashboard 密码（可以不配置）<br>max_pool_count 最大连接池数量<br>authentication_timeout 超时验证时间<br>subdomain_host 主域名</p>
+<p>[ssh]<br>listen_port ssh 访问端口<br>auth_token 用户身份认证（自定义）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#6、启动 frp 服务器</span><br><span class="line">nohup ./frps -c ./frps.ini &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>配置 frp 客户端</p>
+<p>客户端可以是 PC，Mac，NAS 等。<br>我是配置自己的 nas。</p>
+<h3 id="1、群晖必须开启-ssh"><a href="#1、群晖必须开启-ssh" class="headerlink" title="1、群晖必须开启 ssh"></a>1、群晖必须开启 ssh</h3><p><img src="https://img-blog.csdnimg.cn/20200409215147666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQwMzI0MTA=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="2、开始操作"><a href="#2、开始操作" class="headerlink" title="2、开始操作"></a>2、开始操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 1、登录 nas</span><br><span class="line">ssh user@ip # user nas 的账号，ip nas 的内网 ip</span><br><span class="line"></span><br><span class="line"># 2、切换 root 用户</span><br><span class="line">sudo -i</span><br><span class="line"># 此处输入你的密码</span><br><span class="line"></span><br><span class="line"># 3、下载 frp</span><br><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.12.0/frp_0.12.0_linux_arm.tar.gz </span><br><span class="line"># 此处踩了一个坑，因为版本下载的不对，所以配置完发现跑不起来。所以一定要查找适合的版本</span><br><span class="line"></span><br><span class="line"># 4、解压</span><br><span class="line">tar -zxvf  frp_0.12.0_linux_386.tar.gz</span><br><span class="line"></span><br><span class="line"># 5、进入文件夹</span><br><span class="line">cd frp_0.12.0_linux_386</span><br><span class="line"></span><br><span class="line"># 6、移除服务端配置</span><br><span class="line">rm -f frps frps_full.ini frps.ini</span><br><span class="line"></span><br><span class="line"># 7、编辑配置</span><br><span class="line">vim frpc.ini</span><br></pre></td></tr></table></figure>
+<p>编辑如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = ip （服务器外网 ip）</span><br><span class="line">server_port = 7000</span><br><span class="line">auth_token = 和服务器端对应</span><br><span class="line">pool_count = 1</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = NAS 局域网ip</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[nas]</span><br><span class="line">type = http</span><br><span class="line">local_port = 5000</span><br><span class="line">subdomain = nas（自己定义的二级域名）</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>简单解释：</p>
+<p>[common] 必填的<br>server_addr 服务器端公网<br>server_port frp 服务端口，和服务器端 bind_port 一致<br>auth_token 和前面服务器端 [ssh] auth_token 一致<br>pool_count 连接池数量</p>
+</blockquote>
+<blockquote>
+<p>[ssh]<br>type 服务类型（tcp、http、https、udp）<br>local_ip NAS 本地局域网内网 ip<br>local_port NAS 开启 ssh 服务端口号，默认 22<br>remote_port 服务器端 ssh 端口，和服务器端 [ssh] listen_port 配置一致</p>
+</blockquote>
+<blockquote>
+<p>[nas] NAS 管理界面<br>subdomain 二级域名 nas 访问 NAS<br>type = http 服务类型为 http<br>local_port NAS 默认端口 5000</p>
+</blockquote>
+<blockquote>
+<p>[web] NAS web Station 服务，没用可以不用设置<br>type = http 类型为 http<br>local_port = 80 NAS web 服务端口<br>subdomain = web 二级域名 web.lekee.cc<br>使用自定义二级域名的时候，域名 *.lekee.cc 要解析到服务器 IP</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 8、运行</span><br><span class="line">nohup ./frpc -c ./frpc.ini &amp;</span><br></pre></td></tr></table></figure>
+<p>到此结束。你可以愉快地通过自己的域名加上端口号访问自己的 nas 了。</p>
+<p><del>好了，该休息了。</del> </p>
+<p>不对扶我起来，报错了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dial tcp x.x.x.x:xxxx: getsockopt: no route to host</span><br></pre></td></tr></table></figure>
+<h2 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h2><p>因为你还得在服务器防火墙中开放对应的端口<br>就是你在服务端配置的下面两个端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind_port = 7000</span><br><span class="line">vhost_http_port = 8080</span><br></pre></td></tr></table></figure>
+<p>具体的操作可以参考我的<a href="https://blog.csdn.net/u014032410/article/details/105220724" target="_blank" rel="noopener">这篇文章</a></p>
+<p>到此你应该能真正地愉快地访问了。</p>
+<p><strong>enjoy ~</strong></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://segmentfault.com/a/1190000009895225?utm_source=tag-newest" target="_blank" rel="noopener">如何用 Frp 实现外网访问群晖 NAS</a></p>
+<p><a href="https://blog.csdn.net/lixuande19871015/article/details/90485929" target="_blank" rel="noopener">如何查看linux系统的体系结构</a></p>
+<p><a href="https://blog.csdn.net/u014032410/article/details/105220724" target="_blank" rel="noopener">CentOS 防火墙开放端口</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/xiongzf/img/master/WechatIMG7.jpeg',
+  alipayImage: 'https://raw.githubusercontent.com/xiongzf/img/master/WechatIMG9.jpeg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>菜鸟先生</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/利用 FRP  实现外网访问 NAS/" target="_blank" title="frp 内网穿透">http://yoursite.com/利用 FRP  实现外网访问 NAS/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zOTY2MC8xNjE4Nw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Mac-常用指令/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Mac 常用指令</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步"><span class="nav-number">1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步"><span class="nav-number">2.</span> <span class="nav-text">第二步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、查看自己的服务器的-linux-内核"><span class="nav-number">2.1.</span> <span class="nav-text">1、查看自己的服务器的 linux 内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、安装服务端"><span class="nav-number">2.2.</span> <span class="nav-text">2、安装服务端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步"><span class="nav-number">3.</span> <span class="nav-text">第三步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、群晖必须开启-ssh"><span class="nav-number">3.1.</span> <span class="nav-text">1、群晖必须开启 ssh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、开始操作"><span class="nav-number">3.2.</span> <span class="nav-text">2、开始操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步"><span class="nav-number">4.</span> <span class="nav-text">第四步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number"></span> <span class="nav-text">参考文章</span></a>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2020 KNOWLEDGE IS POWER All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            KNOWLEDGE IS POWER
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 菜鸟先生 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

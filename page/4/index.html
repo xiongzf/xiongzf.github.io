@@ -260,6 +260,62 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-2017-03-15-keyboard"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017-03-15-keyboard/">iOS开发--常见的退出键盘的几种方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017-03-15-keyboard/" class="article-date">
+	  <time datetime="2017-03-14T16:00:00.000Z" itemprop="datePublished">2017-03-15</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p class="article-excerpt-content">
+          原文来自于http://www.cnblogs.com/GarveyCalvin/p/4167759.html
+1、第一种是最常见的resignFirstResponder
+1[textField resignFirstResponder];
+2、第二种，点击view结束
+1[self.view endEditing:YES];
+3、利用window统一收起键盘（同第二种）
+1[[[UIApplication sharedApplication] keyWindow] endEditing...
+        </p>
+        <p class="article-more-link">
+          <a href="/2017-03-15-keyboard/#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-2017-03-02-first"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
